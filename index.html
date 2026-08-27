@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Reading Log">
+<title>Reading Log</title>
+<style>
+  :root {
+    --paper: #F3EEE4;
+    --ink: #2B2620;
+    --ink-soft: #6B6357;
+    --rule: #D8CFBE;
+    --accent: #7A5C3E;
+    --accent-deep: #4A3826;
+    --card: #FBF8F2;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Iowan Old Style', 'Georgia', 'Palatino Linotype', serif;
+    min-height: 100vh;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .wrap {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 24px 18px 100px;
+  }
+  header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 10px;
+  }
+  h1 {
+    font-size: 26px;
+    letter-spacing: 0.5px;
+    margin: 0;
+    font-weight: 700;
+  }
+  .count {
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+  .toolbar {
+    display: flex;
+    gap: 8px;
+    margin: 14px 0 18px;
+  }
+  .search {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    background: var(--card);
+    font-family: inherit;
+    font-size: 16px;
+    color: var(--ink);
+  }
+  .search:focus { outline: none; border-color: var(--accent); }
+
+  .entry {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+  }
+  .entry-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 2px;
+  }
+  .entry-author {
+    font-size: 14px;
+    color: var(--accent-deep);
+    font-style: italic;
+    margin: 0 0 8px;
+  }
+  .entry-notes {
+    font-size: 14px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    color: var(--ink);
+    border-top: 1px dashed var(--rule);
+    padding-top: 8px;
+    margin-top: 8px;
+  }
+  .entry-actions {
+    display: flex;
+    gap: 14px;
+    margin-top: 10px;
+  }
+  .entry-actions button {
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    padding: 2px 0;
+    text-decoration: underline;
+  }
+  .entry-actions button.danger { color: #9c4a3a; }
+
+  .empty {
+    text-align: center;
+    color: var(--ink-soft);
+    font-style: italic;
+    padding: 60px 20px;
+    font-size: 15px;
+  }
+
+  .fab {
+    position: fixed;
+    right: 20px;
+    bottom: calc(24px + env(safe-area-inset-bottom));
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: var(--accent-deep);
+    color: var(--paper);
+    border: none;
+    font-size: 30px;
+    line-height: 58px;
+    text-align: center;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    cursor: pointer;
+  }
+  .fab:active { transform: scale(0.95); }
+
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(20,16,10,0.45);
+    align-items: flex-end;
+    justify-content: center;
+    z-index: 10;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--paper);
+    width: 100%;
+    max-width: 640px;
+    border-radius: 16px 16px 0 0;
+    padding: 20px 18px calc(26px + env(safe-area-inset-bottom));
+    max-height: 88vh;
+    overflow-y: auto;
+    animation: slideUp 0.2s ease-out;
+  }
+  @keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  .modal h2 {
+    margin: 0 0 16px;
+    font-size: 20px;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 8px;
+  }
+  label {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--ink-soft);
+    margin: 14px 0 5px;
+  }
+  input[type=text], textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    background: var(--card);
+    font-family: inherit;
+    font-size: 16px;
+    color: var(--ink);
+  }
+  input[type=text]:focus, textarea:focus { outline: none; border-color: var(--accent); }
+  textarea { min-height: 110px; resize: vertical; }
+
+  .modal-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .btn.primary { background: var(--accent-deep); color: var(--paper); }
+  .btn.secondary { background: transparent; color: var(--ink-soft); border: 1px solid var(--rule); }
+
+  .status {
+    font-size: 12px;
+    color: var(--ink-soft);
+    text-align: center;
+    margin-top: 4px;
+    min-height: 16px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Reading Log</h1>
+    <span class="count" id="count"></span>
+  </header>
+
+  <div class="toolbar">
+    <input class="search" id="search" type="text" placeholder="Search title, author, notes…">
+  </div>
+
+  <div id="list"></div>
+  <div id="statusMsg" class="status"></div>
+</div>
+
+<button class="fab" id="addBtn">+</button>
+
+<div class="modal-overlay" id="overlay">
+  <div class="modal">
+    <h2 id="modalTitle">New book</h2>
+    <label for="fTitle">Book title</label>
+    <input type="text" id="fTitle" placeholder="e.g. The Brothers Karamazov">
+    <label for="fAuthor">Author</label>
+    <input type="text" id="fAuthor" placeholder="e.g. Fyodor Dostoevsky">
+    <label for="fNotes">Notes & quotes</label>
+    <textarea id="fNotes" placeholder="Thoughts, favorite quotes, anything worth remembering…"></textarea>
+    <div class="modal-buttons">
+      <button class="btn secondary" id="cancelBtn">Cancel</button>
+      <button class="btn primary" id="saveBtn">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const STORAGE_KEY = 'reading-log-books';
+let books = [];
+let editingId = null;
+
+function genId() {
+  return 'b_' + Date.now() + '_' + Math.random().toString(36).slice(2,8);
+}
+
+function loadBooks() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    books = raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    books = [];
+  }
+  render();
+}
+
+function saveBooks() {
+  const statusEl = document.getElementById('statusMsg');
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(books));
+    statusEl.textContent = '';
+  } catch (e) {
+    statusEl.textContent = 'Could not save — storage may be full.';
+  }
+}
+
+function escapeHtml(str) {
+  return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function render() {
+  const list = document.getElementById('list');
+  const countEl = document.getElementById('count');
+  const q = document.getElementById('search').value.trim().toLowerCase();
+
+  countEl.textContent = books.length ? `${books.length} book${books.length===1?'':'s'}` : '';
+
+  let shown = books;
+  if (q) {
+    shown = books.filter(b =>
+      b.title.toLowerCase().includes(q) ||
+      b.author.toLowerCase().includes(q) ||
+      (b.notes||'').toLowerCase().includes(q)
+    );
+  }
+
+  shown = [...shown].sort((a,b) => (b.createdAt||0) - (a.createdAt||0));
+
+  if (!shown.length) {
+    list.innerHTML = `<div class="empty">${books.length ? 'No matches.' : 'No books yet. Tap + to add your first one.'}</div>`;
+    return;
+  }
+
+  list.innerHTML = shown.map(b => `
+    <div class="entry" data-id="${b.id}">
+      <p class="entry-title">${escapeHtml(b.title)}</p>
+      <p class="entry-author">${escapeHtml(b.author)}</p>
+      ${b.notes ? `<div class="entry-notes">${escapeHtml(b.notes)}</div>` : ''}
+      <div class="entry-actions">
+        <button class="editBtn">Edit</button>
+        <button class="danger deleteBtn">Delete</button>
+      </div>
+    </div>
+  `).join('');
+
+  list.querySelectorAll('.entry').forEach(entryEl => {
+    const id = entryEl.getAttribute('data-id');
+    entryEl.querySelector('.editBtn').onclick = () => openModal(id);
+    entryEl.querySelector('.deleteBtn').onclick = () => deleteBook(id);
+  });
+}
+
+function openModal(id) {
+  editingId = id || null;
+  const modalTitle = document.getElementById('modalTitle');
+  const fTitle = document.getElementById('fTitle');
+  const fAuthor = document.getElementById('fAuthor');
+  const fNotes = document.getElementById('fNotes');
+
+  if (id) {
+    const b = books.find(x => x.id === id);
+    modalTitle.textContent = 'Edit book';
+    fTitle.value = b.title;
+    fAuthor.value = b.author;
+    fNotes.value = b.notes || '';
+  } else {
+    modalTitle.textContent = 'New book';
+    fTitle.value = '';
+    fAuthor.value = '';
+    fNotes.value = '';
+  }
+  document.getElementById('overlay').classList.add('open');
+  setTimeout(() => fTitle.focus(), 50);
+}
+
+function closeModal() {
+  document.getElementById('overlay').classList.remove('open');
+  editingId = null;
+}
+
+function deleteBook(id) {
+  books = books.filter(b => b.id !== id);
+  render();
+  saveBooks();
+}
+
+function handleSave() {
+  const title = document.getElementById('fTitle').value.trim();
+  const author = document.getElementById('fAuthor').value.trim();
+  const notes = document.getElementById('fNotes').value.trim();
+
+  if (!title) {
+    document.getElementById('fTitle').focus();
+    return;
+  }
+
+  if (editingId) {
+    const b = books.find(x => x.id === editingId);
+    b.title = title;
+    b.author = author;
+    b.notes = notes;
+  } else {
+    books.push({
+      id: genId(),
+      title, author, notes,
+      createdAt: Date.now()
+    });
+  }
+  closeModal();
+  render();
+  saveBooks();
+}
+
+document.getElementById('addBtn').onclick = () => openModal(null);
+document.getElementById('cancelBtn').onclick = closeModal;
+document.getElementById('saveBtn').onclick = handleSave;
+document.getElementById('overlay').onclick = (e) => { if (e.target.id === 'overlay') closeModal(); };
+document.getElementById('search').oninput = render;
+
+loadBooks();
+</script>
+</body>
+</html>
