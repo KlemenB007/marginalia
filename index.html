@@ -137,6 +137,7 @@
     cursor: pointer;
   }
   .fab:active { transform: scale(0.95); }
+  .fab:disabled { opacity: 0.5; }
 
   .modal-overlay {
     display: none;
@@ -206,6 +207,7 @@
   }
   .btn.primary { background: var(--accent-deep); color: var(--paper); }
   .btn.secondary { background: transparent; color: var(--ink-soft); border: 1px solid var(--rule); }
+  .btn:disabled { opacity: 0.5; }
 
   .status {
     font-size: 12px;
@@ -214,6 +216,7 @@
     margin-top: 4px;
     min-height: 16px;
   }
+  .status.error { color: #9c4a3a; }
 </style>
 </head>
 <body>
@@ -228,10 +231,10 @@
   </div>
 
   <div id="list"></div>
-  <div id="statusMsg" class="status"></div>
+  <div id="statusMsg" class="status">Connecting…</div>
 </div>
 
-<button class="fab" id="addBtn">+</button>
+<button class="fab" id="addBtn" disabled>+</button>
 
 <div class="modal-overlay" id="overlay">
   <div class="modal">
@@ -249,34 +252,47 @@
   </div>
 </div>
 
-<script>
-const STORAGE_KEY = 'reading-log-books';
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+  getFirestore, collection, onSnapshot,
+  addDoc, updateDoc, deleteDoc, doc, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCHBUdI1_nZ2Gus7ARpLg8kPytV6xDHYG8",
+  authDomain: "knjigolog-8d099.firebaseapp.com",
+  projectId: "knjigolog-8d099",
+  storageBucket: "knjigolog-8d099.firebasestorage.app",
+  messagingSenderId: "990992068049",
+  appId: "1:990992068049:web:754ffc21b7dd7e7e19c4f0"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const booksCol = collection(db, "books");
+
 let books = [];
 let editingId = null;
 
-function genId() {
-  return 'b_' + Date.now() + '_' + Math.random().toString(36).slice(2,8);
+const statusEl = document.getElementById('statusMsg');
+const addBtn = document.getElementById('addBtn');
+
+function setStatus(msg, isError) {
+  statusEl.textContent = msg;
+  statusEl.classList.toggle('error', !!isError);
 }
 
-function loadBooks() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    books = raw ? JSON.parse(raw) : [];
-  } catch (e) {
-    books = [];
-  }
+// Live sync: any change on any device updates this view automatically
+onSnapshot(booksCol, (snapshot) => {
+  books = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+  addBtn.disabled = false;
+  setStatus('');
   render();
-}
-
-function saveBooks() {
-  const statusEl = document.getElementById('statusMsg');
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(books));
-    statusEl.textContent = '';
-  } catch (e) {
-    statusEl.textContent = 'Could not save — storage may be full.';
-  }
-}
+}, (err) => {
+  console.error(err);
+  setStatus('Sync error — check connection.', true);
+});
 
 function escapeHtml(str) {
   return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -292,13 +308,16 @@ function render() {
   let shown = books;
   if (q) {
     shown = books.filter(b =>
-      b.title.toLowerCase().includes(q) ||
-      b.author.toLowerCase().includes(q) ||
+      (b.title||'').toLowerCase().includes(q) ||
+      (b.author||'').toLowerCase().includes(q) ||
       (b.notes||'').toLowerCase().includes(q)
     );
   }
 
-  shown = [...shown].sort((a,b) => (b.createdAt||0) - (a.createdAt||0));
+  shown = [...shown].sort((a,b) => {
+    const at = a.createdAtMs || 0, bt = b.createdAtMs || 0;
+    return bt - at;
+  });
 
   if (!shown.length) {
     list.innerHTML = `<div class="empty">${books.length ? 'No matches.' : 'No books yet. Tap + to add your first one.'}</div>`;
@@ -307,8 +326,8 @@ function render() {
 
   list.innerHTML = shown.map(b => `
     <div class="entry" data-id="${b.id}">
-      <p class="entry-title">${escapeHtml(b.title)}</p>
-      <p class="entry-author">${escapeHtml(b.author)}</p>
+      <p class="entry-title">${escapeHtml(b.title||'')}</p>
+      <p class="entry-author">${escapeHtml(b.author||'')}</p>
       ${b.notes ? `<div class="entry-notes">${escapeHtml(b.notes)}</div>` : ''}
       <div class="entry-actions">
         <button class="editBtn">Edit</button>
@@ -334,8 +353,8 @@ function openModal(id) {
   if (id) {
     const b = books.find(x => x.id === id);
     modalTitle.textContent = 'Edit book';
-    fTitle.value = b.title;
-    fAuthor.value = b.author;
+    fTitle.value = b.title || '';
+    fAuthor.value = b.author || '';
     fNotes.value = b.notes || '';
   } else {
     modalTitle.textContent = 'New book';
@@ -352,13 +371,16 @@ function closeModal() {
   editingId = null;
 }
 
-function deleteBook(id) {
-  books = books.filter(b => b.id !== id);
-  render();
-  saveBooks();
+async function deleteBook(id) {
+  try {
+    await deleteDoc(doc(db, "books", id));
+  } catch (e) {
+    console.error(e);
+    setStatus('Could not delete — try again.', true);
+  }
 }
 
-function handleSave() {
+async function handleSave() {
   const title = document.getElementById('fTitle').value.trim();
   const author = document.getElementById('fAuthor').value.trim();
   const notes = document.getElementById('fNotes').value.trim();
@@ -368,21 +390,26 @@ function handleSave() {
     return;
   }
 
-  if (editingId) {
-    const b = books.find(x => x.id === editingId);
-    b.title = title;
-    b.author = author;
-    b.notes = notes;
-  } else {
-    books.push({
-      id: genId(),
-      title, author, notes,
-      createdAt: Date.now()
-    });
+  const saveBtn = document.getElementById('saveBtn');
+  saveBtn.disabled = true;
+
+  try {
+    if (editingId) {
+      await updateDoc(doc(db, "books", editingId), { title, author, notes });
+    } else {
+      await addDoc(booksCol, {
+        title, author, notes,
+        createdAtMs: Date.now(),
+        createdAt: serverTimestamp()
+      });
+    }
+    closeModal();
+  } catch (e) {
+    console.error(e);
+    setStatus('Could not save — try again.', true);
+  } finally {
+    saveBtn.disabled = false;
   }
-  closeModal();
-  render();
-  saveBooks();
 }
 
 document.getElementById('addBtn').onclick = () => openModal(null);
@@ -390,8 +417,6 @@ document.getElementById('cancelBtn').onclick = closeModal;
 document.getElementById('saveBtn').onclick = handleSave;
 document.getElementById('overlay').onclick = (e) => { if (e.target.id === 'overlay') closeModal(); };
 document.getElementById('search').oninput = render;
-
-loadBooks();
 </script>
 </body>
 </html>
