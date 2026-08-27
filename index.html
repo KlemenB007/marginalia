@@ -4,15 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Bralnik">
+<meta name="theme-color" content="#14100D">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="icon" href="data:image/png;base64,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">
 <title>Bralnik</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&display=swap" rel="stylesheet">
 <style>
   :root {
-    /* Warm dark library — espresso, walnut, parchment */
     --bg: #14100D;
     --bg-raised: #1D1813;
     --card: #241E18;
@@ -31,16 +34,18 @@
     --clay: #C97B5A;
     --plum: #9C7BA8;
     --ink-blue: #7A93B8;
+    --ash: #8C8378;
 
     --danger: #D4685C;
     --danger-soft: rgba(212, 104, 92, 0.14);
 
     --r-lg: 18px;
     --r-md: 13px;
-    --r-sm: 9px;
 
     --display: 'Fraunces', Georgia, serif;
     --body: 'Literata', Georgia, serif;
+
+    --nav-h: 62px;
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html { -webkit-text-size-adjust: 100%; }
@@ -55,63 +60,43 @@
     font-family: var(--body);
     min-height: 100vh;
     padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
     line-height: 1.5;
   }
-  .wrap { max-width: 640px; margin: 0 auto; padding: 18px 16px 130px; }
+  .wrap {
+    max-width: 640px; margin: 0 auto;
+    padding: 18px 16px calc(var(--nav-h) + 40px + env(safe-area-inset-bottom));
+  }
 
   /* ---------- Header ---------- */
-  header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 12px 2px 18px;
+  header { display: flex; align-items: center; gap: 11px; padding: 10px 2px 18px; }
+  .logo-btn {
+    background: none; border: none; padding: 0; cursor: pointer;
+    display: flex; align-items: center; gap: 11px;
+    color: inherit; font: inherit;
   }
-  .brand { display: flex; align-items: center; gap: 11px; }
-  .brand-mark {
-    width: 36px; height: 36px; border-radius: 10px;
-    background: linear-gradient(150deg, var(--brass), #9A7A17);
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    box-shadow: 0 3px 14px rgba(201,162,39,0.28);
-  }
+  .logo-btn:active { opacity: .7; }
+  .logo-mark { width: 38px; height: 38px; border-radius: 11px; display: block; flex-shrink: 0; }
   h1 {
-    font-family: var(--display);
-    font-size: 23px; font-weight: 600; margin: 0;
-    letter-spacing: -0.01em;
-    font-variation-settings: 'SOFT' 40, 'WONK' 1;
+    font-family: var(--display); font-size: 23px; font-weight: 600; margin: 0;
+    letter-spacing: -0.01em; font-variation-settings: 'SOFT' 40, 'WONK' 1;
   }
-  .head-actions { display: flex; gap: 6px; }
-  .head-btn {
-    background: var(--card); border: 1px solid var(--line);
-    color: var(--text-soft); border-radius: 10px;
-    width: 38px; height: 38px;
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer; transition: all .15s;
-  }
-  .head-btn:active { background: var(--card-hi); color: var(--text); }
-  .head-btn.on { background: var(--brass-soft); border-color: var(--brass); color: var(--brass); }
 
   /* ---------- Search ---------- */
   .search-bar { position: relative; margin-bottom: 14px; }
   .search-bar .s-icon {
-    position: absolute; left: 15px; top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none; opacity: .5; z-index: 2;
-    display: flex;
+    position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
+    pointer-events: none; opacity: .5; z-index: 2; display: flex;
   }
   input[type=text].search {
-    width: 100%;
-    padding: 12px 15px 12px 46px;
-    border: 1px solid var(--line);
-    border-radius: var(--r-md);
-    background: var(--card);
-    font-family: var(--body); font-size: 16px;
-    color: var(--text);
-    transition: border-color .15s, background .15s;
+    width: 100%; padding: 12px 15px 12px 46px;
+    border: 1px solid var(--line); border-radius: var(--r-md);
+    background: var(--card); font-family: var(--body); font-size: 16px;
+    color: var(--text); transition: border-color .15s, background .15s;
   }
   input[type=text].search::placeholder { color: var(--text-faint); }
   input[type=text].search:focus { outline: none; border-color: var(--brass); background: var(--bg-raised); }
 
-  /* ---------- Filter chips ---------- */
+  /* ---------- Chips ---------- */
   .chip-row {
     display: flex; gap: 7px; overflow-x: auto;
     scrollbar-width: none; padding-bottom: 3px; margin-bottom: 10px;
@@ -126,30 +111,30 @@
   }
   .chip.active { background: var(--brass-soft); border-color: var(--brass); color: var(--brass); }
   .chip .cnum { opacity: .65; font-size: 11.5px; margin-left: 3px; }
+  .sort-row { margin-bottom: 18px; }
+  .genre-row { margin-bottom: 14px; }
 
-  .sort-row { margin-bottom: 20px; }
-
-  /* ---------- Book cards ---------- */
+  /* ---------- Cards ---------- */
   .grid { display: flex; flex-direction: column; gap: 10px; }
   .entry {
-    background: var(--card);
-    border: 1px solid var(--line-soft);
-    border-radius: var(--r-lg);
-    padding: 15px 16px 12px;
-    position: relative; overflow: hidden;
+    background: var(--card); border: 1px solid var(--line-soft);
+    border-radius: var(--r-lg); position: relative; overflow: hidden;
+    transition: border-color .15s;
   }
+  .entry.open { border-color: var(--line); }
   .entry::before {
     content: ''; position: absolute; left: 0; top: 0; bottom: 0;
-    width: 3px; background: var(--spine, var(--brass)); opacity: .85;
+    width: 3px; background: var(--spine, var(--brass)); opacity: .85; z-index: 1;
   }
-  .entry-main { display: flex; gap: 13px; }
+  .entry-head {
+    display: flex; gap: 13px; padding: 15px 16px;
+    cursor: pointer; align-items: flex-start;
+  }
   .cover {
-    width: 54px; height: 80px; border-radius: 5px;
-    flex-shrink: 0; overflow: hidden;
+    width: 54px; height: 80px; border-radius: 5px; flex-shrink: 0; overflow: hidden;
     background: var(--spine, var(--brass));
     display: flex; align-items: center; justify-content: center;
     box-shadow: 0 2px 10px rgba(0,0,0,.35);
-    position: relative;
   }
   .cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .cover-fallback {
@@ -159,77 +144,121 @@
   .entry-info { flex: 1; min-width: 0; }
   .entry-title, .entry-author, .entry-notes, .entry-quotes { overflow-wrap: anywhere; }
   .entry-title {
-    font-family: var(--display);
-    font-size: 17.5px; font-weight: 600; margin: 0 0 2px;
-    line-height: 1.28; letter-spacing: -0.005em;
-    font-variation-settings: 'SOFT' 30;
+    font-family: var(--display); font-size: 17.5px; font-weight: 600;
+    margin: 0 0 2px; line-height: 1.28; font-variation-settings: 'SOFT' 30;
   }
   .entry-author { font-size: 13.5px; color: var(--text-soft); margin: 0 0 7px; }
-  .meta-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .meta-row { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
   .status-tag {
-    font-size: 11.5px; font-weight: 600; padding: 3px 9px;
-    border-radius: 100px; letter-spacing: .02em;
+    font-size: 11.5px; font-weight: 600; padding: 3px 9px; border-radius: 100px;
   }
-  .status-read   { background: rgba(143,169,138,.16); color: var(--sage); }
-  .status-current{ background: rgba(122,147,184,.16); color: var(--ink-blue); }
-  .status-wish   { background: rgba(156,123,168,.16); color: var(--plum); }
-  .stars { font-size: 12.5px; color: var(--brass); letter-spacing: 1px; }
+  .status-read    { background: rgba(143,169,138,.16); color: var(--sage); }
+  .status-current { background: rgba(122,147,184,.16); color: var(--ink-blue); }
+  .status-wish    { background: rgba(156,123,168,.16); color: var(--plum); }
+  .status-dnf     { background: rgba(140,131,120,.18); color: var(--ash); }
   .date-tag { font-size: 12px; color: var(--text-faint); }
+  .chev {
+    color: var(--text-faint); flex-shrink: 0; align-self: center;
+    transition: transform .2s; display: flex;
+  }
+  .entry.open .chev { transform: rotate(180deg); }
 
+  /* half-star display */
+  .stars-wrap { position: relative; display: inline-block; line-height: 1; font-size: 13px; letter-spacing: 1px; }
+  .stars-bg { color: var(--line); }
+  .stars-fg {
+    position: absolute; left: 0; top: 0; overflow: hidden;
+    white-space: nowrap; color: var(--brass);
+  }
+  .rating-num { font-size: 11.5px; color: var(--text-faint); margin-left: 2px; }
+
+  /* expandable body */
+  .entry-body { display: none; padding: 0 16px 12px; }
+  .entry.open .entry-body { display: block; }
+  .detail-row {
+    display: flex; flex-wrap: wrap; gap: 7px;
+    padding-top: 12px; border-top: 1px solid var(--line-soft);
+  }
+  .pill {
+    font-size: 11.5px; padding: 4px 10px; border-radius: 100px;
+    background: var(--card-hi); color: var(--text-soft); border: 1px solid var(--line-soft);
+  }
+  .pill.genre { background: rgba(201,162,39,.10); color: var(--brass); border-color: rgba(201,162,39,.25); }
   .entry-notes, .entry-quotes {
     font-size: 14px; line-height: 1.6; white-space: pre-wrap;
-    margin-top: 11px; padding-top: 11px;
-    border-top: 1px solid var(--line-soft);
-    color: #D3C7B4;
+    margin-top: 12px; padding-top: 12px;
+    border-top: 1px solid var(--line-soft); color: #D3C7B4;
   }
   .entry-quotes {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 14.5px;
-    color: var(--parchment);
-    border-left: 2px solid var(--brass);
-    border-top: 1px solid var(--line-soft);
-    padding-left: 12px;
+    font-family: var(--display); font-style: italic; font-size: 14.5px;
+    color: var(--parchment); border-left: 2px solid var(--brass); padding-left: 12px;
   }
   .sec-label {
     display: block; font-size: 10.5px; text-transform: uppercase;
     letter-spacing: .09em; color: var(--text-faint);
-    font-family: var(--body); font-style: normal;
-    font-weight: 600; margin-bottom: 5px;
+    font-family: var(--body); font-style: normal; font-weight: 600; margin-bottom: 5px;
   }
-  .entry-actions { display: flex; gap: 2px; margin-top: 9px; justify-content: flex-end; }
-  .icon-btn {
-    background: none; border: none; color: var(--text-faint);
-    cursor: pointer; padding: 7px; border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    transition: background .15s, color .15s;
+  .entry-actions { display: flex; gap: 8px; margin-top: 13px; }
+  .act-btn {
+    flex: 1; padding: 9px; border-radius: 10px;
+    border: 1px solid var(--line); background: transparent;
+    color: var(--text-soft); font-family: var(--body); font-size: 13.5px;
+    cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;
+    transition: all .15s;
   }
-  .icon-btn:active { background: var(--card-hi); color: var(--text); }
-  .icon-btn.danger:active { background: var(--danger-soft); color: var(--danger); }
+  .act-btn:active { background: var(--card-hi); color: var(--text); }
+  .act-btn.danger { color: var(--danger); border-color: rgba(212,104,92,.3); }
+  .act-btn.danger:active { background: var(--danger-soft); }
+
+  /* progress bar for currently reading */
+  .prog-wrap { margin-top: 9px; }
+  .prog-track { display: block; height: 5px; background: var(--card-hi); border-radius: 100px; overflow: hidden; }
+  .prog-fill { display: block; height: 100%; background: var(--ink-blue); border-radius: 100px; }
+  .prog-txt { font-size: 11.5px; color: var(--text-faint); margin-top: 4px; display: block; }
 
   /* ---------- Empty ---------- */
-  .empty { text-align: center; padding: 64px 20px; }
-  .empty-icon { font-size: 36px; margin-bottom: 12px; opacity: .45; }
+  .empty { text-align: center; padding: 60px 20px; }
+  .empty-icon { font-size: 34px; margin-bottom: 12px; opacity: .45; }
   .empty-title {
     font-family: var(--display); font-size: 17px; font-weight: 600;
     color: var(--text-soft); margin: 0 0 4px;
   }
   .empty-sub { font-size: 13.5px; color: var(--text-faint); margin: 0; }
 
-  /* ---------- FAB ---------- */
-  .fab {
-    position: fixed; right: 18px; bottom: calc(22px + env(safe-area-inset-bottom));
-    width: 58px; height: 58px; border-radius: 50%;
-    background: linear-gradient(150deg, var(--brass), #A98515);
-    color: #14100D; border: none;
-    box-shadow: 0 7px 22px rgba(201,162,39,.32), 0 2px 8px rgba(0,0,0,.4);
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
-    transition: transform .14s; z-index: 5;
+  /* ---------- Bottom nav ---------- */
+  .nav {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 8;
+    height: calc(var(--nav-h) + env(safe-area-inset-bottom));
+    padding-bottom: env(safe-area-inset-bottom);
+    background: rgba(23,19,15,.92);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-top: 1px solid var(--line-soft);
+    display: flex; align-items: center; justify-content: center; gap: 8px;
   }
-  .fab:active { transform: scale(.92); }
-  .fab:disabled { opacity: .4; box-shadow: none; }
+  .nav-inner {
+    width: 100%; max-width: 640px; height: var(--nav-h);
+    display: flex; align-items: center; justify-content: space-around; padding: 0 16px;
+  }
+  .nav-btn {
+    background: none; border: none; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    color: var(--text-faint); font-family: var(--body); font-size: 10.5px;
+    padding: 6px 16px; border-radius: 10px; transition: color .15s;
+    flex: 1;
+  }
+  .nav-btn.on { color: var(--brass); }
+  .nav-add {
+    background: linear-gradient(150deg, var(--brass), #A98515);
+    color: #14100D; border: none; border-radius: 50%;
+    width: 50px; height: 50px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 5px 16px rgba(201,162,39,.3);
+    cursor: pointer; transition: transform .14s;
+  }
+  .nav-add:active { transform: scale(.92); }
+  .nav-add:disabled { opacity: .4; box-shadow: none; }
 
-  /* ---------- Modal ---------- */
+  /* ---------- Sheet ---------- */
   .overlay {
     display: none; position: fixed; inset: 0;
     background: rgba(8,6,4,.66);
@@ -249,9 +278,8 @@
   @keyframes rise { from{transform:translateY(100%)} to{transform:translateY(0)} }
   .handle { width: 34px; height: 4px; background: var(--line); border-radius: 100px; margin: 9px auto 16px; }
   .sheet h2 {
-    font-family: var(--display); margin: 0 0 18px;
-    font-size: 21px; font-weight: 600; letter-spacing: -0.01em;
-    font-variation-settings: 'SOFT' 40;
+    font-family: var(--display); margin: 0 0 18px; font-size: 21px;
+    font-weight: 600; font-variation-settings: 'SOFT' 40;
   }
 
   label {
@@ -260,7 +288,7 @@
     margin: 16px 0 7px; font-weight: 600;
   }
   label.first { margin-top: 0; }
-  input[type=text], textarea, select {
+  input[type=text], input[type=number], textarea, select {
     width: 100%; padding: 12px 13px;
     border: 1px solid var(--line); border-radius: var(--r-md);
     background: var(--card); font-family: var(--body); font-size: 16px;
@@ -268,40 +296,48 @@
   }
   input::placeholder, textarea::placeholder { color: var(--text-faint); }
   input:focus, textarea:focus, select:focus { outline: none; border-color: var(--brass); }
-  textarea { min-height: 92px; resize: vertical; line-height: 1.55; }
+  textarea { min-height: 88px; resize: vertical; line-height: 1.55; }
   textarea.quotes { font-family: var(--display); font-style: italic; }
 
-  .seg { display: flex; gap: 6px; }
+  .seg { display: flex; gap: 6px; flex-wrap: wrap; }
   .seg button {
-    flex: 1; padding: 11px 6px; border-radius: var(--r-md);
+    flex: 1 1 calc(50% - 3px); padding: 11px 6px; border-radius: var(--r-md);
     border: 1px solid var(--line); background: var(--card);
-    color: var(--text-soft); font-family: var(--body);
-    font-size: 13.5px; font-weight: 500; cursor: pointer;
-    transition: all .15s;
+    color: var(--text-soft); font-family: var(--body); font-size: 13.5px;
+    font-weight: 500; cursor: pointer; transition: all .15s;
   }
   .seg button.on { background: var(--brass-soft); border-color: var(--brass); color: var(--brass); font-weight: 600; }
 
-  .star-pick { display: flex; gap: 5px; align-items: center; }
-  .star-pick button {
-    background: none; border: none; cursor: pointer; padding: 3px;
-    font-size: 25px; line-height: 1; color: var(--line);
-    transition: color .12s, transform .12s;
+  /* half-star picker */
+  .star-pick { display: flex; align-items: center; gap: 3px; }
+  .star-unit { position: relative; width: 34px; height: 34px; flex-shrink: 0; }
+  .star-glyph {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    font-size: 27px; line-height: 1; color: var(--line); pointer-events: none;
   }
-  .star-pick button.lit { color: var(--brass); }
-  .star-pick button:active { transform: scale(1.18); }
+  .star-glyph.fill { color: var(--brass); overflow: hidden; justify-content: flex-start; padding-left: 4px; }
+  .star-half, .star-full {
+    position: absolute; top: 0; bottom: 0; width: 50%;
+    background: none; border: none; cursor: pointer; padding: 0; z-index: 2;
+  }
+  .star-half { left: 0; }
+  .star-full { right: 0; }
   .star-clear {
-    font-size: 12px !important; color: var(--text-faint) !important;
-    margin-left: 6px; text-decoration: underline;
+    background: none; border: none; font-family: var(--body);
+    font-size: 12px; color: var(--text-faint); text-decoration: underline;
+    cursor: pointer; margin-left: 8px;
   }
+  .star-val { font-size: 13px; color: var(--brass); margin-left: 7px; min-width: 24px; }
 
   .date-row { display: flex; gap: 8px; }
   .date-row select { flex: 1; }
   select {
     appearance: none; -webkit-appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237C6F5F' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat; background-position: right 14px center;
-    padding-right: 34px;
+    background-repeat: no-repeat; background-position: right 14px center; padding-right: 34px;
   }
+  .two-col { display: flex; gap: 8px; }
+  .two-col > * { flex: 1; }
 
   .color-row { display: flex; gap: 9px; }
   .dot {
@@ -310,25 +346,51 @@
   }
   .dot.sel { border-color: var(--parchment); transform: scale(1.1); }
 
-  .cover-preview-row {
-    display: flex; align-items: center; gap: 12px;
-    padding: 11px; border: 1px solid var(--line);
-    border-radius: var(--r-md); background: var(--card);
+  /* genre editor */
+  .genre-box {
+    border: 1px solid var(--line); border-radius: var(--r-md);
+    background: var(--card); padding: 9px;
   }
-  .cover-preview {
+  .genre-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+  .genre-tags:empty { display: none; }
+  .g-tag {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 12.5px; padding: 4px 6px 4px 10px; border-radius: 100px;
+    background: rgba(201,162,39,.12); color: var(--brass);
+    border: 1px solid rgba(201,162,39,.28);
+  }
+  .g-tag button {
+    background: none; border: none; color: inherit; cursor: pointer;
+    font-size: 15px; line-height: 1; padding: 0 2px; opacity: .7;
+  }
+  .genre-box input[type=text] {
+    border: none; background: transparent; padding: 4px 4px; font-size: 15px;
+  }
+  .genre-box input[type=text]:focus { border: none; }
+  .genre-sugg { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 9px; }
+  .g-sugg {
+    font-size: 12px; padding: 5px 10px; border-radius: 100px;
+    border: 1px dashed var(--line); background: none;
+    color: var(--text-faint); cursor: pointer; font-family: var(--body);
+  }
+  .g-sugg:active { border-style: solid; color: var(--text-soft); }
+
+  .lookup-row { display: flex; align-items: center; gap: 12px; padding: 10px; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--card); }
+  .lookup-prev {
     width: 42px; height: 62px; border-radius: 4px; flex-shrink: 0;
     background: var(--card-hi); overflow: hidden;
     display: flex; align-items: center; justify-content: center;
-    font-size: 10px; color: var(--text-faint); text-align: center;
+    font-size: 10px; color: var(--text-faint);
   }
-  .cover-preview img { width: 100%; height: 100%; object-fit: cover; }
-  .cover-preview-txt { flex: 1; font-size: 12.5px; color: var(--text-soft); }
+  .lookup-prev img { width: 100%; height: 100%; object-fit: cover; }
+  .lookup-txt { flex: 1; font-size: 12.5px; color: var(--text-soft); }
   .mini-btn {
-    padding: 8px 12px; border-radius: 9px; border: 1px solid var(--line);
+    padding: 9px 13px; border-radius: 9px; border: 1px solid var(--line);
     background: transparent; color: var(--text-soft);
     font-family: var(--body); font-size: 12.5px; cursor: pointer;
   }
   .mini-btn:active { background: var(--card-hi); }
+  .mini-btn:disabled { opacity: .5; }
 
   .sheet-btns { display: flex; gap: 9px; margin-top: 22px; }
   .btn {
@@ -341,36 +403,58 @@
   .btn.secondary { background: transparent; color: var(--text-soft); border: 1px solid var(--line); }
   .btn:disabled { opacity: .5; }
 
-  /* ---------- Stats ---------- */
-  .stat-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;
+  /* ---------- Goal ---------- */
+  .goal-card {
+    background: var(--card); border: 1px solid var(--line-soft);
+    border-radius: var(--r-lg); padding: 17px; margin-bottom: 14px;
   }
+  .goal-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+  .goal-label { font-size: 12.5px; color: var(--text-soft); }
+  .goal-edit {
+    background: none; border: none; color: var(--text-faint);
+    font-family: var(--body); font-size: 12.5px; text-decoration: underline; cursor: pointer;
+  }
+  .goal-nums {
+    font-family: var(--display); font-size: 27px; font-weight: 600;
+    color: var(--brass); font-variation-settings: 'SOFT' 40; line-height: 1.15;
+  }
+  .goal-nums small { font-size: 15px; color: var(--text-faint); font-weight: 400; }
+  .goal-track {
+    display: block; height: 9px; background: var(--card-hi);
+    border-radius: 100px; overflow: hidden; margin: 11px 0 7px;
+  }
+  .goal-fill { display: block; height: 100%; background: linear-gradient(90deg, #A98515, var(--brass)); border-radius: 100px; }
+  .goal-note { font-size: 12.5px; color: var(--text-faint); }
+  .goal-none { font-size: 13px; color: var(--text-faint); }
+
+  /* ---------- Stats ---------- */
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 6px; }
   .stat-box {
     background: var(--card); border: 1px solid var(--line-soft);
     border-radius: var(--r-md); padding: 14px;
   }
   .stat-num {
     font-family: var(--display); font-size: 27px; font-weight: 600;
-    color: var(--brass); line-height: 1.1;
-    font-variation-settings: 'SOFT' 40;
+    color: var(--brass); line-height: 1.1; font-variation-settings: 'SOFT' 40;
   }
   .stat-lbl { font-size: 12px; color: var(--text-soft); margin-top: 3px; }
   .stat-section-title {
-    font-family: var(--display); font-size: 15px; font-weight: 600;
-    margin: 22px 0 10px;
+    font-family: var(--display); font-size: 15px; font-weight: 600; margin: 22px 0 10px;
   }
   .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 7px; }
-  .bar-lbl { font-size: 12.5px; color: var(--text-soft); width: 42px; flex-shrink: 0; }
+  .bar-lbl { font-size: 12.5px; color: var(--text-soft); width: 82px; flex-shrink: 0;
+             white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar-lbl.narrow { width: 42px; }
   .bar-track { flex: 1; height: 8px; background: var(--card-hi); border-radius: 100px; overflow: hidden; display: block; }
   .bar-fill { display: block; height: 100%; min-width: 6px; background: var(--brass); border-radius: 100px; }
   .bar-val { font-size: 12px; color: var(--text-faint); width: 20px; text-align: right; }
   .rank-row {
-    display: flex; justify-content: space-between; align-items: center;
+    display: flex; justify-content: space-between; align-items: center; gap: 10px;
     padding: 9px 0; border-bottom: 1px solid var(--line-soft); font-size: 14px;
   }
   .rank-row:last-child { border-bottom: none; }
-  .rank-name { color: var(--text); }
-  .rank-cnt { color: var(--text-faint); font-size: 12.5px; }
+  .rank-name { color: var(--text); min-width: 0; overflow-wrap: anywhere; }
+  .rank-cnt { color: var(--text-faint); font-size: 12.5px; flex-shrink: 0; }
 
   /* ---------- Status line ---------- */
   .status-line {
@@ -391,22 +475,16 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="brand">
-      <div class="brand-mark">
-        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#14100D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-      </div>
+    <button class="logo-btn" id="logoBtn" aria-label="Domov">
+      <img class="logo-mark" id="logoImg" src="data:image/png;base64,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" alt="">
       <h1>Bralnik</h1>
-    </div>
-    <div class="head-actions">
-      <button class="head-btn" id="statsBtn" aria-label="Statistika">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-      </button>
-    </div>
+    </button>
   </header>
 
   <div id="statusLine" class="status-line hide"></div>
 
-  <div id="mainView">
+  <!-- ============ BOOKS ============ -->
+  <div id="booksView">
     <div class="search-bar">
       <span class="s-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
       <input class="search" id="search" type="text" placeholder="Išči po naslovu, avtorju, citatu…">
@@ -417,7 +495,10 @@
       <button class="chip" data-filter="read">Prebrano <span class="cnum" id="c-read"></span></button>
       <button class="chip" data-filter="current">Berem <span class="cnum" id="c-current"></span></button>
       <button class="chip" data-filter="wish">Želim brati <span class="cnum" id="c-wish"></span></button>
+      <button class="chip" data-filter="dnf">Opuščeno <span class="cnum" id="c-dnf"></span></button>
     </div>
+
+    <div class="chip-row genre-row" id="genreRow" style="display:none"></div>
 
     <div class="chip-row sort-row" id="sortRow">
       <button class="chip active" data-sort="new">Najnovejše</button>
@@ -430,13 +511,27 @@
     <div class="grid" id="list"></div>
   </div>
 
+  <!-- ============ STATS ============ -->
   <div id="statsView" style="display:none"></div>
 </div>
 
-<button class="fab" id="addBtn" disabled aria-label="Dodaj knjigo">
-  <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-</button>
+<nav class="nav">
+  <div class="nav-inner">
+    <button class="nav-btn on" id="navBooks">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      <span>Knjige</span>
+    </button>
+    <button class="nav-add" id="addBtn" disabled aria-label="Dodaj knjigo">
+      <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </button>
+    <button class="nav-btn" id="navStats">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      <span>Statistika</span>
+    </button>
+  </div>
+</nav>
 
+<!-- ============ BOOK SHEET ============ -->
 <div class="overlay" id="overlay">
   <div class="sheet">
     <div class="handle"></div>
@@ -448,11 +543,11 @@
     <label for="fAuthor">Avtor</label>
     <input type="text" id="fAuthor" placeholder="npr. Fjodor Dostojevski">
 
-    <label>Naslovnica</label>
-    <div class="cover-preview-row">
-      <div class="cover-preview" id="coverPreview">brez</div>
-      <div class="cover-preview-txt" id="coverTxt">Poišči naslovnico po naslovu in avtorju.</div>
-      <button class="mini-btn" id="findCoverBtn">Poišči</button>
+    <label>Podatki o knjigi</label>
+    <div class="lookup-row">
+      <div class="lookup-prev" id="lookupPrev">brez</div>
+      <div class="lookup-txt" id="lookupTxt">Poišči naslovnico, leto, strani in žanre.</div>
+      <button class="mini-btn" id="lookupBtn">Poišči</button>
     </div>
 
     <label>Status</label>
@@ -460,6 +555,7 @@
       <button data-status="read">Prebrano</button>
       <button data-status="current">Berem</button>
       <button data-status="wish">Želim brati</button>
+      <button data-status="dnf">Opuščeno</button>
     </div>
 
     <label>Ocena</label>
@@ -470,6 +566,24 @@
       <select id="fMonth"></select>
       <select id="fYear"></select>
     </div>
+
+    <div class="two-col">
+      <div>
+        <label for="fPages">Strani skupaj</label>
+        <input type="number" id="fPages" inputmode="numeric" placeholder="npr. 320">
+      </div>
+      <div id="pageAtWrap">
+        <label for="fPageAt">Na strani</label>
+        <input type="number" id="fPageAt" inputmode="numeric" placeholder="npr. 145">
+      </div>
+    </div>
+
+    <label>Žanri</label>
+    <div class="genre-box">
+      <div class="genre-tags" id="genreTags"></div>
+      <input type="text" id="genreInput" placeholder="Vpiši žanr in pritisni Enter…">
+    </div>
+    <div class="genre-sugg" id="genreSugg"></div>
 
     <label>Barva oznake</label>
     <div class="color-row" id="colorRow"></div>
@@ -487,11 +601,25 @@
   </div>
 </div>
 
+<!-- ============ GOAL SHEET ============ -->
+<div class="overlay" id="goalOverlay">
+  <div class="sheet">
+    <div class="handle"></div>
+    <h2>Letni cilj</h2>
+    <label class="first" for="fGoal">Koliko knjig želiš prebrati v <span id="goalYearTxt"></span>?</label>
+    <input type="number" id="fGoal" inputmode="numeric" placeholder="npr. 20">
+    <div class="sheet-btns">
+      <button class="btn secondary" id="goalCancel">Prekliči</button>
+      <button class="btn primary" id="goalSave">Shrani</button>
+    </div>
+  </div>
+</div>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
   getFirestore, collection, onSnapshot,
-  addDoc, updateDoc, deleteDoc, doc, serverTimestamp
+  addDoc, updateDoc, deleteDoc, doc, setDoc, serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -506,41 +634,81 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const booksCol = collection(db, "books");
+const settingsDoc = doc(db, "settings", "app");
 
 /* ---------- constants ---------- */
 const PALETTE = ['#C9A227', '#C97B5A', '#8FA98A', '#7A93B8', '#9C7BA8', '#B58A6E'];
 const MONTHS = ['januar','februar','marec','april','maj','junij','julij','avgust','september','oktober','november','december'];
-const STATUS_LABEL = { read: 'Prebrano', current: 'Berem', wish: 'Želim brati' };
-const STATUS_CLASS = { read: 'status-read', current: 'status-current', wish: 'status-wish' };
+const STATUS_LABEL = { read:'Prebrano', current:'Berem', wish:'Želim brati', dnf:'Opuščeno' };
+const STATUS_CLASS = { read:'status-read', current:'status-current', wish:'status-wish', dnf:'status-dnf' };
+const GENRE_SUGG = ['roman','biografija','zgodovina','kriminalka','fantazija','znanstvena fantastika','psihologija','poezija','popotniško','gore','esej','poslovno'];
+
+const thisYear = new Date().getFullYear();
 
 /* ---------- state ---------- */
 let books = [];
+let settings = { goal: null, goalYear: thisYear };
 let editingId = null;
 let currentSort = 'new';
 let currentFilter = 'all';
-let showingStats = false;
-let form = { color: PALETTE[0], status: 'read', rating: 0, month: '', year: '', coverUrl: '' };
+let currentGenre = null;
+let view = 'books';
+let expanded = new Set();
+let form = { color: PALETTE[0], status: 'read', rating: 0, month: '', year: '', coverUrl: '', genres: [] };
 
-/* ---------- elements ---------- */
 const $ = id => document.getElementById(id);
 const statusLine = $('statusLine');
-const addBtn = $('addBtn');
 
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
 function setStatus(msg, isErr) {
   if (!msg) { statusLine.classList.add('hide'); statusLine.innerHTML = ''; return; }
   statusLine.classList.remove('hide');
   statusLine.classList.toggle('err', !!isErr);
   statusLine.innerHTML = isErr ? esc(msg) : `<span class="pulse"></span>${esc(msg)}`;
 }
-function esc(s) {
-  return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ---------- stars ---------- */
+function starHtml(rating) {
+  const r = Number(rating) || 0;
+  if (!r) return '';
+  const pct = (r / 5) * 100;
+  return `<span class="stars-wrap"><span class="stars-bg">★★★★★</span>` +
+         `<span class="stars-fg" style="width:${pct}%">★★★★★</span></span>` +
+         `<span class="rating-num">${fmtRating(r)}</span>`;
+}
+function fmtRating(r) {
+  return Number.isInteger(r) ? String(r) : r.toFixed(1);
 }
 
-/* ---------- build form controls ---------- */
-$('colorRow').innerHTML = PALETTE.map(c => `<div class="dot" data-color="${c}" style="background:${c}"></div>`).join('');
-$('colorRow').querySelectorAll('.dot').forEach(d => {
-  d.onclick = () => { form.color = d.dataset.color; syncColor(); };
+const starPick = $('starPick');
+starPick.innerHTML = [1,2,3,4,5].map(n => `
+  <span class="star-unit" data-unit="${n}">
+    <span class="star-glyph">★</span>
+    <span class="star-glyph fill" data-fill="${n}" style="width:0"><span>★</span></span>
+    <button class="star-half" data-val="${n - 0.5}" aria-label="${n - 0.5} zvezdic"></button>
+    <button class="star-full" data-val="${n}" aria-label="${n} zvezdic"></button>
+  </span>`).join('') +
+  `<span class="star-val" id="starVal"></span>` +
+  `<button class="star-clear" data-val="0">počisti</button>`;
+
+starPick.querySelectorAll('button[data-val]').forEach(b => {
+  b.onclick = () => { form.rating = Number(b.dataset.val); syncStars(); };
 });
+function syncStars() {
+  starPick.querySelectorAll('.star-glyph.fill').forEach(g => {
+    const n = Number(g.dataset.fill);
+    const diff = form.rating - (n - 1);
+    const pct = diff >= 1 ? 100 : diff <= 0 ? 0 : diff * 100;
+    g.style.width = pct + '%';
+  });
+  $('starVal').textContent = form.rating ? fmtRating(form.rating) : '';
+}
+
+/* ---------- form controls ---------- */
+$('colorRow').innerHTML = PALETTE.map(c => `<div class="dot" data-color="${c}" style="background:${c}"></div>`).join('');
+$('colorRow').querySelectorAll('.dot').forEach(d => { d.onclick = () => { form.color = d.dataset.color; syncColor(); }; });
 function syncColor() {
   $('colorRow').querySelectorAll('.dot').forEach(d => d.classList.toggle('sel', d.dataset.color === form.color));
 }
@@ -550,67 +718,168 @@ $('statusSeg').querySelectorAll('button').forEach(b => {
 });
 function syncStatus() {
   $('statusSeg').querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.status === form.status));
-}
-
-const starPick = $('starPick');
-starPick.innerHTML =
-  [1,2,3,4,5].map(n => `<button data-star="${n}" aria-label="${n} zvezdic">★</button>`).join('') +
-  `<button class="star-clear" data-star="0">počisti</button>`;
-starPick.querySelectorAll('button').forEach(b => {
-  b.onclick = () => { form.rating = Number(b.dataset.star); syncStars(); };
-});
-function syncStars() {
-  starPick.querySelectorAll('button[data-star]').forEach(b => {
-    const n = Number(b.dataset.star);
-    if (n === 0) return;
-    b.classList.toggle('lit', n <= form.rating);
-  });
+  $('pageAtWrap').style.display = (form.status === 'current' || form.status === 'dnf') ? '' : 'none';
 }
 
 const monthSel = $('fMonth');
-monthSel.innerHTML = `<option value="">Mesec —</option>` +
-  MONTHS.map((m,i) => `<option value="${i+1}">${m}</option>`).join('');
+monthSel.innerHTML = `<option value="">Mesec —</option>` + MONTHS.map((m,i) => `<option value="${i+1}">${m}</option>`).join('');
 const yearSel = $('fYear');
-const thisYear = new Date().getFullYear();
-let yearOpts = `<option value="">Leto —</option>`;
-for (let y = thisYear; y >= thisYear - 40; y--) yearOpts += `<option value="${y}">${y}</option>`;
-yearSel.innerHTML = yearOpts;
+let yo = `<option value="">Leto —</option>`;
+for (let y = thisYear; y >= thisYear - 40; y--) yo += `<option value="${y}">${y}</option>`;
+yearSel.innerHTML = yo;
 monthSel.onchange = () => { form.month = monthSel.value; };
-yearSel.onchange = () => { form.year = yearSel.value; };
+yearSel.onchange  = () => { form.year  = yearSel.value; };
 
-/* ---------- cover lookup (OpenLibrary) ---------- */
-$('findCoverBtn').onclick = async () => {
+/* ---------- genres ---------- */
+function normGenre(g) { return String(g || '').trim().toLowerCase().replace(/\s+/g, ' '); }
+function addGenre(g) {
+  const v = normGenre(g);
+  if (!v || form.genres.includes(v) || form.genres.length >= 8) return;
+  form.genres.push(v);
+  renderGenreTags();
+}
+function removeGenre(g) {
+  form.genres = form.genres.filter(x => x !== g);
+  renderGenreTags();
+}
+function renderGenreTags() {
+  $('genreTags').innerHTML = form.genres.map(g =>
+    `<span class="g-tag">${esc(g)}<button data-g="${esc(g)}" aria-label="Odstrani">×</button></span>`).join('');
+  $('genreTags').querySelectorAll('button').forEach(b => { b.onclick = () => removeGenre(b.dataset.g); });
+  $('genreSugg').querySelectorAll('.g-sugg').forEach(s => {
+    s.style.display = form.genres.includes(s.dataset.g) ? 'none' : '';
+  });
+}
+$('genreSugg').innerHTML = GENRE_SUGG.map(g => `<button class="g-sugg" data-g="${g}">+ ${g}</button>`).join('');
+$('genreSugg').querySelectorAll('.g-sugg').forEach(b => { b.onclick = () => addGenre(b.dataset.g); });
+$('genreInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ',') {
+    e.preventDefault();
+    addGenre(e.target.value);
+    e.target.value = '';
+  }
+});
+$('genreInput').addEventListener('blur', e => {
+  if (e.target.value.trim()) { addGenre(e.target.value); e.target.value = ''; }
+});
+
+/* ---------- book data lookup ---------- */
+function httpsify(u) { return String(u || '').replace(/^http:/, 'https:'); }
+
+async function lookupBook(title, author) {
+  // 1) Google Books — much better coverage for Slovenian titles
+  const tries = [];
+  if (author) tries.push(`intitle:"${title}" inauthor:"${author}"`);
+  tries.push(`intitle:"${title}"`);
+  tries.push(title + (author ? ' ' + author : ''));
+
+  for (const q of tries) {
+    try {
+      const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(q)}&maxResults=5`;
+      const r = await fetch(url);
+      if (!r.ok) continue;
+      const d = await r.json();
+      const item = (d.items || [])[0];
+      if (!item) continue;
+      const v = item.volumeInfo || {};
+      return {
+        source: 'google',
+        author: (v.authors || [])[0] || '',
+        year: (String(v.publishedDate || '').match(/\d{4}/) || [])[0] || '',
+        pages: v.pageCount || '',
+        genres: (v.categories || []).slice(0, 3).map(normGenre),
+        cover: httpsify(v.imageLinks?.thumbnail || v.imageLinks?.smallThumbnail || '')
+      };
+    } catch (e) { /* try next */ }
+  }
+
+  // 2) OpenLibrary fallback
+  try {
+    const p = new URLSearchParams({ title, limit: '5' });
+    if (author) p.set('author', author);
+    const r = await fetch(`https://openlibrary.org/search.json?${p}`);
+    const d = await r.json();
+    const hit = (d.docs || []).find(x => x.cover_i) || (d.docs || [])[0];
+    if (hit) {
+      return {
+        source: 'openlibrary',
+        author: (hit.author_name || [])[0] || '',
+        year: hit.first_publish_year || '',
+        pages: hit.number_of_pages_median || '',
+        genres: [],
+        cover: hit.cover_i ? `https://covers.openlibrary.org/b/id/${hit.cover_i}-M.jpg` : ''
+      };
+    }
+  } catch (e) { /* ignore */ }
+
+  return null;
+}
+
+$('lookupBtn').onclick = async () => {
   const title = $('fTitle').value.trim();
   const author = $('fAuthor').value.trim();
-  if (!title) { $('coverTxt').textContent = 'Najprej vpiši naslov.'; return; }
-  $('coverTxt').textContent = 'Iščem…';
-  try {
-    const params = new URLSearchParams({ title, limit: '5' });
-    if (author) params.set('author', author);
-    const res = await fetch(`https://openlibrary.org/search.json?${params.toString()}`);
-    const data = await res.json();
-    const hit = (data.docs || []).find(d => d.cover_i);
-    if (hit) {
-      form.coverUrl = `https://covers.openlibrary.org/b/id/${hit.cover_i}-M.jpg`;
-      renderCoverPreview();
-      $('coverTxt').textContent = 'Naslovnica najdena.';
-    } else {
-      form.coverUrl = '';
-      renderCoverPreview();
-      $('coverTxt').textContent = 'Ni najdene naslovnice — uporabi barvo.';
-    }
-  } catch (e) {
-    console.error(e);
-    $('coverTxt').textContent = 'Iskanje ni uspelo.';
+  if (!title) { $('lookupTxt').textContent = 'Najprej vpiši naslov.'; $('fTitle').focus(); return; }
+
+  const btn = $('lookupBtn');
+  btn.disabled = true;
+  $('lookupTxt').textContent = 'Iščem…';
+
+  const res = await lookupBook(title, author);
+  btn.disabled = false;
+
+  if (!res) {
+    $('lookupTxt').textContent = 'Nič najdenega. Vpiši ročno.';
+    return;
   }
+
+  const filled = [];
+  if (res.cover) { form.coverUrl = res.cover; renderLookupPrev(); filled.push('naslovnica'); }
+  if (res.author && !$('fAuthor').value.trim()) { $('fAuthor').value = res.author; filled.push('avtor'); }
+  if (res.pages && !$('fPages').value.trim()) { $('fPages').value = res.pages; filled.push('strani'); }
+  if (res.year && !form.year) {
+    const opt = [...yearSel.options].find(o => o.value === String(res.year));
+    if (opt) { form.year = String(res.year); yearSel.value = form.year; filled.push('leto'); }
+  }
+  if (res.genres && res.genres.length) {
+    const before = form.genres.length;
+    res.genres.forEach(addGenre);
+    if (form.genres.length > before) filled.push('žanri');
+  }
+
+  $('lookupTxt').textContent = filled.length
+    ? 'Izpolnjeno: ' + filled.join(', ') + '.'
+    : 'Najdeno, a vsa polja so že izpolnjena.';
 };
-function renderCoverPreview() {
-  const el = $('coverPreview');
+
+function renderLookupPrev() {
+  const el = $('lookupPrev');
   if (form.coverUrl) el.innerHTML = `<img src="${esc(form.coverUrl)}" alt="">`;
   else el.textContent = 'brez';
 }
 
-/* ---------- filters & sort ---------- */
+/* ---------- navigation ---------- */
+function goTo(v) {
+  view = v;
+  $('booksView').style.display = v === 'books' ? '' : 'none';
+  $('statsView').style.display = v === 'stats' ? '' : 'none';
+  $('navBooks').classList.toggle('on', v === 'books');
+  $('navStats').classList.toggle('on', v === 'stats');
+  render();
+}
+$('navBooks').onclick = () => goTo('books');
+$('navStats').onclick = () => goTo('stats');
+$('logoBtn').onclick = () => {
+  goTo('books');
+  $('search').value = '';
+  currentFilter = 'all'; currentGenre = null; currentSort = 'new';
+  $('filterRow').querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c.dataset.filter === 'all'));
+  $('sortRow').querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c.dataset.sort === 'new'));
+  expanded.clear();
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+/* ---------- filters / sort ---------- */
 $('filterRow').querySelectorAll('.chip').forEach(c => {
   c.onclick = () => {
     $('filterRow').querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
@@ -631,94 +900,141 @@ $('sortRow').querySelectorAll('.chip').forEach(c => {
 function sortBooks(arr) {
   const a = [...arr];
   switch (currentSort) {
-    case 'old': return a.sort((x,y) => (x.createdAtMs||0) - (y.createdAtMs||0));
-    case 'rating': return a.sort((x,y) => (y.rating||0) - (x.rating||0) || (y.createdAtMs||0) - (x.createdAtMs||0));
-    case 'az': return a.sort((x,y) => (x.title||'').localeCompare(y.title||'', 'sl'));
+    case 'old':    return a.sort((x,y) => (x.createdAtMs||0) - (y.createdAtMs||0));
+    case 'rating': return a.sort((x,y) => (Number(y.rating)||0) - (Number(x.rating)||0) || (y.createdAtMs||0) - (x.createdAtMs||0));
+    case 'az':     return a.sort((x,y) => (x.title||'').localeCompare(y.title||'', 'sl'));
     case 'author': return a.sort((x,y) => (x.author||'').localeCompare(y.author||'', 'sl'));
-    default: return a.sort((x,y) => (y.createdAtMs||0) - (x.createdAtMs||0));
+    default:       return a.sort((x,y) => (y.createdAtMs||0) - (x.createdAtMs||0));
   }
 }
 
-/* ---------- render list ---------- */
+/* ---------- render ---------- */
 function render() {
-  if (showingStats) { renderStats(); return; }
+  if (view === 'stats') { renderStats(); return; }
+  renderBooks();
+}
 
+function renderGenreFilter() {
+  const counts = {};
+  books.forEach(b => (b.genres || []).forEach(g => { counts[g] = (counts[g] || 0) + 1; }));
+  const list = Object.entries(counts).sort((a,b) => b[1] - a[1] || a[0].localeCompare(b[0], 'sl')).slice(0, 12);
+  const row = $('genreRow');
+  if (!list.length) { row.style.display = 'none'; row.innerHTML = ''; currentGenre = null; return; }
+  row.style.display = '';
+  row.innerHTML =
+    `<button class="chip ${currentGenre ? '' : 'active'}" data-genre="">Vsi žanri</button>` +
+    list.map(([g,c]) => `<button class="chip ${currentGenre===g?'active':''}" data-genre="${esc(g)}">${esc(g)} <span class="cnum">${c}</span></button>`).join('');
+  row.querySelectorAll('.chip').forEach(c => {
+    c.onclick = () => { currentGenre = c.dataset.genre || null; render(); };
+  });
+}
+
+function renderBooks() {
   const list = $('list');
   const q = $('search').value.trim().toLowerCase();
 
-  const counts = { all: books.length, read: 0, current: 0, wish: 0 };
+  const counts = { all: books.length, read:0, current:0, wish:0, dnf:0 };
   books.forEach(b => { const s = b.status || 'read'; if (counts[s] !== undefined) counts[s]++; });
-  $('c-all').textContent = counts.all || '';
-  $('c-read').textContent = counts.read || '';
-  $('c-current').textContent = counts.current || '';
-  $('c-wish').textContent = counts.wish || '';
+  ['all','read','current','wish','dnf'].forEach(k => { $('c-' + k).textContent = counts[k] || ''; });
+
+  renderGenreFilter();
 
   let shown = books;
   if (currentFilter !== 'all') shown = shown.filter(b => (b.status || 'read') === currentFilter);
+  if (currentGenre) shown = shown.filter(b => (b.genres || []).includes(currentGenre));
   if (q) {
     shown = shown.filter(b =>
       (b.title||'').toLowerCase().includes(q) ||
       (b.author||'').toLowerCase().includes(q) ||
       (b.notes||'').toLowerCase().includes(q) ||
-      (b.quotes||'').toLowerCase().includes(q)
+      (b.quotes||'').toLowerCase().includes(q) ||
+      (b.genres||[]).some(g => g.includes(q))
     );
   }
   shown = sortBooks(shown);
 
   if (!shown.length) {
-    const isFiltered = q || currentFilter !== 'all';
+    const filtered = q || currentFilter !== 'all' || currentGenre;
     list.innerHTML = `
       <div class="empty">
         <div class="empty-icon">${books.length ? '🔍' : '📖'}</div>
         <p class="empty-title">${books.length ? 'Ni zadetkov' : 'Polica je prazna'}</p>
-        <p class="empty-sub">${isFiltered ? 'Poskusi z drugim iskanjem ali filtrom.' : 'Pritisni + in dodaj prvo knjigo.'}</p>
+        <p class="empty-sub">${filtered ? 'Poskusi z drugim iskanjem ali filtrom.' : 'Pritisni + in dodaj prvo knjigo.'}</p>
       </div>`;
     return;
   }
 
-  list.innerHTML = shown.map(b => {
-    const color = b.color || PALETTE[0];
-    const initial = (b.title || '?').trim().charAt(0);
-    const st = b.status || 'read';
-    const rating = Number(b.rating) || 0;
-    const dateTxt = formatReadDate(b);
-
-    const coverHtml = b.coverUrl
-      ? `<img src="${esc(b.coverUrl)}" alt="" onerror="this.parentNode.innerHTML='<span class=&quot;cover-fallback&quot;>${esc(initial)}</span>'">`
-      : `<span class="cover-fallback">${esc(initial)}</span>`;
-
-    return `
-    <div class="entry" data-id="${b.id}" style="--spine:${color}">
-      <div class="entry-main">
-        <div class="cover" style="background:${color}">${coverHtml}</div>
-        <div class="entry-info">
-          <p class="entry-title">${esc(b.title)}</p>
-          <p class="entry-author">${esc(b.author)}</p>
-          <div class="meta-row">
-            <span class="status-tag ${STATUS_CLASS[st]}">${STATUS_LABEL[st]}</span>
-            ${rating ? `<span class="stars">${'★'.repeat(rating)}${'☆'.repeat(5-rating)}</span>` : ''}
-            ${dateTxt ? `<span class="date-tag">${esc(dateTxt)}</span>` : ''}
-          </div>
-        </div>
-      </div>
-      ${b.quotes ? `<div class="entry-quotes"><span class="sec-label">Citati</span>${esc(b.quotes)}</div>` : ''}
-      ${b.notes ? `<div class="entry-notes"><span class="sec-label">Opombe</span>${esc(b.notes)}</div>` : ''}
-      <div class="entry-actions">
-        <button class="icon-btn editBtn" aria-label="Uredi">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
-        </button>
-        <button class="icon-btn danger deleteBtn" aria-label="Izbriši">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-        </button>
-      </div>
-    </div>`;
-  }).join('');
+  list.innerHTML = shown.map(b => cardHtml(b)).join('');
 
   list.querySelectorAll('.entry').forEach(el => {
     const id = el.getAttribute('data-id');
-    el.querySelector('.editBtn').onclick = () => openSheet(id);
-    el.querySelector('.deleteBtn').onclick = () => removeBook(id);
+    el.querySelector('.entry-head').onclick = () => {
+      if (expanded.has(id)) expanded.delete(id); else expanded.add(id);
+      el.classList.toggle('open', expanded.has(id));
+    };
+    const eb = el.querySelector('.editBtn');
+    if (eb) eb.onclick = ev => { ev.stopPropagation(); openSheet(id); };
+    const db_ = el.querySelector('.deleteBtn');
+    if (db_) db_.onclick = ev => { ev.stopPropagation(); removeBook(id); };
   });
+}
+
+function cardHtml(b) {
+  const color = b.color || PALETTE[0];
+  const initial = (b.title || '?').trim().charAt(0);
+  const st = b.status || 'read';
+  const dateTxt = formatReadDate(b);
+  const isOpen = expanded.has(b.id);
+  const genres = b.genres || [];
+  const pages = Number(b.pages) || 0;
+  const pageAt = Number(b.pageAt) || 0;
+
+  const coverHtml = b.coverUrl
+    ? `<img src="${esc(b.coverUrl)}" alt="" onerror="this.parentNode.innerHTML='<span class=&quot;cover-fallback&quot;>${esc(initial)}</span>'">`
+    : `<span class="cover-fallback">${esc(initial)}</span>`;
+
+  const progress = (st === 'current' || st === 'dnf') && pages && pageAt
+    ? `<span class="prog-wrap">
+         <span class="prog-track"><span class="prog-fill" style="width:${Math.min(100, pageAt/pages*100).toFixed(0)}%"></span></span>
+         <span class="prog-txt">stran ${pageAt} od ${pages} · ${Math.min(100, Math.round(pageAt/pages*100))}%</span>
+       </span>` : '';
+
+  const details = [];
+  if (pages) details.push(`<span class="pill">${pages} str.</span>`);
+  genres.forEach(g => details.push(`<span class="pill genre">${esc(g)}</span>`));
+
+  return `
+  <div class="entry ${isOpen ? 'open' : ''}" data-id="${b.id}" style="--spine:${color}">
+    <div class="entry-head">
+      <div class="cover" style="background:${color}">${coverHtml}</div>
+      <div class="entry-info">
+        <p class="entry-title">${esc(b.title)}</p>
+        <p class="entry-author">${esc(b.author)}</p>
+        <div class="meta-row">
+          <span class="status-tag ${STATUS_CLASS[st]}">${STATUS_LABEL[st]}</span>
+          ${starHtml(b.rating)}
+          ${dateTxt ? `<span class="date-tag">${esc(dateTxt)}</span>` : ''}
+        </div>
+        ${progress}
+      </div>
+      <span class="chev"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="entry-body">
+      ${details.length ? `<div class="detail-row">${details.join('')}</div>` : ''}
+      ${b.quotes ? `<div class="entry-quotes"><span class="sec-label">Citati</span>${esc(b.quotes)}</div>` : ''}
+      ${b.notes ? `<div class="entry-notes"><span class="sec-label">Opombe</span>${esc(b.notes)}</div>` : ''}
+      <div class="entry-actions">
+        <button class="act-btn editBtn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
+          Uredi
+        </button>
+        <button class="act-btn danger deleteBtn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          Izbriši
+        </button>
+      </div>
+    </div>
+  </div>`;
 }
 
 function formatReadDate(b) {
@@ -729,19 +1045,11 @@ function formatReadDate(b) {
 }
 
 /* ---------- stats ---------- */
-$('statsBtn').onclick = () => {
-  showingStats = !showingStats;
-  $('statsBtn').classList.toggle('on', showingStats);
-  $('mainView').style.display = showingStats ? 'none' : '';
-  $('statsView').style.display = showingStats ? '' : 'none';
-  render();
-};
-
 function renderStats() {
   const v = $('statsView');
   const read = books.filter(b => (b.status||'read') === 'read');
   const rated = books.filter(b => Number(b.rating) > 0);
-  const avg = rated.length ? (rated.reduce((s,b) => s + Number(b.rating), 0) / rated.length) : 0;
+  const avg = rated.length ? rated.reduce((s,b) => s + Number(b.rating), 0) / rated.length : 0;
 
   const yearCount = {};
   read.forEach(b => { if (b.readYear) yearCount[b.readYear] = (yearCount[b.readYear]||0) + 1; });
@@ -750,90 +1058,149 @@ function renderStats() {
 
   const authorCount = {};
   books.forEach(b => { const a = (b.author||'').trim(); if (a) authorCount[a] = (authorCount[a]||0) + 1; });
-  const topAuthors = Object.entries(authorCount).sort((a,b) => b[1] - a[1]).slice(0, 5);
+  const topAuthors = Object.entries(authorCount).sort((a,b) => b[1]-a[1]).slice(0, 5);
 
-  const topRated = [...rated].sort((a,b) => b.rating - a.rating).slice(0, 5);
-  const thisYearCount = yearCount[thisYear] || 0;
+  const genreCount = {};
+  books.forEach(b => (b.genres||[]).forEach(g => { genreCount[g] = (genreCount[g]||0)+1; }));
+  const topGenres = Object.entries(genreCount).sort((a,b) => b[1]-a[1]).slice(0, 6);
+  const maxGenre = Math.max(1, ...topGenres.map(g => g[1]));
+
+  const topRated = [...rated].sort((a,b) => Number(b.rating) - Number(a.rating)).slice(0, 5);
+  const doneThisYear = yearCount[thisYear] || 0;
+  const totalPages = read.reduce((s,b) => s + (Number(b.pages)||0), 0);
+
+  const goal = Number(settings.goal) || 0;
+  const goalPct = goal ? Math.min(100, doneThisYear / goal * 100) : 0;
+  const left = Math.max(0, goal - doneThisYear);
 
   v.innerHTML = `
+    <div class="goal-card">
+      <div class="goal-top">
+        <span class="goal-label">Letni cilj ${thisYear}</span>
+        <button class="goal-edit" id="goalEditBtn">${goal ? 'spremeni' : 'nastavi'}</button>
+      </div>
+      ${goal ? `
+        <div class="goal-nums">${doneThisYear} <small>/ ${goal} knjig</small></div>
+        <span class="goal-track"><span class="goal-fill" style="width:${goalPct.toFixed(0)}%"></span></span>
+        <span class="goal-note">${
+          doneThisYear >= goal
+            ? 'Cilj dosežen. Bravo!'
+            : `Še ${left} ${left === 1 ? 'knjiga' : left === 2 ? 'knjigi' : left <= 4 ? 'knjige' : 'knjig'} do cilja.`
+        }</span>
+      ` : `<div class="goal-none">Nastavi cilj in spremljaj napredek skozi leto.</div>`}
+    </div>
+
     <div class="stat-grid">
       <div class="stat-box"><div class="stat-num">${books.length}</div><div class="stat-lbl">Vseh vnosov</div></div>
       <div class="stat-box"><div class="stat-num">${read.length}</div><div class="stat-lbl">Prebranih</div></div>
-      <div class="stat-box"><div class="stat-num">${thisYearCount}</div><div class="stat-lbl">Letos (${thisYear})</div></div>
       <div class="stat-box"><div class="stat-num">${avg ? avg.toFixed(1) : '—'}</div><div class="stat-lbl">Povprečna ocena</div></div>
+      <div class="stat-box"><div class="stat-num">${totalPages ? totalPages.toLocaleString('sl') : '—'}</div><div class="stat-lbl">Prebranih strani</div></div>
     </div>
 
     ${years.length ? `
       <div class="stat-section-title">Prebrano po letih</div>
       ${years.map(y => `
         <div class="bar-row">
-          <span class="bar-lbl">${y}</span>
+          <span class="bar-lbl narrow">${y}</span>
           <span class="bar-track"><span class="bar-fill" style="width:${(yearCount[y]/maxYear*100).toFixed(0)}%"></span></span>
           <span class="bar-val">${yearCount[y]}</span>
         </div>`).join('')}
     ` : `<div class="stat-section-title">Prebrano po letih</div>
          <p class="empty-sub">Dodaj leto branja pri knjigah, da se pokaže pregled.</p>`}
 
+    ${topGenres.length ? `
+      <div class="stat-section-title">Najpogostejši žanri</div>
+      ${topGenres.map(([g,c]) => `
+        <div class="bar-row">
+          <span class="bar-lbl">${esc(g)}</span>
+          <span class="bar-track"><span class="bar-fill" style="width:${(c/maxGenre*100).toFixed(0)}%"></span></span>
+          <span class="bar-val">${c}</span>
+        </div>`).join('')}
+    ` : ''}
+
     ${topAuthors.length ? `
       <div class="stat-section-title">Najpogostejši avtorji</div>
-      ${topAuthors.map(([a,c]) => `
-        <div class="rank-row"><span class="rank-name">${esc(a)}</span><span class="rank-cnt">${c}×</span></div>
-      `).join('')}
+      ${topAuthors.map(([a,c]) => `<div class="rank-row"><span class="rank-name">${esc(a)}</span><span class="rank-cnt">${c}×</span></div>`).join('')}
     ` : ''}
 
     ${topRated.length ? `
       <div class="stat-section-title">Najbolje ocenjene</div>
-      ${topRated.map(b => `
-        <div class="rank-row"><span class="rank-name">${esc(b.title)}</span><span class="stars">${'★'.repeat(b.rating)}</span></div>
-      `).join('')}
+      ${topRated.map(b => `<div class="rank-row"><span class="rank-name">${esc(b.title)}</span><span>${starHtml(b.rating)}</span></div>`).join('')}
     ` : ''}
   `;
+
+  const gb = $('goalEditBtn');
+  if (gb) gb.onclick = openGoalSheet;
 }
 
-/* ---------- sheet ---------- */
+/* ---------- goal sheet ---------- */
+function openGoalSheet() {
+  $('goalYearTxt').textContent = thisYear;
+  $('fGoal').value = settings.goal || '';
+  $('goalOverlay').classList.add('open');
+  setTimeout(() => $('fGoal').focus(), 80);
+}
+function closeGoalSheet() { $('goalOverlay').classList.remove('open'); }
+$('goalCancel').onclick = closeGoalSheet;
+$('goalOverlay').onclick = e => { if (e.target.id === 'goalOverlay') closeGoalSheet(); };
+$('goalSave').onclick = async () => {
+  const raw = $('fGoal').value.trim();
+  const n = raw === '' ? null : Math.max(0, Math.floor(Number(raw)));
+  if (raw !== '' && (!Number.isFinite(n) || n <= 0)) { $('fGoal').focus(); return; }
+  const btn = $('goalSave');
+  btn.disabled = true;
+  try {
+    await setDoc(settingsDoc, { goal: n, goalYear: thisYear }, { merge: true });
+    closeGoalSheet();
+  } catch (e) {
+    console.error(e);
+    setStatus('Cilja ni bilo mogoče shraniti.', true);
+  } finally { btn.disabled = false; }
+};
+
+/* ---------- book sheet ---------- */
 function openSheet(id) {
   editingId = id || null;
   if (id) {
     const b = books.find(x => x.id === id);
     $('sheetTitle').textContent = 'Uredi knjigo';
-    $('fTitle').value = b.title || '';
+    $('fTitle').value  = b.title || '';
     $('fAuthor').value = b.author || '';
     $('fQuotes').value = b.quotes || '';
-    $('fNotes').value = b.notes || '';
-    form.color = b.color || PALETTE[0];
-    form.status = b.status || 'read';
-    form.rating = Number(b.rating) || 0;
-    form.month = b.readMonth ? String(b.readMonth) : '';
-    form.year = b.readYear ? String(b.readYear) : '';
+    $('fNotes').value  = b.notes || '';
+    $('fPages').value  = b.pages || '';
+    $('fPageAt').value = b.pageAt || '';
+    form.color   = b.color || PALETTE[0];
+    form.status  = b.status || 'read';
+    form.rating  = Number(b.rating) || 0;
+    form.month   = b.readMonth ? String(b.readMonth) : '';
+    form.year    = b.readYear ? String(b.readYear) : '';
     form.coverUrl = b.coverUrl || '';
+    form.genres  = [...(b.genres || [])];
   } else {
     $('sheetTitle').textContent = 'Nova knjiga';
-    $('fTitle').value = '';
-    $('fAuthor').value = '';
-    $('fQuotes').value = '';
-    $('fNotes').value = '';
-    form.color = PALETTE[Math.floor(Math.random() * PALETTE.length)];
-    form.status = 'read';
-    form.rating = 0;
-    form.month = '';
-    form.year = '';
+    ['fTitle','fAuthor','fQuotes','fNotes','fPages','fPageAt'].forEach(k => { $(k).value = ''; });
+    form.color   = PALETTE[Math.floor(Math.random() * PALETTE.length)];
+    form.status  = 'read';
+    form.rating  = 0;
+    form.month   = '';
+    form.year    = '';
     form.coverUrl = '';
+    form.genres  = [];
   }
+  $('genreInput').value = '';
   monthSel.value = form.month;
   yearSel.value = form.year;
-  $('coverTxt').textContent = form.coverUrl ? 'Naslovnica nastavljena.' : 'Poišči naslovnico po naslovu in avtorju.';
-  renderCoverPreview();
-  syncColor(); syncStatus(); syncStars();
+  $('lookupTxt').textContent = form.coverUrl ? 'Podatki nastavljeni.' : 'Poišči naslovnico, leto, strani in žanre.';
+  renderLookupPrev();
+  syncColor(); syncStatus(); syncStars(); renderGenreTags();
   $('overlay').classList.add('open');
   setTimeout(() => $('fTitle').focus(), 80);
 }
-function closeSheet() {
-  $('overlay').classList.remove('open');
-  editingId = null;
-}
+function closeSheet() { $('overlay').classList.remove('open'); editingId = null; }
 
 async function removeBook(id) {
-  try { await deleteDoc(doc(db, "books", id)); }
+  try { await deleteDoc(doc(db, "books", id)); expanded.delete(id); }
   catch (e) { console.error(e); setStatus('Brisanje ni uspelo.', true); }
 }
 
@@ -841,34 +1208,35 @@ async function save() {
   const title = $('fTitle').value.trim();
   if (!title) { $('fTitle').focus(); return; }
 
+  const pagesRaw = $('fPages').value.trim();
+  const pageAtRaw = $('fPageAt').value.trim();
+
   const payload = {
     title,
     author: $('fAuthor').value.trim(),
     quotes: $('fQuotes').value.trim(),
-    notes: $('fNotes').value.trim(),
-    color: form.color,
+    notes:  $('fNotes').value.trim(),
+    genres: [...form.genres],
+    color:  form.color,
     status: form.status,
     rating: form.rating,
+    pages:  pagesRaw === '' ? null : Math.max(0, Math.floor(Number(pagesRaw))) || null,
+    pageAt: pageAtRaw === '' ? null : Math.max(0, Math.floor(Number(pageAtRaw))) || null,
     readMonth: form.month ? Number(form.month) : null,
-    readYear: form.year ? Number(form.year) : null,
+    readYear:  form.year ? Number(form.year) : null,
     coverUrl: form.coverUrl || ''
   };
 
   const btn = $('saveBtn');
   btn.disabled = true;
   try {
-    if (editingId) {
-      await updateDoc(doc(db, "books", editingId), payload);
-    } else {
-      await addDoc(booksCol, { ...payload, createdAtMs: Date.now(), createdAt: serverTimestamp() });
-    }
+    if (editingId) await updateDoc(doc(db, "books", editingId), payload);
+    else await addDoc(booksCol, { ...payload, createdAtMs: Date.now(), createdAt: serverTimestamp() });
     closeSheet();
   } catch (e) {
     console.error(e);
     setStatus('Shranjevanje ni uspelo.', true);
-  } finally {
-    btn.disabled = false;
-  }
+  } finally { btn.disabled = false; }
 }
 
 $('addBtn').onclick = () => openSheet(null);
@@ -881,13 +1249,19 @@ $('search').oninput = render;
 setStatus('Povezujem…');
 onSnapshot(booksCol, snap => {
   books = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-  addBtn.disabled = false;
+  $('addBtn').disabled = false;
   setStatus('');
   render();
 }, err => {
   console.error(err);
   setStatus('Napaka pri sinhronizaciji.', true);
 });
+
+onSnapshot(settingsDoc, snap => {
+  const d = snap.exists && snap.exists() ? snap.data() : (snap.data ? snap.data() : null);
+  settings = d || { goal: null, goalYear: thisYear };
+  if (view === 'stats') renderStats();
+}, err => { console.error(err); });
 </script>
 </body>
 </html>
