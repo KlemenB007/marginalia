@@ -1,253 +1,472 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Reading Log">
-<title>Reading Log</title>
+<meta name="apple-mobile-web-app-title" content="Bralnik">
+<title>Bralnik</title>
 <style>
+  @font-face {
+    font-family: 'system-serif';
+    src: local('New York'), local('Georgia');
+  }
   :root {
-    --paper: #F3EEE4;
-    --ink: #2B2620;
-    --ink-soft: #6B6357;
-    --rule: #D8CFBE;
-    --accent: #7A5C3E;
-    --accent-deep: #4A3826;
-    --card: #FBF8F2;
+    --bg: #0F1115;
+    --bg-elevated: #171A21;
+    --card: #1C2029;
+    --card-hover: #232838;
+    --line: #2A2F3C;
+    --text: #EDEEF2;
+    --text-soft: #9A9FB0;
+    --text-faint: #5D6272;
+    --accent: #7C9EFF;
+    --accent-soft: rgba(124, 158, 255, 0.14);
+    --accent-glow: rgba(124, 158, 255, 0.35);
+    --danger: #FF6B6B;
+    --danger-soft: rgba(255, 107, 107, 0.12);
+    --radius-lg: 20px;
+    --radius-md: 14px;
+    --radius-sm: 9px;
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { -webkit-text-size-adjust: 100%; }
   body {
     margin: 0;
-    background: var(--paper);
-    color: var(--ink);
-    font-family: 'Iowan Old Style', 'Georgia', 'Palatino Linotype', serif;
+    background: var(--bg);
+    background-image:
+      radial-gradient(ellipse 800px 500px at 20% -10%, rgba(124,158,255,0.10), transparent),
+      radial-gradient(ellipse 600px 400px at 100% 20%, rgba(255,150,110,0.05), transparent);
+    background-attachment: fixed;
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif;
     min-height: 100vh;
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
+    letter-spacing: -0.01em;
   }
+
   .wrap {
-    max-width: 640px;
+    max-width: 620px;
     margin: 0 auto;
-    padding: 24px 18px 100px;
+    padding: 20px 18px 120px;
   }
+
+  /* Header */
   header {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
-    margin-bottom: 6px;
-    border-bottom: 2px solid var(--ink);
-    padding-bottom: 10px;
+    padding: 14px 2px 22px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .brand-mark {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent), #5B6FE8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    box-shadow: 0 4px 16px var(--accent-glow);
+    flex-shrink: 0;
   }
   h1 {
-    font-size: 26px;
-    letter-spacing: 0.5px;
-    margin: 0;
+    font-size: 20px;
     font-weight: 700;
+    margin: 0;
+    letter-spacing: -0.02em;
   }
-  .count {
+  .stats-pill {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    padding: 6px 14px;
     font-size: 13px;
-    color: var(--ink-soft);
-    font-style: italic;
+    color: var(--text-soft);
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
   }
-  .toolbar {
-    display: flex;
-    gap: 8px;
-    margin: 14px 0 18px;
+  .stats-pill strong { color: var(--text); font-weight: 700; }
+
+  /* Search */
+  .search-bar {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  .search-bar svg {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    opacity: 0.45;
   }
   .search {
-    flex: 1;
-    padding: 10px 12px;
-    border: 1px solid var(--rule);
-    border-radius: 8px;
+    width: 100%;
+    padding: 13px 16px 13px 44px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
     background: var(--card);
     font-family: inherit;
     font-size: 16px;
-    color: var(--ink);
+    color: var(--text);
+    transition: border-color 0.15s, background 0.15s;
   }
-  .search:focus { outline: none; border-color: var(--accent); }
+  .search::placeholder { color: var(--text-faint); }
+  .search:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: var(--bg-elevated);
+  }
 
+  /* Sort chips */
+  .chips {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 22px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip {
+    flex-shrink: 0;
+    padding: 7px 14px;
+    border-radius: 100px;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--text-soft);
+    font-size: 13px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .chip.active {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* Book cards */
+  .grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
   .entry {
     background: var(--card);
-    border: 1px solid var(--rule);
-    border-radius: 10px;
-    padding: 14px 16px;
-    margin-bottom: 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 18px 18px 14px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.15s;
+  }
+  .entry::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--spine-color, var(--accent));
+    opacity: 0.8;
+  }
+  .entry-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
   }
   .entry-title {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 700;
-    margin: 0 0 2px;
+    margin: 0 0 3px;
+    letter-spacing: -0.015em;
+    line-height: 1.3;
   }
   .entry-author {
-    font-size: 14px;
-    color: var(--accent-deep);
-    font-style: italic;
-    margin: 0 0 8px;
+    font-size: 13.5px;
+    color: var(--text-soft);
+    margin: 0;
+    font-weight: 500;
+  }
+  .initial-badge {
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+    background: var(--spine-color, var(--accent));
+    color: rgba(0,0,0,0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 16px;
+    flex-shrink: 0;
+    text-transform: uppercase;
   }
   .entry-notes {
     font-size: 14px;
-    line-height: 1.5;
+    line-height: 1.55;
     white-space: pre-wrap;
-    color: var(--ink);
-    border-top: 1px dashed var(--rule);
-    padding-top: 8px;
-    margin-top: 8px;
+    color: #C7CBD6;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--line);
   }
   .entry-actions {
     display: flex;
-    gap: 14px;
+    gap: 4px;
     margin-top: 10px;
+    justify-content: flex-end;
   }
-  .entry-actions button {
+  .icon-btn {
     background: none;
     border: none;
-    font-family: inherit;
-    font-size: 12.5px;
-    color: var(--ink-soft);
+    color: var(--text-faint);
     cursor: pointer;
-    padding: 2px 0;
-    text-decoration: underline;
+    padding: 7px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, color 0.15s;
   }
-  .entry-actions button.danger { color: #9c4a3a; }
+  .icon-btn:hover, .icon-btn:active { background: var(--card-hover); color: var(--text); }
+  .icon-btn.danger:hover, .icon-btn.danger:active { background: var(--danger-soft); color: var(--danger); }
 
+  /* Empty state */
   .empty {
     text-align: center;
-    color: var(--ink-soft);
-    font-style: italic;
-    padding: 60px 20px;
-    font-size: 15px;
+    padding: 70px 20px;
+  }
+  .empty-icon {
+    font-size: 40px;
+    margin-bottom: 14px;
+    opacity: 0.5;
+  }
+  .empty-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-soft);
+    margin: 0 0 4px;
+  }
+  .empty-sub {
+    font-size: 13.5px;
+    color: var(--text-faint);
+    margin: 0;
   }
 
+  /* FAB */
   .fab {
     position: fixed;
     right: 20px;
     bottom: calc(24px + env(safe-area-inset-bottom));
-    width: 58px;
-    height: 58px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    background: var(--accent-deep);
-    color: var(--paper);
+    background: linear-gradient(135deg, var(--accent), #5B6FE8);
+    color: #0F1115;
     border: none;
-    font-size: 30px;
-    line-height: 58px;
-    text-align: center;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    box-shadow: 0 8px 24px var(--accent-glow), 0 2px 8px rgba(0,0,0,0.3);
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.15s;
   }
-  .fab:active { transform: scale(0.95); }
-  .fab:disabled { opacity: 0.5; }
+  .fab:active { transform: scale(0.92); }
+  .fab:disabled { opacity: 0.4; box-shadow: none; }
 
+  /* Modal */
   .modal-overlay {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(20,16,10,0.45);
+    background: rgba(6,7,10,0.6);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     align-items: flex-end;
     justify-content: center;
     z-index: 10;
   }
-  .modal-overlay.open { display: flex; }
+  .modal-overlay.open { display: flex; animation: fadeIn 0.2s; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   .modal {
-    background: var(--paper);
+    background: var(--bg-elevated);
     width: 100%;
-    max-width: 640px;
-    border-radius: 16px 16px 0 0;
-    padding: 20px 18px calc(26px + env(safe-area-inset-bottom));
-    max-height: 88vh;
+    max-width: 620px;
+    border-radius: 24px 24px 0 0;
+    padding: 10px 20px calc(24px + env(safe-area-inset-bottom));
+    max-height: 90vh;
     overflow-y: auto;
-    animation: slideUp 0.2s ease-out;
+    animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    border-top: 1px solid var(--line);
   }
   @keyframes slideUp {
-    from { transform: translateY(30px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+  .modal-handle {
+    width: 36px;
+    height: 4px;
+    background: var(--line);
+    border-radius: 100px;
+    margin: 10px auto 18px;
   }
   .modal h2 {
-    margin: 0 0 16px;
-    font-size: 20px;
-    border-bottom: 2px solid var(--ink);
-    padding-bottom: 8px;
+    margin: 0 0 20px;
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
   }
+
+  .color-picker {
+    display: flex;
+    gap: 10px;
+    margin: 6px 0 4px;
+  }
+  .color-dot {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform 0.15s;
+  }
+  .color-dot.selected {
+    border-color: var(--text);
+    transform: scale(1.12);
+  }
+
   label {
     display: block;
     font-size: 12px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--ink-soft);
-    margin: 14px 0 5px;
+    letter-spacing: 0.06em;
+    color: var(--text-faint);
+    margin: 18px 0 7px;
+    font-weight: 600;
   }
+  label:first-of-type { margin-top: 0; }
   input[type=text], textarea {
     width: 100%;
-    padding: 10px 12px;
-    border: 1px solid var(--rule);
-    border-radius: 8px;
+    padding: 13px 14px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
     background: var(--card);
     font-family: inherit;
     font-size: 16px;
-    color: var(--ink);
+    color: var(--text);
+    transition: border-color 0.15s;
   }
+  input[type=text]::placeholder, textarea::placeholder { color: var(--text-faint); }
   input[type=text]:focus, textarea:focus { outline: none; border-color: var(--accent); }
-  textarea { min-height: 110px; resize: vertical; }
+  textarea { min-height: 120px; resize: vertical; line-height: 1.5; }
 
   .modal-buttons {
     display: flex;
     gap: 10px;
-    margin-top: 20px;
+    margin-top: 24px;
   }
   .btn {
     flex: 1;
-    padding: 12px;
-    border-radius: 8px;
+    padding: 14px;
+    border-radius: var(--radius-md);
     border: none;
     font-family: inherit;
-    font-size: 15px;
-    font-weight: 600;
+    font-size: 15.5px;
+    font-weight: 700;
     cursor: pointer;
+    transition: opacity 0.15s, transform 0.1s;
   }
-  .btn.primary { background: var(--accent-deep); color: var(--paper); }
-  .btn.secondary { background: transparent; color: var(--ink-soft); border: 1px solid var(--rule); }
+  .btn:active { transform: scale(0.98); }
+  .btn.primary { background: var(--accent); color: #0F1115; }
+  .btn.secondary { background: transparent; color: var(--text-soft); border: 1px solid var(--line); }
   .btn:disabled { opacity: 0.5; }
 
   .status {
-    font-size: 12px;
-    color: var(--ink-soft);
+    font-size: 12.5px;
+    color: var(--text-faint);
     text-align: center;
-    margin-top: 4px;
+    margin: 2px 0 16px;
     min-height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
   }
-  .status.error { color: #9c4a3a; }
+  .status.error { color: var(--danger); }
+  .status.hidden { display: none; }
+  .dot-pulse {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 1.2s infinite ease-in-out;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <h1>Reading Log</h1>
-    <span class="count" id="count"></span>
+    <div class="brand">
+      <div class="brand-mark">📖</div>
+      <h1>Bralnik</h1>
+    </div>
+    <div class="stats-pill"><strong id="countNum">0</strong> knjig</div>
   </header>
 
-  <div class="toolbar">
-    <input class="search" id="search" type="text" placeholder="Search title, author, notes…">
+  <div id="statusMsg" class="status hidden"></div>
+
+  <div class="search-bar">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input class="search" id="search" type="text" placeholder="Išči po naslovu, avtorju, opombah…">
   </div>
 
-  <div id="list"></div>
-  <div id="statusMsg" class="status">Connecting…</div>
+  <div class="chips">
+    <button class="chip active" data-sort="new">Najnovejše</button>
+    <button class="chip" data-sort="old">Najstarejše</button>
+    <button class="chip" data-sort="az">A–Ž naslov</button>
+    <button class="chip" data-sort="author">Avtor</button>
+  </div>
+
+  <div class="grid" id="list"></div>
 </div>
 
-<button class="fab" id="addBtn" disabled>+</button>
+<button class="fab" id="addBtn" disabled aria-label="Dodaj knjigo">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+</button>
 
 <div class="modal-overlay" id="overlay">
   <div class="modal">
-    <h2 id="modalTitle">New book</h2>
-    <label for="fTitle">Book title</label>
-    <input type="text" id="fTitle" placeholder="e.g. The Brothers Karamazov">
-    <label for="fAuthor">Author</label>
-    <input type="text" id="fAuthor" placeholder="e.g. Fyodor Dostoevsky">
-    <label for="fNotes">Notes & quotes</label>
-    <textarea id="fNotes" placeholder="Thoughts, favorite quotes, anything worth remembering…"></textarea>
+    <div class="modal-handle"></div>
+    <h2 id="modalTitle">Nova knjiga</h2>
+
+    <label for="fTitle">Naslov knjige</label>
+    <input type="text" id="fTitle" placeholder="npr. Bratje Karamazovi">
+
+    <label for="fAuthor">Avtor</label>
+    <input type="text" id="fAuthor" placeholder="npr. Fjodor Dostojevski">
+
+    <label>Barva oznake</label>
+    <div class="color-picker" id="colorPicker"></div>
+
+    <label for="fNotes">Opombe in citati</label>
+    <textarea id="fNotes" placeholder="Misli, priljubljeni citati, karkoli si želiš zapomniti…"></textarea>
+
     <div class="modal-buttons">
-      <button class="btn secondary" id="cancelBtn">Cancel</button>
-      <button class="btn primary" id="saveBtn">Save</button>
+      <button class="btn secondary" id="cancelBtn">Prekliči</button>
+      <button class="btn primary" id="saveBtn">Shrani</button>
     </div>
   </div>
 </div>
@@ -272,18 +491,43 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const booksCol = collection(db, "books");
 
+const PALETTE = ['#7C9EFF', '#FF9B71', '#6EE7B7', '#F5A3C7', '#C9A6FF', '#FFD166'];
+
 let books = [];
 let editingId = null;
+let currentSort = 'new';
 
 const statusEl = document.getElementById('statusMsg');
 const addBtn = document.getElementById('addBtn');
+const colorPicker = document.getElementById('colorPicker');
+let selectedColor = PALETTE[0];
+
+colorPicker.innerHTML = PALETTE.map(c =>
+  `<div class="color-dot" data-color="${c}" style="background:${c}"></div>`
+).join('');
+function refreshColorDots() {
+  colorPicker.querySelectorAll('.color-dot').forEach(d => {
+    d.classList.toggle('selected', d.dataset.color === selectedColor);
+  });
+}
+colorPicker.querySelectorAll('.color-dot').forEach(d => {
+  d.onclick = () => { selectedColor = d.dataset.color; refreshColorDots(); };
+});
+refreshColorDots();
 
 function setStatus(msg, isError) {
-  statusEl.textContent = msg;
+  if (!msg) {
+    statusEl.classList.add('hidden');
+    statusEl.innerHTML = '';
+    return;
+  }
+  statusEl.classList.remove('hidden');
   statusEl.classList.toggle('error', !!isError);
+  statusEl.innerHTML = isError ? msg : `<span class="dot-pulse"></span>${msg}`;
 }
 
-// Live sync: any change on any device updates this view automatically
+setStatus('Povezujem...');
+
 onSnapshot(booksCol, (snapshot) => {
   books = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
   addBtn.disabled = false;
@@ -291,19 +535,38 @@ onSnapshot(booksCol, (snapshot) => {
   render();
 }, (err) => {
   console.error(err);
-  setStatus('Sync error — check connection.', true);
+  setStatus('Napaka pri sinhronizaciji.', true);
 });
 
 function escapeHtml(str) {
   return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
+document.querySelectorAll('.chip').forEach(chip => {
+  chip.onclick = () => {
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    currentSort = chip.dataset.sort;
+    render();
+  };
+});
+
+function sortBooks(list) {
+  const arr = [...list];
+  switch (currentSort) {
+    case 'old': return arr.sort((a,b) => (a.createdAtMs||0) - (b.createdAtMs||0));
+    case 'az': return arr.sort((a,b) => (a.title||'').localeCompare(b.title||'', 'sl'));
+    case 'author': return arr.sort((a,b) => (a.author||'').localeCompare(b.author||'', 'sl'));
+    default: return arr.sort((a,b) => (b.createdAtMs||0) - (a.createdAtMs||0));
+  }
+}
+
 function render() {
   const list = document.getElementById('list');
-  const countEl = document.getElementById('count');
+  const countNum = document.getElementById('countNum');
   const q = document.getElementById('search').value.trim().toLowerCase();
 
-  countEl.textContent = books.length ? `${books.length} book${books.length===1?'':'s'}` : '';
+  countNum.textContent = books.length;
 
   let shown = books;
   if (q) {
@@ -313,28 +576,41 @@ function render() {
       (b.notes||'').toLowerCase().includes(q)
     );
   }
-
-  shown = [...shown].sort((a,b) => {
-    const at = a.createdAtMs || 0, bt = b.createdAtMs || 0;
-    return bt - at;
-  });
+  shown = sortBooks(shown);
 
   if (!shown.length) {
-    list.innerHTML = `<div class="empty">${books.length ? 'No matches.' : 'No books yet. Tap + to add your first one.'}</div>`;
+    list.innerHTML = `
+      <div class="empty">
+        <div class="empty-icon">${books.length ? '🔍' : '📚'}</div>
+        <p class="empty-title">${books.length ? 'Ni zadetkov' : 'Še ni knjig'}</p>
+        <p class="empty-sub">${books.length ? 'Poskusi z drugim iskalnim nizom.' : 'Pritisni + in dodaj prvo knjigo.'}</p>
+      </div>`;
     return;
   }
 
-  list.innerHTML = shown.map(b => `
-    <div class="entry" data-id="${b.id}">
-      <p class="entry-title">${escapeHtml(b.title||'')}</p>
-      <p class="entry-author">${escapeHtml(b.author||'')}</p>
+  list.innerHTML = shown.map(b => {
+    const color = b.color || PALETTE[0];
+    const initial = (b.title || '?').trim().charAt(0);
+    return `
+    <div class="entry" data-id="${b.id}" style="--spine-color:${color}">
+      <div class="entry-head">
+        <div>
+          <p class="entry-title">${escapeHtml(b.title||'')}</p>
+          <p class="entry-author">${escapeHtml(b.author||'')}</p>
+        </div>
+        <div class="initial-badge" style="background:${color}">${escapeHtml(initial)}</div>
+      </div>
       ${b.notes ? `<div class="entry-notes">${escapeHtml(b.notes)}</div>` : ''}
       <div class="entry-actions">
-        <button class="editBtn">Edit</button>
-        <button class="danger deleteBtn">Delete</button>
+        <button class="icon-btn editBtn" aria-label="Uredi">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
+        </button>
+        <button class="icon-btn danger deleteBtn" aria-label="Izbriši">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        </button>
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
 
   list.querySelectorAll('.entry').forEach(entryEl => {
     const id = entryEl.getAttribute('data-id');
@@ -352,18 +628,21 @@ function openModal(id) {
 
   if (id) {
     const b = books.find(x => x.id === id);
-    modalTitle.textContent = 'Edit book';
+    modalTitle.textContent = 'Uredi knjigo';
     fTitle.value = b.title || '';
     fAuthor.value = b.author || '';
     fNotes.value = b.notes || '';
+    selectedColor = b.color || PALETTE[0];
   } else {
-    modalTitle.textContent = 'New book';
+    modalTitle.textContent = 'Nova knjiga';
     fTitle.value = '';
     fAuthor.value = '';
     fNotes.value = '';
+    selectedColor = PALETTE[Math.floor(Math.random() * PALETTE.length)];
   }
+  refreshColorDots();
   document.getElementById('overlay').classList.add('open');
-  setTimeout(() => fTitle.focus(), 50);
+  setTimeout(() => fTitle.focus(), 80);
 }
 
 function closeModal() {
@@ -376,7 +655,7 @@ async function deleteBook(id) {
     await deleteDoc(doc(db, "books", id));
   } catch (e) {
     console.error(e);
-    setStatus('Could not delete — try again.', true);
+    setStatus('Brisanje ni uspelo.', true);
   }
 }
 
@@ -395,10 +674,10 @@ async function handleSave() {
 
   try {
     if (editingId) {
-      await updateDoc(doc(db, "books", editingId), { title, author, notes });
+      await updateDoc(doc(db, "books", editingId), { title, author, notes, color: selectedColor });
     } else {
       await addDoc(booksCol, {
-        title, author, notes,
+        title, author, notes, color: selectedColor,
         createdAtMs: Date.now(),
         createdAt: serverTimestamp()
       });
@@ -406,7 +685,7 @@ async function handleSave() {
     closeModal();
   } catch (e) {
     console.error(e);
-    setStatus('Could not save — try again.', true);
+    setStatus('Shranjevanje ni uspelo.', true);
   } finally {
     saveBtn.disabled = false;
   }
