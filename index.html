@@ -9,481 +9,377 @@
 <meta name="apple-mobile-web-app-title" content="Bralnik">
 <meta name="theme-color" content="#14100D">
 <link rel="apple-touch-icon" href="icon.png">
-<link rel="icon" href="data:image/png;base64,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">
+<link rel="icon" href="data:image/png;base64,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">
 <title>Bralnik</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #14100D;
-    --bg-raised: #1D1813;
-    --card: #241E18;
-    --card-hi: #2E2720;
-    --line: #3A3128;
-    --line-soft: #2C251E;
-
-    --parchment: #EFE6D6;
-    --text: #EFE6D6;
-    --text-soft: #B5A794;
-    --text-faint: #7C6F5F;
-
-    --brass: #C9A227;
-    --brass-soft: rgba(201, 162, 39, 0.15);
-    --sage: #8FA98A;
-    --clay: #C97B5A;
-    --plum: #9C7BA8;
-    --ink-blue: #7A93B8;
-    --ash: #8C8378;
-
-    --danger: #D4685C;
-    --danger-soft: rgba(212, 104, 92, 0.14);
-
-    --r-lg: 18px;
-    --r-md: 13px;
-
-    --display: 'Fraunces', Georgia, serif;
-    --body: 'Literata', Georgia, serif;
-
-    --nav-h: 62px;
+    --bg:#14100D; --bg-raised:#1D1813; --card:#241E18; --card-hi:#2E2720;
+    --line:#3A3128; --line-soft:#2C251E;
+    --parchment:#EFE6D6; --text:#EFE6D6; --text-soft:#B5A794; --text-faint:#7C6F5F;
+    --brass:#C9A227; --brass-soft:rgba(201,162,39,.15);
+    --sage:#8FA98A; --clay:#C97B5A; --plum:#9C7BA8; --ink-blue:#7A93B8; --ash:#8C8378;
+    --danger:#D4685C; --danger-soft:rgba(212,104,92,.14);
+    --r-lg:18px; --r-md:13px;
+    --display:'Fraunces',Georgia,serif; --body:'Literata',Georgia,serif;
+    --nav-h:62px;
   }
-  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  html { -webkit-text-size-adjust: 100%; }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html { -webkit-text-size-adjust:100%; }
   body {
-    margin: 0;
-    background: var(--bg);
+    margin:0; background:var(--bg);
     background-image:
-      radial-gradient(ellipse 700px 420px at 15% -8%, rgba(201,162,39,0.07), transparent 70%),
-      radial-gradient(ellipse 600px 380px at 105% 12%, rgba(201,123,90,0.05), transparent 70%);
-    background-attachment: fixed;
-    color: var(--text);
-    font-family: var(--body);
-    min-height: 100vh;
-    padding-top: env(safe-area-inset-top);
-    line-height: 1.5;
+      radial-gradient(ellipse 700px 420px at 15% -8%, rgba(201,162,39,.07), transparent 70%),
+      radial-gradient(ellipse 600px 380px at 105% 12%, rgba(201,123,90,.05), transparent 70%);
+    background-attachment:fixed; color:var(--text); font-family:var(--body);
+    min-height:100vh; padding-top:env(safe-area-inset-top); line-height:1.5;
   }
-  .wrap {
-    max-width: 640px; margin: 0 auto;
-    padding: 18px 16px calc(var(--nav-h) + 40px + env(safe-area-inset-bottom));
-  }
+  .wrap { max-width:640px; margin:0 auto; padding:18px 16px calc(var(--nav-h) + 40px + env(safe-area-inset-bottom)); }
 
-  /* ---------- Header ---------- */
-  header { display: flex; align-items: center; gap: 11px; padding: 10px 2px 18px; }
-  .logo-btn {
-    background: none; border: none; padding: 0; cursor: pointer;
-    display: flex; align-items: center; gap: 11px;
-    color: inherit; font: inherit;
-  }
-  .logo-btn:active { opacity: .7; }
-  .logo-mark { width: 38px; height: 38px; border-radius: 11px; display: block; flex-shrink: 0; }
-  h1 {
-    font-family: var(--display); font-size: 23px; font-weight: 600; margin: 0;
-    letter-spacing: -0.01em; font-variation-settings: 'SOFT' 40, 'WONK' 1;
-  }
+  /* ---------- header ---------- */
+  header { display:flex; align-items:center; gap:11px; padding:10px 2px 18px; }
+  .logo-btn { background:none; border:none; padding:0; cursor:pointer; display:flex; align-items:center; gap:11px; color:inherit; font:inherit; }
+  .logo-btn:active { opacity:.7; }
+  .logo-mark { width:38px; height:38px; border-radius:11px; display:block; flex-shrink:0; }
+  h1 { font-family:var(--display); font-size:23px; font-weight:600; margin:0; letter-spacing:-.01em; font-variation-settings:'SOFT' 40,'WONK' 1; }
 
-  /* ---------- Search ---------- */
-  .search-bar { position: relative; margin-bottom: 14px; }
-  .search-bar .s-icon {
-    position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
-    pointer-events: none; opacity: .5; z-index: 2; display: flex;
-  }
+  /* ---------- search ---------- */
+  .search-bar { position:relative; margin-bottom:12px; }
+  .search-bar .s-icon { position:absolute; left:15px; top:50%; transform:translateY(-50%); pointer-events:none; opacity:.5; z-index:2; display:flex; }
   input[type=text].search {
-    width: 100%; padding: 12px 15px 12px 46px;
-    border: 1px solid var(--line); border-radius: var(--r-md);
-    background: var(--card); font-family: var(--body); font-size: 16px;
-    color: var(--text); transition: border-color .15s, background .15s;
+    width:100%; padding:12px 15px 12px 46px; border:1px solid var(--line); border-radius:var(--r-md);
+    background:var(--card); font-family:var(--body); font-size:16px; color:var(--text);
+    transition:border-color .15s, background .15s;
   }
-  input[type=text].search::placeholder { color: var(--text-faint); }
-  input[type=text].search:focus { outline: none; border-color: var(--brass); background: var(--bg-raised); }
+  input[type=text].search::placeholder { color:var(--text-faint); }
+  input[type=text].search:focus { outline:none; border-color:var(--brass); background:var(--bg-raised); }
 
-  /* ---------- Chips ---------- */
-  .chip-row {
-    display: flex; gap: 7px; overflow-x: auto;
-    scrollbar-width: none; padding-bottom: 3px; margin-bottom: 10px;
-  }
-  .chip-row::-webkit-scrollbar { display: none; }
+  /* ---------- status chips ---------- */
+  .chip-row { display:flex; gap:7px; overflow-x:auto; scrollbar-width:none; padding-bottom:3px; margin-bottom:10px; }
+  .chip-row::-webkit-scrollbar { display:none; }
   .chip {
-    flex-shrink: 0; padding: 7px 13px; border-radius: 100px;
-    border: 1px solid var(--line); background: transparent;
-    color: var(--text-soft); font-size: 13px; font-weight: 500;
-    font-family: var(--body); cursor: pointer; transition: all .15s;
-    white-space: nowrap;
+    flex-shrink:0; padding:7px 13px; border-radius:100px; border:1px solid var(--line);
+    background:transparent; color:var(--text-soft); font-size:13px; font-weight:500;
+    font-family:var(--body); cursor:pointer; transition:all .15s; white-space:nowrap;
   }
-  .chip.active { background: var(--brass-soft); border-color: var(--brass); color: var(--brass); }
-  .chip .cnum { opacity: .65; font-size: 11.5px; margin-left: 3px; }
-  .sort-row { margin-bottom: 18px; }
-  .genre-row { margin-bottom: 14px; }
+  .chip.active { background:var(--brass-soft); border-color:var(--brass); color:var(--brass); }
+  .chip .cnum { opacity:.65; font-size:11.5px; margin-left:3px; }
 
-  /* ---------- Cards ---------- */
-  .grid { display: flex; flex-direction: column; gap: 10px; }
-  .entry {
-    background: var(--card); border: 1px solid var(--line-soft);
-    border-radius: var(--r-lg); position: relative; overflow: hidden;
-    transition: border-color .15s;
+  /* ---------- toolbar ---------- */
+  .toolbar { display:flex; gap:8px; margin-bottom:18px; }
+  .tool-btn {
+    flex:1; display:flex; align-items:center; justify-content:center; gap:7px;
+    padding:9px 12px; border-radius:var(--r-md); border:1px solid var(--line);
+    background:var(--card); color:var(--text-soft); font-family:var(--body);
+    font-size:13px; cursor:pointer; transition:all .15s; min-width:0;
   }
-  .entry.open { border-color: var(--line); }
-  .entry::before {
-    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
-    width: 3px; background: var(--spine, var(--brass)); opacity: .85; z-index: 1;
-  }
-  .entry-head {
-    display: flex; gap: 13px; padding: 15px 16px;
-    cursor: pointer; align-items: flex-start;
-  }
+  .tool-btn:active { background:var(--card-hi); }
+  .tool-btn.on { border-color:var(--brass); color:var(--brass); background:var(--brass-soft); }
+  .tool-btn .tb-val { color:var(--text); font-weight:500; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .tool-btn.on .tb-val { color:var(--brass); }
+  .tb-badge { background:var(--brass); color:#14100D; border-radius:100px; font-size:10.5px; font-weight:700; padding:1px 6px; }
+
+  /* ---------- cards ---------- */
+  .grid { display:flex; flex-direction:column; gap:10px; }
+  .entry { background:var(--card); border:1px solid var(--line-soft); border-radius:var(--r-lg); position:relative; overflow:hidden; }
+  .entry.open { border-color:var(--line); }
+  .entry::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--spine,var(--brass)); opacity:.85; z-index:1; }
+  .entry-head { display:flex; gap:13px; padding:15px 16px; cursor:pointer; align-items:flex-start; }
   .cover {
-    width: 54px; height: 80px; border-radius: 5px; flex-shrink: 0; overflow: hidden;
-    background: var(--spine, var(--brass));
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,.35);
+    width:54px; height:80px; border-radius:5px; flex-shrink:0; overflow:hidden;
+    background:var(--spine,var(--brass)); display:flex; align-items:center; justify-content:center;
+    box-shadow:0 2px 10px rgba(0,0,0,.35);
   }
-  .cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .cover-fallback {
-    font-family: var(--display); font-weight: 700; font-size: 22px;
-    color: rgba(0,0,0,.5); text-transform: uppercase;
+  .cover img { width:100%; height:100%; object-fit:cover; display:block; }
+  .cover-fallback { font-family:var(--display); font-weight:700; font-size:22px; color:rgba(0,0,0,.5); text-transform:uppercase; }
+  .entry-info { flex:1; min-width:0; }
+  .entry-title,.entry-author { overflow-wrap:anywhere; }
+  .entry-title { font-family:var(--display); font-size:17.5px; font-weight:600; margin:0 0 2px; line-height:1.28; font-variation-settings:'SOFT' 30; }
+  .entry-author { font-size:13.5px; color:var(--text-soft); margin:0 0 7px; }
+  .meta-row { display:flex; align-items:center; gap:7px; flex-wrap:wrap; }
+  .status-tag { font-size:11.5px; font-weight:600; padding:3px 9px; border-radius:100px; }
+  .status-read{background:rgba(143,169,138,.16);color:var(--sage)}
+  .status-current{background:rgba(122,147,184,.16);color:var(--ink-blue)}
+  .status-wish{background:rgba(156,123,168,.16);color:var(--plum)}
+  .status-dnf{background:rgba(140,131,120,.18);color:var(--ash)}
+  .date-tag { font-size:12px; color:var(--text-faint); }
+  .chev { color:var(--text-faint); flex-shrink:0; align-self:center; transition:transform .2s; display:flex; }
+  .entry.open .chev { transform:rotate(180deg); }
+  .badge-count {
+    font-size:11.5px; color:var(--text-faint); display:inline-flex;
+    align-items:center; gap:4px; font-variant-numeric:tabular-nums;
   }
-  .entry-info { flex: 1; min-width: 0; }
-  .entry-title, .entry-author, .entry-notes, .entry-quotes { overflow-wrap: anywhere; }
-  .entry-title {
-    font-family: var(--display); font-size: 17.5px; font-weight: 600;
-    margin: 0 0 2px; line-height: 1.28; font-variation-settings: 'SOFT' 30;
-  }
-  .entry-author { font-size: 13.5px; color: var(--text-soft); margin: 0 0 7px; }
-  .meta-row { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
-  .status-tag {
-    font-size: 11.5px; font-weight: 600; padding: 3px 9px; border-radius: 100px;
-  }
-  .status-read    { background: rgba(143,169,138,.16); color: var(--sage); }
-  .status-current { background: rgba(122,147,184,.16); color: var(--ink-blue); }
-  .status-wish    { background: rgba(156,123,168,.16); color: var(--plum); }
-  .status-dnf     { background: rgba(140,131,120,.18); color: var(--ash); }
-  .date-tag { font-size: 12px; color: var(--text-faint); }
-  .chev {
-    color: var(--text-faint); flex-shrink: 0; align-self: center;
-    transition: transform .2s; display: flex;
-  }
-  .entry.open .chev { transform: rotate(180deg); }
+  .badge-count svg { opacity:.8; flex-shrink:0; }
 
-  /* half-star display */
-  .stars-wrap { position: relative; display: inline-block; line-height: 1; font-size: 13px; letter-spacing: 1px; }
-  .stars-bg { color: var(--line); }
-  .stars-fg {
-    position: absolute; left: 0; top: 0; overflow: hidden;
-    white-space: nowrap; color: var(--brass);
-  }
-  .rating-num { font-size: 11.5px; color: var(--text-faint); margin-left: 2px; }
+  .stars-wrap { position:relative; display:inline-block; line-height:1; font-size:13px; letter-spacing:1px; }
+  .stars-bg { color:var(--line); }
+  .stars-fg { position:absolute; left:0; top:0; overflow:hidden; white-space:nowrap; color:var(--brass); }
+  .rating-num { font-size:11.5px; color:var(--text-faint); margin-left:2px; }
 
-  /* expandable body */
-  .entry-body { display: none; padding: 0 16px 12px; }
-  .entry.open .entry-body { display: block; }
-  .detail-row {
-    display: flex; flex-wrap: wrap; gap: 7px;
-    padding-top: 12px; border-top: 1px solid var(--line-soft);
-  }
-  .pill {
-    font-size: 11.5px; padding: 4px 10px; border-radius: 100px;
-    background: var(--card-hi); color: var(--text-soft); border: 1px solid var(--line-soft);
-  }
-  .pill.genre { background: rgba(201,162,39,.10); color: var(--brass); border-color: rgba(201,162,39,.25); }
-  .entry-notes, .entry-quotes {
-    font-size: 14px; line-height: 1.6; white-space: pre-wrap;
-    margin-top: 12px; padding-top: 12px;
-    border-top: 1px solid var(--line-soft); color: #D3C7B4;
-  }
-  .entry-quotes {
-    font-family: var(--display); font-style: italic; font-size: 14.5px;
-    color: var(--parchment); border-left: 2px solid var(--brass); padding-left: 12px;
-  }
+  .entry-body { display:none; padding:0 16px 12px; }
+  .entry.open .entry-body { display:block; }
+  .detail-row { display:flex; flex-wrap:wrap; gap:7px; padding-top:12px; border-top:1px solid var(--line-soft); }
+  .pill { font-size:11.5px; padding:4px 10px; border-radius:100px; background:var(--card-hi); color:var(--text-soft); border:1px solid var(--line-soft); }
+  .pill.genre { background:rgba(201,162,39,.10); color:var(--brass); border-color:rgba(201,162,39,.25); }
+
+  .block { margin-top:14px; padding-top:13px; border-top:1px solid var(--line-soft); }
   .sec-label {
-    display: block; font-size: 10.5px; text-transform: uppercase;
-    letter-spacing: .09em; color: var(--text-faint);
-    font-family: var(--body); font-style: normal; font-weight: 600; margin-bottom: 5px;
+    display:block; font-size:10.5px; text-transform:uppercase; letter-spacing:.09em;
+    color:var(--text-faint); font-weight:600; margin-bottom:10px;
   }
-  .entry-actions { display: flex; gap: 8px; margin-top: 13px; }
+
+  /* quotes */
+  .quote-item {
+    font-family:var(--display); font-style:italic; font-size:15px; line-height:1.65;
+    color:var(--parchment); margin-bottom:13px; padding-left:13px;
+    border-left:2px solid rgba(201,162,39,.35); overflow-wrap:anywhere;
+  }
+  .quote-item:last-child { margin-bottom:0; }
+  .qm {
+    font-family:var(--display); font-style:normal; font-weight:600;
+    font-size:20px; color:var(--brass); line-height:0;
+  }
+  .qm-o { margin-right:4px; }
+  .qm-c { margin-left:4px; }
+
+  /* notes */
+  .note-list { counter-reset:noteno; }
+  .note-item {
+    display:flex; gap:11px; font-size:14px; line-height:1.6;
+    color:#D3C7B4; margin-bottom:11px; overflow-wrap:anywhere;
+  }
+  .note-item:last-child { margin-bottom:0; }
+  .note-num {
+    flex-shrink:0; width:21px; height:21px; border-radius:6px; margin-top:2px;
+    background:var(--card-hi); border:1px solid var(--line-soft);
+    color:var(--brass); font-size:11px; font-weight:600; font-family:var(--body);
+    display:flex; align-items:center; justify-content:center; font-variant-numeric:tabular-nums;
+  }
+  .note-text { min-width:0; }
+
+  .entry-actions { display:flex; gap:8px; margin-top:14px; }
   .act-btn {
-    flex: 1; padding: 9px; border-radius: 10px;
-    border: 1px solid var(--line); background: transparent;
-    color: var(--text-soft); font-family: var(--body); font-size: 13.5px;
-    cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;
-    transition: all .15s;
+    flex:1; padding:9px; border-radius:10px; border:1px solid var(--line); background:transparent;
+    color:var(--text-soft); font-family:var(--body); font-size:13.5px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; gap:6px; transition:all .15s;
   }
-  .act-btn:active { background: var(--card-hi); color: var(--text); }
-  .act-btn.danger { color: var(--danger); border-color: rgba(212,104,92,.3); }
-  .act-btn.danger:active { background: var(--danger-soft); }
+  .act-btn:active { background:var(--card-hi); color:var(--text); }
+  .act-btn.danger { color:var(--danger); border-color:rgba(212,104,92,.3); }
 
-  /* progress bar for currently reading */
-  .prog-wrap { margin-top: 9px; }
-  .prog-track { display: block; height: 5px; background: var(--card-hi); border-radius: 100px; overflow: hidden; }
-  .prog-fill { display: block; height: 100%; background: var(--ink-blue); border-radius: 100px; }
-  .prog-txt { font-size: 11.5px; color: var(--text-faint); margin-top: 4px; display: block; }
+  .prog-wrap { margin-top:9px; }
+  .prog-track { display:block; height:5px; background:var(--card-hi); border-radius:100px; overflow:hidden; }
+  .prog-fill { display:block; height:100%; background:var(--ink-blue); border-radius:100px; }
+  .prog-txt { font-size:11.5px; color:var(--text-faint); margin-top:4px; display:block; }
 
-  /* ---------- Empty ---------- */
-  .empty { text-align: center; padding: 60px 20px; }
-  .empty-icon { font-size: 34px; margin-bottom: 12px; opacity: .45; }
-  .empty-title {
-    font-family: var(--display); font-size: 17px; font-weight: 600;
-    color: var(--text-soft); margin: 0 0 4px;
-  }
-  .empty-sub { font-size: 13.5px; color: var(--text-faint); margin: 0; }
+  .empty { text-align:center; padding:60px 20px; }
+  .empty-icon { font-size:34px; margin-bottom:12px; opacity:.45; }
+  .empty-title { font-family:var(--display); font-size:17px; font-weight:600; color:var(--text-soft); margin:0 0 4px; }
+  .empty-sub { font-size:13.5px; color:var(--text-faint); margin:0; }
 
-  /* ---------- Bottom nav ---------- */
+  /* ---------- nav ---------- */
   .nav {
-    position: fixed; left: 0; right: 0; bottom: 0; z-index: 8;
-    height: calc(var(--nav-h) + env(safe-area-inset-bottom));
-    padding-bottom: env(safe-area-inset-bottom);
-    background: rgba(23,19,15,.92);
-    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-    border-top: 1px solid var(--line-soft);
-    display: flex; align-items: center; justify-content: center; gap: 8px;
+    position:fixed; left:0; right:0; bottom:0; z-index:8;
+    height:calc(var(--nav-h) + env(safe-area-inset-bottom)); padding-bottom:env(safe-area-inset-bottom);
+    background:rgba(23,19,15,.92); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+    border-top:1px solid var(--line-soft); display:flex; align-items:center; justify-content:center;
   }
-  .nav-inner {
-    width: 100%; max-width: 640px; height: var(--nav-h);
-    display: flex; align-items: center; justify-content: space-around; padding: 0 16px;
-  }
+  .nav-inner { width:100%; max-width:640px; height:var(--nav-h); display:flex; align-items:center; justify-content:space-around; padding:0 16px; }
   .nav-btn {
-    background: none; border: none; cursor: pointer;
-    display: flex; flex-direction: column; align-items: center; gap: 3px;
-    color: var(--text-faint); font-family: var(--body); font-size: 10.5px;
-    padding: 6px 16px; border-radius: 10px; transition: color .15s;
-    flex: 1;
+    background:none; border:none; cursor:pointer; display:flex; flex-direction:column;
+    align-items:center; gap:3px; color:var(--text-faint); font-family:var(--body);
+    font-size:10.5px; padding:6px 16px; border-radius:10px; transition:color .15s; flex:1;
   }
-  .nav-btn.on { color: var(--brass); }
+  .nav-btn.on { color:var(--brass); }
   .nav-add {
-    background: linear-gradient(150deg, var(--brass), #A98515);
-    color: #14100D; border: none; border-radius: 50%;
-    width: 50px; height: 50px; flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 5px 16px rgba(201,162,39,.3);
-    cursor: pointer; transition: transform .14s;
+    background:linear-gradient(150deg,var(--brass),#A98515); color:#14100D; border:none;
+    border-radius:50%; width:50px; height:50px; flex-shrink:0; display:flex;
+    align-items:center; justify-content:center; box-shadow:0 5px 16px rgba(201,162,39,.3);
+    cursor:pointer; transition:transform .14s;
   }
-  .nav-add:active { transform: scale(.92); }
-  .nav-add:disabled { opacity: .4; box-shadow: none; }
+  .nav-add:active { transform:scale(.92); }
+  .nav-add:disabled { opacity:.4; box-shadow:none; }
 
-  /* ---------- Sheet ---------- */
+  /* ---------- sheets ---------- */
   .overlay {
-    display: none; position: fixed; inset: 0;
-    background: rgba(8,6,4,.66);
-    backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px);
-    align-items: flex-end; justify-content: center; z-index: 20;
+    display:none; position:fixed; inset:0; background:rgba(8,6,4,.66);
+    backdrop-filter:blur(7px); -webkit-backdrop-filter:blur(7px);
+    align-items:flex-end; justify-content:center; z-index:20;
   }
-  .overlay.open { display: flex; animation: fade .18s; }
+  .overlay.open { display:flex; animation:fade .18s; }
   @keyframes fade { from{opacity:0} to{opacity:1} }
   .sheet {
-    background: var(--bg-raised); width: 100%; max-width: 640px;
-    border-radius: 22px 22px 0 0;
-    padding: 8px 18px calc(22px + env(safe-area-inset-bottom));
-    max-height: 92vh; overflow-y: auto;
-    border-top: 1px solid var(--line);
-    animation: rise .26s cubic-bezier(.16,1,.3,1);
+    background:var(--bg-raised); width:100%; max-width:640px; border-radius:22px 22px 0 0;
+    padding:8px 18px calc(22px + env(safe-area-inset-bottom)); max-height:92vh; overflow-y:auto;
+    border-top:1px solid var(--line); animation:rise .26s cubic-bezier(.16,1,.3,1);
   }
+  .sheet.compact { padding-bottom:calc(14px + env(safe-area-inset-bottom)); }
   @keyframes rise { from{transform:translateY(100%)} to{transform:translateY(0)} }
-  .handle { width: 34px; height: 4px; background: var(--line); border-radius: 100px; margin: 9px auto 16px; }
-  .sheet h2 {
-    font-family: var(--display); margin: 0 0 18px; font-size: 21px;
-    font-weight: 600; font-variation-settings: 'SOFT' 40;
-  }
+  .handle { width:34px; height:4px; background:var(--line); border-radius:100px; margin:9px auto 16px; }
+  .sheet h2 { font-family:var(--display); margin:0 0 18px; font-size:21px; font-weight:600; font-variation-settings:'SOFT' 40; }
 
-  label {
-    display: block; font-size: 11px; text-transform: uppercase;
-    letter-spacing: .08em; color: var(--text-faint);
-    margin: 16px 0 7px; font-weight: 600;
+  /* option list (sort / genre sheets) */
+  .opt-list { display:flex; flex-direction:column; gap:2px; margin-bottom:6px; }
+  .opt {
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding:14px 4px; background:none; border:none; border-bottom:1px solid var(--line-soft);
+    color:var(--text); font-family:var(--body); font-size:15px; cursor:pointer; text-align:left; width:100%;
   }
-  label.first { margin-top: 0; }
+  .opt:last-child { border-bottom:none; }
+  .opt.on { color:var(--brass); }
+  .opt .opt-tick { opacity:0; color:var(--brass); flex-shrink:0; }
+  .opt.on .opt-tick { opacity:1; }
+  .opt-count { color:var(--text-faint); font-size:12.5px; margin-left:auto; margin-right:8px; }
+
+  label { display:block; font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--text-faint); margin:16px 0 7px; font-weight:600; }
+  label.first { margin-top:0; }
+  .hint { font-size:11.5px; color:var(--text-faint); text-transform:none; letter-spacing:0; font-weight:400; margin-top:3px; display:block; }
   input[type=text], input[type=number], textarea, select {
-    width: 100%; padding: 12px 13px;
-    border: 1px solid var(--line); border-radius: var(--r-md);
-    background: var(--card); font-family: var(--body); font-size: 16px;
-    color: var(--text); transition: border-color .15s;
+    width:100%; padding:12px 13px; border:1px solid var(--line); border-radius:var(--r-md);
+    background:var(--card); font-family:var(--body); font-size:16px; color:var(--text); transition:border-color .15s;
   }
-  input::placeholder, textarea::placeholder { color: var(--text-faint); }
-  input:focus, textarea:focus, select:focus { outline: none; border-color: var(--brass); }
-  textarea { min-height: 88px; resize: vertical; line-height: 1.55; }
-  textarea.quotes { font-family: var(--display); font-style: italic; }
+  input::placeholder, textarea::placeholder { color:var(--text-faint); }
+  input:focus, textarea:focus, select:focus { outline:none; border-color:var(--brass); }
+  textarea { min-height:96px; resize:vertical; line-height:1.7; }
+  textarea.quotes { font-family:var(--display); font-style:italic; }
 
-  .seg { display: flex; gap: 6px; flex-wrap: wrap; }
+  .seg { display:flex; gap:6px; flex-wrap:wrap; }
   .seg button {
-    flex: 1 1 calc(50% - 3px); padding: 11px 6px; border-radius: var(--r-md);
-    border: 1px solid var(--line); background: var(--card);
-    color: var(--text-soft); font-family: var(--body); font-size: 13.5px;
-    font-weight: 500; cursor: pointer; transition: all .15s;
+    flex:1 1 calc(50% - 3px); padding:11px 6px; border-radius:var(--r-md); border:1px solid var(--line);
+    background:var(--card); color:var(--text-soft); font-family:var(--body); font-size:13.5px;
+    font-weight:500; cursor:pointer; transition:all .15s;
   }
-  .seg button.on { background: var(--brass-soft); border-color: var(--brass); color: var(--brass); font-weight: 600; }
+  .seg button.on { background:var(--brass-soft); border-color:var(--brass); color:var(--brass); font-weight:600; }
 
-  /* half-star picker */
-  .star-pick { display: flex; align-items: center; gap: 3px; }
-  .star-unit { position: relative; width: 34px; height: 34px; flex-shrink: 0; }
-  .star-glyph {
-    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-    font-size: 27px; line-height: 1; color: var(--line); pointer-events: none;
+  /* ---------- rating slider ---------- */
+  .rate-box { border:1px solid var(--line); border-radius:var(--r-md); background:var(--card); padding:14px 16px 8px; }
+  .rate-display { display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; }
+  .rate-stars { position:relative; display:inline-block; font-size:30px; line-height:1; letter-spacing:5px; }
+  .rate-bg { color:var(--line); }
+  .rate-fg { position:absolute; left:0; top:0; overflow:hidden; white-space:nowrap; color:var(--brass); }
+  .rate-val { font-family:var(--display); font-size:22px; font-weight:600; color:var(--brass); font-variation-settings:'SOFT' 40; }
+  .rate-val.none { color:var(--text-faint); font-size:15px; }
+  input[type=range].rate-range {
+    -webkit-appearance:none; appearance:none; width:100%; background:transparent;
+    padding:16px 0; margin:0; border:none; height:auto;
   }
-  .star-glyph.fill { color: var(--brass); overflow: hidden; justify-content: flex-start; padding-left: 4px; }
-  .star-half, .star-full {
-    position: absolute; top: 0; bottom: 0; width: 50%;
-    background: none; border: none; cursor: pointer; padding: 0; z-index: 2;
+  input[type=range].rate-range:focus { outline:none; }
+  input[type=range].rate-range::-webkit-slider-runnable-track {
+    height:6px; border-radius:100px; background:var(--card-hi); border:1px solid var(--line-soft);
   }
-  .star-half { left: 0; }
-  .star-full { right: 0; }
-  .star-clear {
-    background: none; border: none; font-family: var(--body);
-    font-size: 12px; color: var(--text-faint); text-decoration: underline;
-    cursor: pointer; margin-left: 8px;
+  input[type=range].rate-range::-webkit-slider-thumb {
+    -webkit-appearance:none; appearance:none; width:26px; height:26px; border-radius:50%;
+    background:var(--brass); border:3px solid var(--bg-raised); margin-top:-11px;
+    box-shadow:0 2px 8px rgba(0,0,0,.4); cursor:pointer;
   }
-  .star-val { font-size: 13px; color: var(--brass); margin-left: 7px; min-width: 24px; }
+  input[type=range].rate-range::-moz-range-track { height:6px; border-radius:100px; background:var(--card-hi); }
+  input[type=range].rate-range::-moz-range-thumb { width:22px; height:22px; border-radius:50%; background:var(--brass); border:3px solid var(--bg-raised); cursor:pointer; }
+  .rate-scale { display:flex; justify-content:space-between; font-size:10.5px; color:var(--text-faint); margin-top:-4px; }
 
-  .date-row { display: flex; gap: 8px; }
-  .date-row select { flex: 1; }
+  .date-row { display:flex; gap:8px; }
+  .date-row select { flex:1; }
   select {
-    appearance: none; -webkit-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237C6F5F' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat; background-position: right 14px center; padding-right: 34px;
+    appearance:none; -webkit-appearance:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237C6F5F' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right 14px center; padding-right:34px;
   }
-  .two-col { display: flex; gap: 8px; }
-  .two-col > * { flex: 1; }
+  .two-col { display:flex; gap:8px; }
+  .two-col > * { flex:1; min-width:0; }
 
-  .color-row { display: flex; gap: 9px; }
-  .dot {
-    width: 29px; height: 29px; border-radius: 50%;
-    border: 2px solid transparent; cursor: pointer; transition: transform .15s;
-  }
-  .dot.sel { border-color: var(--parchment); transform: scale(1.1); }
+  .color-row { display:flex; gap:9px; }
+  .dot { width:29px; height:29px; border-radius:50%; border:2px solid transparent; cursor:pointer; transition:transform .15s; }
+  .dot.sel { border-color:var(--parchment); transform:scale(1.1); }
 
-  /* genre editor */
-  .genre-box {
-    border: 1px solid var(--line); border-radius: var(--r-md);
-    background: var(--card); padding: 9px;
-  }
-  .genre-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
-  .genre-tags:empty { display: none; }
+  .genre-box { border:1px solid var(--line); border-radius:var(--r-md); background:var(--card); padding:9px; }
+  .genre-tags { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:8px; }
+  .genre-tags:empty { display:none; }
   .g-tag {
-    display: inline-flex; align-items: center; gap: 5px;
-    font-size: 12.5px; padding: 4px 6px 4px 10px; border-radius: 100px;
-    background: rgba(201,162,39,.12); color: var(--brass);
-    border: 1px solid rgba(201,162,39,.28);
+    display:inline-flex; align-items:center; gap:5px; font-size:12.5px;
+    padding:4px 6px 4px 10px; border-radius:100px; background:rgba(201,162,39,.12);
+    color:var(--brass); border:1px solid rgba(201,162,39,.28);
   }
-  .g-tag button {
-    background: none; border: none; color: inherit; cursor: pointer;
-    font-size: 15px; line-height: 1; padding: 0 2px; opacity: .7;
-  }
-  .genre-box input[type=text] {
-    border: none; background: transparent; padding: 4px 4px; font-size: 15px;
-  }
-  .genre-box input[type=text]:focus { border: none; }
-  .genre-sugg { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 9px; }
+  .g-tag button { background:none; border:none; color:inherit; cursor:pointer; font-size:15px; line-height:1; padding:0 2px; opacity:.7; }
+  .genre-box input[type=text] { border:none; background:transparent; padding:4px; font-size:15px; }
+  .genre-sugg { display:flex; flex-wrap:wrap; gap:6px; margin-top:9px; }
   .g-sugg {
-    font-size: 12px; padding: 5px 10px; border-radius: 100px;
-    border: 1px dashed var(--line); background: none;
-    color: var(--text-faint); cursor: pointer; font-family: var(--body);
+    font-size:12px; padding:5px 10px; border-radius:100px; border:1px dashed var(--line);
+    background:none; color:var(--text-faint); cursor:pointer; font-family:var(--body);
   }
-  .g-sugg:active { border-style: solid; color: var(--text-soft); }
+  .g-sugg:active { border-style:solid; color:var(--text-soft); }
 
-  .lookup-row { display: flex; align-items: center; gap: 12px; padding: 10px; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--card); }
+  .lookup-row { display:flex; align-items:center; gap:12px; padding:10px; border:1px solid var(--line); border-radius:var(--r-md); background:var(--card); }
   .lookup-prev {
-    width: 42px; height: 62px; border-radius: 4px; flex-shrink: 0;
-    background: var(--card-hi); overflow: hidden;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 10px; color: var(--text-faint);
+    width:42px; height:62px; border-radius:4px; flex-shrink:0; background:var(--card-hi);
+    overflow:hidden; display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--text-faint);
   }
-  .lookup-prev img { width: 100%; height: 100%; object-fit: cover; }
-  .lookup-txt { flex: 1; font-size: 12.5px; color: var(--text-soft); }
+  .lookup-prev img { width:100%; height:100%; object-fit:cover; }
+  .lookup-txt { flex:1; font-size:12.5px; color:var(--text-soft); min-width:0; }
   .mini-btn {
-    padding: 9px 13px; border-radius: 9px; border: 1px solid var(--line);
-    background: transparent; color: var(--text-soft);
-    font-family: var(--body); font-size: 12.5px; cursor: pointer;
+    padding:9px 13px; border-radius:9px; border:1px solid var(--line); background:transparent;
+    color:var(--text-soft); font-family:var(--body); font-size:12.5px; cursor:pointer; flex-shrink:0;
   }
-  .mini-btn:active { background: var(--card-hi); }
-  .mini-btn:disabled { opacity: .5; }
+  .mini-btn:active { background:var(--card-hi); }
+  .mini-btn:disabled { opacity:.5; }
 
-  .sheet-btns { display: flex; gap: 9px; margin-top: 22px; }
+  .sheet-btns { display:flex; gap:9px; margin-top:22px; }
   .btn {
-    flex: 1; padding: 13px; border-radius: var(--r-md); border: none;
-    font-family: var(--body); font-size: 15.5px; font-weight: 600;
-    cursor: pointer; transition: opacity .15s, transform .1s;
+    flex:1; padding:13px; border-radius:var(--r-md); border:none; font-family:var(--body);
+    font-size:15.5px; font-weight:600; cursor:pointer; transition:opacity .15s, transform .1s;
   }
-  .btn:active { transform: scale(.98); }
-  .btn.primary { background: var(--brass); color: #14100D; }
-  .btn.secondary { background: transparent; color: var(--text-soft); border: 1px solid var(--line); }
-  .btn:disabled { opacity: .5; }
+  .btn:active { transform:scale(.98); }
+  .btn.primary { background:var(--brass); color:#14100D; }
+  .btn.secondary { background:transparent; color:var(--text-soft); border:1px solid var(--line); }
+  .btn:disabled { opacity:.5; }
 
-  /* ---------- Goal ---------- */
-  .goal-card {
-    background: var(--card); border: 1px solid var(--line-soft);
-    border-radius: var(--r-lg); padding: 17px; margin-bottom: 14px;
-  }
-  .goal-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
-  .goal-label { font-size: 12.5px; color: var(--text-soft); }
-  .goal-edit {
-    background: none; border: none; color: var(--text-faint);
-    font-family: var(--body); font-size: 12.5px; text-decoration: underline; cursor: pointer;
-  }
-  .goal-nums {
-    font-family: var(--display); font-size: 27px; font-weight: 600;
-    color: var(--brass); font-variation-settings: 'SOFT' 40; line-height: 1.15;
-  }
-  .goal-nums small { font-size: 15px; color: var(--text-faint); font-weight: 400; }
-  .goal-track {
-    display: block; height: 9px; background: var(--card-hi);
-    border-radius: 100px; overflow: hidden; margin: 11px 0 7px;
-  }
-  .goal-fill { display: block; height: 100%; background: linear-gradient(90deg, #A98515, var(--brass)); border-radius: 100px; }
-  .goal-note { font-size: 12.5px; color: var(--text-faint); }
-  .goal-none { font-size: 13px; color: var(--text-faint); }
+  /* ---------- goal + stats ---------- */
+  .goal-card { background:var(--card); border:1px solid var(--line-soft); border-radius:var(--r-lg); padding:17px; margin-bottom:14px; }
+  .goal-top { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:4px; }
+  .goal-label { font-size:12.5px; color:var(--text-soft); }
+  .goal-edit { background:none; border:none; color:var(--text-faint); font-family:var(--body); font-size:12.5px; text-decoration:underline; cursor:pointer; }
+  .goal-nums { font-family:var(--display); font-size:27px; font-weight:600; color:var(--brass); font-variation-settings:'SOFT' 40; line-height:1.15; }
+  .goal-nums small { font-size:15px; color:var(--text-faint); font-weight:400; }
+  .goal-track { display:block; height:9px; background:var(--card-hi); border-radius:100px; overflow:hidden; margin:11px 0 7px; }
+  .goal-fill { display:block; height:100%; background:linear-gradient(90deg,#A98515,var(--brass)); border-radius:100px; }
+  .goal-note { font-size:12.5px; color:var(--text-faint); }
+  .goal-none { font-size:13px; color:var(--text-faint); }
 
-  /* ---------- Stats ---------- */
-  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 6px; }
-  .stat-box {
-    background: var(--card); border: 1px solid var(--line-soft);
-    border-radius: var(--r-md); padding: 14px;
-  }
-  .stat-num {
-    font-family: var(--display); font-size: 27px; font-weight: 600;
-    color: var(--brass); line-height: 1.1; font-variation-settings: 'SOFT' 40;
-  }
-  .stat-lbl { font-size: 12px; color: var(--text-soft); margin-top: 3px; }
-  .stat-section-title {
-    font-family: var(--display); font-size: 15px; font-weight: 600; margin: 22px 0 10px;
-  }
-  .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 7px; }
-  .bar-lbl { font-size: 12.5px; color: var(--text-soft); width: 82px; flex-shrink: 0;
-             white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .bar-lbl.narrow { width: 42px; }
-  .bar-track { flex: 1; height: 8px; background: var(--card-hi); border-radius: 100px; overflow: hidden; display: block; }
-  .bar-fill { display: block; height: 100%; min-width: 6px; background: var(--brass); border-radius: 100px; }
-  .bar-val { font-size: 12px; color: var(--text-faint); width: 20px; text-align: right; }
-  .rank-row {
-    display: flex; justify-content: space-between; align-items: center; gap: 10px;
-    padding: 9px 0; border-bottom: 1px solid var(--line-soft); font-size: 14px;
-  }
-  .rank-row:last-child { border-bottom: none; }
-  .rank-name { color: var(--text); min-width: 0; overflow-wrap: anywhere; }
-  .rank-cnt { color: var(--text-faint); font-size: 12.5px; flex-shrink: 0; }
+  .stat-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:6px; }
+  .stat-box { background:var(--card); border:1px solid var(--line-soft); border-radius:var(--r-md); padding:14px; }
+  .stat-num { font-family:var(--display); font-size:27px; font-weight:600; color:var(--brass); line-height:1.1; font-variation-settings:'SOFT' 40; }
+  .stat-lbl { font-size:12px; color:var(--text-soft); margin-top:3px; }
+  .stat-section-title { font-family:var(--display); font-size:15px; font-weight:600; margin:22px 0 10px; }
+  .bar-row { display:flex; align-items:center; gap:10px; margin-bottom:7px; }
+  .bar-lbl { font-size:12.5px; color:var(--text-soft); width:82px; flex-shrink:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .bar-lbl.narrow { width:42px; }
+  .bar-track { flex:1; height:8px; background:var(--card-hi); border-radius:100px; overflow:hidden; display:block; }
+  .bar-fill { display:block; height:100%; min-width:6px; background:var(--brass); border-radius:100px; }
+  .bar-val { font-size:12px; color:var(--text-faint); width:20px; text-align:right; }
+  .rank-row { display:flex; justify-content:space-between; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid var(--line-soft); font-size:14px; }
+  .rank-row:last-child { border-bottom:none; }
+  .rank-name { color:var(--text); min-width:0; overflow-wrap:anywhere; }
+  .rank-cnt { color:var(--text-faint); font-size:12.5px; flex-shrink:0; }
 
-  /* ---------- Status line ---------- */
-  .status-line {
-    font-size: 12.5px; color: var(--text-faint); text-align: center;
-    margin: 0 0 14px; min-height: 15px;
-    display: flex; align-items: center; justify-content: center; gap: 6px;
-  }
-  .status-line.err { color: var(--danger); }
-  .status-line.hide { display: none; }
-  .pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--brass); animation: pl 1.2s infinite; }
+  .status-line { font-size:12.5px; color:var(--text-faint); text-align:center; margin:0 0 14px; min-height:15px; display:flex; align-items:center; justify-content:center; gap:6px; }
+  .status-line.err { color:var(--danger); }
+  .status-line.hide { display:none; }
+  .pulse { width:6px; height:6px; border-radius:50%; background:var(--brass); animation:pl 1.2s infinite; }
   @keyframes pl { 0%,100%{opacity:.3} 50%{opacity:1} }
 
-  @media (prefers-reduced-motion: reduce) {
-    * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
-  }
+  @media (prefers-reduced-motion:reduce) { * { animation-duration:.01ms !important; transition-duration:.01ms !important; } }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
     <button class="logo-btn" id="logoBtn" aria-label="Domov">
-      <img class="logo-mark" id="logoImg" src="data:image/png;base64,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" alt="">
+      <img class="logo-mark" id="logoImg" src="data:image/png;base64,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" alt="">
       <h1>Bralnik</h1>
     </button>
   </header>
 
   <div id="statusLine" class="status-line hide"></div>
 
-  <!-- ============ BOOKS ============ -->
   <div id="booksView">
     <div class="search-bar">
       <span class="s-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
@@ -498,20 +394,20 @@
       <button class="chip" data-filter="dnf">Opuščeno <span class="cnum" id="c-dnf"></span></button>
     </div>
 
-    <div class="chip-row genre-row" id="genreRow" style="display:none"></div>
-
-    <div class="chip-row sort-row" id="sortRow">
-      <button class="chip active" data-sort="new">Najnovejše</button>
-      <button class="chip" data-sort="old">Najstarejše</button>
-      <button class="chip" data-sort="rating">Najbolje ocenjeno</button>
-      <button class="chip" data-sort="az">A–Ž naslov</button>
-      <button class="chip" data-sort="author">Avtor</button>
+    <div class="toolbar">
+      <button class="tool-btn" id="sortBtn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h13M3 12h9M3 18h5"/><path d="M17 15l3 3 3-3"/><path d="M20 18V7"/></svg>
+        <span class="tb-val" id="sortLabel">Najnovejše</span>
+      </button>
+      <button class="tool-btn" id="genreBtn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 8.7l-8.3-5.6a1 1 0 0 0-1.1 0L3 8.7"/><path d="M4 10v9a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-9"/></svg>
+        <span class="tb-val" id="genreLabel">Žanri</span>
+      </button>
     </div>
 
     <div class="grid" id="list"></div>
   </div>
 
-  <!-- ============ STATS ============ -->
   <div id="statsView" style="display:none"></div>
 </div>
 
@@ -531,7 +427,25 @@
   </div>
 </nav>
 
-<!-- ============ BOOK SHEET ============ -->
+<!-- sort sheet -->
+<div class="overlay" id="sortOverlay">
+  <div class="sheet compact">
+    <div class="handle"></div>
+    <h2>Razvrsti</h2>
+    <div class="opt-list" id="sortOpts"></div>
+  </div>
+</div>
+
+<!-- genre sheet -->
+<div class="overlay" id="genreOverlay">
+  <div class="sheet compact">
+    <div class="handle"></div>
+    <h2>Žanri</h2>
+    <div class="opt-list" id="genreOpts"></div>
+  </div>
+</div>
+
+<!-- book sheet -->
 <div class="overlay" id="overlay">
   <div class="sheet">
     <div class="handle"></div>
@@ -543,10 +457,12 @@
     <label for="fAuthor">Avtor</label>
     <input type="text" id="fAuthor" placeholder="npr. Fjodor Dostojevski">
 
-    <label>Podatki o knjigi</label>
+    <label>Podatki o knjigi
+      <span class="hint">Poišče avtorja, naslovnico, leto izida, strani in žanre.</span>
+    </label>
     <div class="lookup-row">
       <div class="lookup-prev" id="lookupPrev">brez</div>
-      <div class="lookup-txt" id="lookupTxt">Poišči naslovnico, leto, strani in žanre.</div>
+      <div class="lookup-txt" id="lookupTxt">Vpiši naslov in pritisni Poišči.</div>
       <button class="mini-btn" id="lookupBtn">Poišči</button>
     </div>
 
@@ -558,10 +474,20 @@
       <button data-status="dnf">Opuščeno</button>
     </div>
 
-    <label>Ocena</label>
-    <div class="star-pick" id="starPick"></div>
+    <label>Moja ocena</label>
+    <div class="rate-box">
+      <div class="rate-display">
+        <span class="rate-stars">
+          <span class="rate-bg">★★★★★</span>
+          <span class="rate-fg" id="rateFg" style="width:0">★★★★★</span>
+        </span>
+        <span class="rate-val none" id="rateVal">brez ocene</span>
+      </div>
+      <input type="range" class="rate-range" id="fRating" min="0" max="5" step="0.5" value="0" aria-label="Ocena">
+      <div class="rate-scale"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+    </div>
 
-    <label>Kdaj prebrano</label>
+    <label>Kdaj sem prebral</label>
     <div class="date-row">
       <select id="fMonth"></select>
       <select id="fYear"></select>
@@ -578,6 +504,9 @@
       </div>
     </div>
 
+    <label for="fPublished">Leto izida <span class="hint">Podatek o knjigi, ne o tvojem branju.</span></label>
+    <input type="number" id="fPublished" inputmode="numeric" placeholder="npr. 2010">
+
     <label>Žanri</label>
     <div class="genre-box">
       <div class="genre-tags" id="genreTags"></div>
@@ -588,11 +517,11 @@
     <label>Barva oznake</label>
     <div class="color-row" id="colorRow"></div>
 
-    <label for="fQuotes">Citati</label>
-    <textarea id="fQuotes" class="quotes" placeholder="Odlomki, ki si jih želiš zapomniti…"></textarea>
+    <label for="fQuotes">Citati <span class="hint">Vsaka nova vrstica je svoj citat.</span></label>
+    <textarea id="fQuotes" class="quotes" placeholder="Prvi citat…&#10;Drugi citat…"></textarea>
 
-    <label for="fNotes">Opombe</label>
-    <textarea id="fNotes" placeholder="Tvoje misli o knjigi…"></textarea>
+    <label for="fNotes">Opombe <span class="hint">Vsaka nova vrstica je svoja opomba.</span></label>
+    <textarea id="fNotes" placeholder="Prva misel…&#10;Druga misel…"></textarea>
 
     <div class="sheet-btns">
       <button class="btn secondary" id="cancelBtn">Prekliči</button>
@@ -601,9 +530,9 @@
   </div>
 </div>
 
-<!-- ============ GOAL SHEET ============ -->
+<!-- goal sheet -->
 <div class="overlay" id="goalOverlay">
-  <div class="sheet">
+  <div class="sheet compact">
     <div class="handle"></div>
     <h2>Letni cilj</h2>
     <label class="first" for="fGoal">Koliko knjig želiš prebrati v <span id="goalYearTxt"></span>?</label>
@@ -636,25 +565,30 @@ const db = getFirestore(app);
 const booksCol = collection(db, "books");
 const settingsDoc = doc(db, "settings", "app");
 
-/* ---------- constants ---------- */
-const PALETTE = ['#C9A227', '#C97B5A', '#8FA98A', '#7A93B8', '#9C7BA8', '#B58A6E'];
+const PALETTE = ['#C9A227','#C97B5A','#8FA98A','#7A93B8','#9C7BA8','#B58A6E'];
 const MONTHS = ['januar','februar','marec','april','maj','junij','julij','avgust','september','oktober','november','december'];
 const STATUS_LABEL = { read:'Prebrano', current:'Berem', wish:'Želim brati', dnf:'Opuščeno' };
 const STATUS_CLASS = { read:'status-read', current:'status-current', wish:'status-wish', dnf:'status-dnf' };
 const GENRE_SUGG = ['roman','biografija','zgodovina','kriminalka','fantazija','znanstvena fantastika','psihologija','poezija','popotniško','gore','esej','poslovno'];
+const SORTS = [
+  { k:'new',    label:'Najnovejše' },
+  { k:'old',    label:'Najstarejše' },
+  { k:'rating', label:'Najbolje ocenjeno' },
+  { k:'az',     label:'A–Ž po naslovu' },
+  { k:'author', label:'Po avtorju' }
+];
 
 const thisYear = new Date().getFullYear();
 
-/* ---------- state ---------- */
 let books = [];
-let settings = { goal: null, goalYear: thisYear };
+let settings = { goal:null, goalYear:thisYear };
 let editingId = null;
 let currentSort = 'new';
 let currentFilter = 'all';
 let currentGenre = null;
 let view = 'books';
 let expanded = new Set();
-let form = { color: PALETTE[0], status: 'read', rating: 0, month: '', year: '', coverUrl: '', genres: [] };
+let form = { color:PALETTE[0], status:'read', rating:0, month:'', year:'', coverUrl:'', genres:[] };
 
 const $ = id => document.getElementById(id);
 const statusLine = $('statusLine');
@@ -663,59 +597,36 @@ function esc(s) {
   return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 function setStatus(msg, isErr) {
-  if (!msg) { statusLine.classList.add('hide'); statusLine.innerHTML = ''; return; }
+  if (!msg) { statusLine.classList.add('hide'); statusLine.innerHTML=''; return; }
   statusLine.classList.remove('hide');
   statusLine.classList.toggle('err', !!isErr);
   statusLine.innerHTML = isErr ? esc(msg) : `<span class="pulse"></span>${esc(msg)}`;
 }
-
-/* ---------- stars ---------- */
-function starHtml(rating) {
-  const r = Number(rating) || 0;
-  if (!r) return '';
-  const pct = (r / 5) * 100;
-  return `<span class="stars-wrap"><span class="stars-bg">★★★★★</span>` +
-         `<span class="stars-fg" style="width:${pct}%">★★★★★</span></span>` +
-         `<span class="rating-num">${fmtRating(r)}</span>`;
+/* accepts legacy string OR array; returns clean array of lines */
+function toLines(v) {
+  if (Array.isArray(v)) return v.map(x => String(x).trim()).filter(Boolean);
+  return String(v || '').split('\n').map(x => x.trim()).filter(Boolean);
 }
-function fmtRating(r) {
-  return Number.isInteger(r) ? String(r) : r.toFixed(1);
-}
+function fmtRating(r) { return Number.isInteger(r) ? String(r) : r.toFixed(1).replace('.', ','); }
 
-const starPick = $('starPick');
-starPick.innerHTML = [1,2,3,4,5].map(n => `
-  <span class="star-unit" data-unit="${n}">
-    <span class="star-glyph">★</span>
-    <span class="star-glyph fill" data-fill="${n}" style="width:0"><span>★</span></span>
-    <button class="star-half" data-val="${n - 0.5}" aria-label="${n - 0.5} zvezdic"></button>
-    <button class="star-full" data-val="${n}" aria-label="${n} zvezdic"></button>
-  </span>`).join('') +
-  `<span class="star-val" id="starVal"></span>` +
-  `<button class="star-clear" data-val="0">počisti</button>`;
-
-starPick.querySelectorAll('button[data-val]').forEach(b => {
-  b.onclick = () => { form.rating = Number(b.dataset.val); syncStars(); };
-});
-function syncStars() {
-  starPick.querySelectorAll('.star-glyph.fill').forEach(g => {
-    const n = Number(g.dataset.fill);
-    const diff = form.rating - (n - 1);
-    const pct = diff >= 1 ? 100 : diff <= 0 ? 0 : diff * 100;
-    g.style.width = pct + '%';
-  });
-  $('starVal').textContent = form.rating ? fmtRating(form.rating) : '';
+/* ---------- rating slider ---------- */
+const rateInput = $('fRating');
+function syncRate() {
+  const r = Number(rateInput.value) || 0;
+  form.rating = r;
+  $('rateFg').style.width = (r / 5 * 100) + '%';
+  const el = $('rateVal');
+  el.textContent = r ? fmtRating(r) : 'brez ocene';
+  el.classList.toggle('none', !r);
 }
+rateInput.addEventListener('input', syncRate);
 
 /* ---------- form controls ---------- */
 $('colorRow').innerHTML = PALETTE.map(c => `<div class="dot" data-color="${c}" style="background:${c}"></div>`).join('');
 $('colorRow').querySelectorAll('.dot').forEach(d => { d.onclick = () => { form.color = d.dataset.color; syncColor(); }; });
-function syncColor() {
-  $('colorRow').querySelectorAll('.dot').forEach(d => d.classList.toggle('sel', d.dataset.color === form.color));
-}
+function syncColor() { $('colorRow').querySelectorAll('.dot').forEach(d => d.classList.toggle('sel', d.dataset.color === form.color)); }
 
-$('statusSeg').querySelectorAll('button').forEach(b => {
-  b.onclick = () => { form.status = b.dataset.status; syncStatus(); };
-});
+$('statusSeg').querySelectorAll('button').forEach(b => { b.onclick = () => { form.status = b.dataset.status; syncStatus(); }; });
 function syncStatus() {
   $('statusSeg').querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.status === form.status));
   $('pageAtWrap').style.display = (form.status === 'current' || form.status === 'dnf') ? '' : 'none';
@@ -731,43 +642,29 @@ monthSel.onchange = () => { form.month = monthSel.value; };
 yearSel.onchange  = () => { form.year  = yearSel.value; };
 
 /* ---------- genres ---------- */
-function normGenre(g) { return String(g || '').trim().toLowerCase().replace(/\s+/g, ' '); }
+function normGenre(g) { return String(g||'').trim().toLowerCase().replace(/\s+/g,' '); }
 function addGenre(g) {
   const v = normGenre(g);
   if (!v || form.genres.includes(v) || form.genres.length >= 8) return;
-  form.genres.push(v);
-  renderGenreTags();
+  form.genres.push(v); renderGenreTags();
 }
-function removeGenre(g) {
-  form.genres = form.genres.filter(x => x !== g);
-  renderGenreTags();
-}
+function removeGenre(g) { form.genres = form.genres.filter(x => x !== g); renderGenreTags(); }
 function renderGenreTags() {
-  $('genreTags').innerHTML = form.genres.map(g =>
-    `<span class="g-tag">${esc(g)}<button data-g="${esc(g)}" aria-label="Odstrani">×</button></span>`).join('');
+  $('genreTags').innerHTML = form.genres.map(g => `<span class="g-tag">${esc(g)}<button data-g="${esc(g)}" aria-label="Odstrani">×</button></span>`).join('');
   $('genreTags').querySelectorAll('button').forEach(b => { b.onclick = () => removeGenre(b.dataset.g); });
-  $('genreSugg').querySelectorAll('.g-sugg').forEach(s => {
-    s.style.display = form.genres.includes(s.dataset.g) ? 'none' : '';
-  });
+  $('genreSugg').querySelectorAll('.g-sugg').forEach(s => { s.style.display = form.genres.includes(s.dataset.g) ? 'none' : ''; });
 }
 $('genreSugg').innerHTML = GENRE_SUGG.map(g => `<button class="g-sugg" data-g="${g}">+ ${g}</button>`).join('');
 $('genreSugg').querySelectorAll('.g-sugg').forEach(b => { b.onclick = () => addGenre(b.dataset.g); });
 $('genreInput').addEventListener('keydown', e => {
-  if (e.key === 'Enter' || e.key === ',') {
-    e.preventDefault();
-    addGenre(e.target.value);
-    e.target.value = '';
-  }
+  if (e.key === 'Enter' || e.key === ',') { e.preventDefault(); addGenre(e.target.value); e.target.value=''; }
 });
-$('genreInput').addEventListener('blur', e => {
-  if (e.target.value.trim()) { addGenre(e.target.value); e.target.value = ''; }
-});
+$('genreInput').addEventListener('blur', e => { if (e.target.value.trim()) { addGenre(e.target.value); e.target.value=''; } });
 
-/* ---------- book data lookup ---------- */
-function httpsify(u) { return String(u || '').replace(/^http:/, 'https:'); }
+/* ---------- lookup ---------- */
+function httpsify(u) { return String(u||'').replace(/^http:/,'https:'); }
 
 async function lookupBook(title, author) {
-  // 1) Google Books — much better coverage for Slovenian titles
   const tries = [];
   if (author) tries.push(`intitle:"${title}" inauthor:"${author}"`);
   tries.push(`intitle:"${title}"`);
@@ -775,43 +672,35 @@ async function lookupBook(title, author) {
 
   for (const q of tries) {
     try {
-      const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(q)}&maxResults=5`;
-      const r = await fetch(url);
+      const r = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(q)}&maxResults=5`);
       if (!r.ok) continue;
       const d = await r.json();
       const item = (d.items || [])[0];
       if (!item) continue;
       const v = item.volumeInfo || {};
       return {
-        source: 'google',
         author: (v.authors || [])[0] || '',
-        year: (String(v.publishedDate || '').match(/\d{4}/) || [])[0] || '',
+        published: (String(v.publishedDate || '').match(/\d{4}/) || [])[0] || '',
         pages: v.pageCount || '',
-        genres: (v.categories || []).slice(0, 3).map(normGenre),
+        genres: (v.categories || []).slice(0,3).map(normGenre),
         cover: httpsify(v.imageLinks?.thumbnail || v.imageLinks?.smallThumbnail || '')
       };
-    } catch (e) { /* try next */ }
+    } catch (e) { /* next */ }
   }
-
-  // 2) OpenLibrary fallback
   try {
-    const p = new URLSearchParams({ title, limit: '5' });
+    const p = new URLSearchParams({ title, limit:'5' });
     if (author) p.set('author', author);
     const r = await fetch(`https://openlibrary.org/search.json?${p}`);
     const d = await r.json();
     const hit = (d.docs || []).find(x => x.cover_i) || (d.docs || [])[0];
-    if (hit) {
-      return {
-        source: 'openlibrary',
-        author: (hit.author_name || [])[0] || '',
-        year: hit.first_publish_year || '',
-        pages: hit.number_of_pages_median || '',
-        genres: [],
-        cover: hit.cover_i ? `https://covers.openlibrary.org/b/id/${hit.cover_i}-M.jpg` : ''
-      };
-    }
+    if (hit) return {
+      author: (hit.author_name || [])[0] || '',
+      published: hit.first_publish_year || '',
+      pages: hit.number_of_pages_median || '',
+      genres: [],
+      cover: hit.cover_i ? `https://covers.openlibrary.org/b/id/${hit.cover_i}-M.jpg` : ''
+    };
   } catch (e) { /* ignore */ }
-
   return null;
 }
 
@@ -823,41 +712,32 @@ $('lookupBtn').onclick = async () => {
   const btn = $('lookupBtn');
   btn.disabled = true;
   $('lookupTxt').textContent = 'Iščem…';
-
   const res = await lookupBook(title, author);
   btn.disabled = false;
 
-  if (!res) {
-    $('lookupTxt').textContent = 'Nič najdenega. Vpiši ročno.';
-    return;
-  }
+  if (!res) { $('lookupTxt').textContent = 'Nič najdenega. Vpiši ročno.'; return; }
 
   const filled = [];
   if (res.cover) { form.coverUrl = res.cover; renderLookupPrev(); filled.push('naslovnica'); }
   if (res.author && !$('fAuthor').value.trim()) { $('fAuthor').value = res.author; filled.push('avtor'); }
   if (res.pages && !$('fPages').value.trim()) { $('fPages').value = res.pages; filled.push('strani'); }
-  if (res.year && !form.year) {
-    const opt = [...yearSel.options].find(o => o.value === String(res.year));
-    if (opt) { form.year = String(res.year); yearSel.value = form.year; filled.push('leto'); }
-  }
+  if (res.published && !$('fPublished').value.trim()) { $('fPublished').value = res.published; filled.push('leto izida'); }
   if (res.genres && res.genres.length) {
     const before = form.genres.length;
     res.genres.forEach(addGenre);
     if (form.genres.length > before) filled.push('žanri');
   }
-
   $('lookupTxt').textContent = filled.length
     ? 'Izpolnjeno: ' + filled.join(', ') + '.'
     : 'Najdeno, a vsa polja so že izpolnjena.';
 };
-
 function renderLookupPrev() {
   const el = $('lookupPrev');
   if (form.coverUrl) el.innerHTML = `<img src="${esc(form.coverUrl)}" alt="">`;
   else el.textContent = 'brez';
 }
 
-/* ---------- navigation ---------- */
+/* ---------- nav ---------- */
 function goTo(v) {
   view = v;
   $('booksView').style.display = v === 'books' ? '' : 'none';
@@ -873,13 +753,11 @@ $('logoBtn').onclick = () => {
   $('search').value = '';
   currentFilter = 'all'; currentGenre = null; currentSort = 'new';
   $('filterRow').querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c.dataset.filter === 'all'));
-  $('sortRow').querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c.dataset.sort === 'new'));
-  expanded.clear();
-  render();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  expanded.clear(); render();
+  window.scrollTo({ top:0, behavior:'smooth' });
 };
 
-/* ---------- filters / sort ---------- */
+/* ---------- filters ---------- */
 $('filterRow').querySelectorAll('.chip').forEach(c => {
   c.onclick = () => {
     $('filterRow').querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
@@ -888,66 +766,88 @@ $('filterRow').querySelectorAll('.chip').forEach(c => {
     render();
   };
 });
-$('sortRow').querySelectorAll('.chip').forEach(c => {
-  c.onclick = () => {
-    $('sortRow').querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
-    c.classList.add('active');
-    currentSort = c.dataset.sort;
-    render();
-  };
-});
+
+/* sort sheet */
+function openSort() {
+  $('sortOpts').innerHTML = SORTS.map(s => `
+    <button class="opt ${s.k === currentSort ? 'on' : ''}" data-sort="${s.k}">
+      <span>${s.label}</span>
+      <span class="opt-tick"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+    </button>`).join('');
+  $('sortOpts').querySelectorAll('.opt').forEach(o => {
+    o.onclick = () => { currentSort = o.dataset.sort; closeSort(); render(); };
+  });
+  $('sortOverlay').classList.add('open');
+}
+function closeSort() { $('sortOverlay').classList.remove('open'); }
+$('sortBtn').onclick = openSort;
+$('sortOverlay').onclick = e => { if (e.target.id === 'sortOverlay') closeSort(); };
+
+/* genre sheet */
+function genreCounts() {
+  const c = {};
+  books.forEach(b => (b.genres || []).forEach(g => { c[g] = (c[g]||0) + 1; }));
+  return Object.entries(c).sort((a,b) => b[1]-a[1] || a[0].localeCompare(b[0],'sl'));
+}
+function openGenre() {
+  const list = genreCounts();
+  $('genreOpts').innerHTML =
+    `<button class="opt ${currentGenre ? '' : 'on'}" data-genre="">
+       <span>Vsi žanri</span>
+       <span class="opt-tick"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+     </button>` +
+    (list.length
+      ? list.map(([g,c]) => `
+        <button class="opt ${currentGenre===g?'on':''}" data-genre="${esc(g)}">
+          <span>${esc(g)}</span><span class="opt-count">${c}</span>
+          <span class="opt-tick"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+        </button>`).join('')
+      : `<p class="empty-sub" style="padding:14px 4px">Ni še nobenega žanra. Dodaj jih pri urejanju knjige.</p>`);
+  $('genreOpts').querySelectorAll('.opt').forEach(o => {
+    o.onclick = () => { currentGenre = o.dataset.genre || null; closeGenre(); render(); };
+  });
+  $('genreOverlay').classList.add('open');
+}
+function closeGenre() { $('genreOverlay').classList.remove('open'); }
+$('genreBtn').onclick = openGenre;
+$('genreOverlay').onclick = e => { if (e.target.id === 'genreOverlay') closeGenre(); };
 
 function sortBooks(arr) {
   const a = [...arr];
   switch (currentSort) {
-    case 'old':    return a.sort((x,y) => (x.createdAtMs||0) - (y.createdAtMs||0));
-    case 'rating': return a.sort((x,y) => (Number(y.rating)||0) - (Number(x.rating)||0) || (y.createdAtMs||0) - (x.createdAtMs||0));
-    case 'az':     return a.sort((x,y) => (x.title||'').localeCompare(y.title||'', 'sl'));
-    case 'author': return a.sort((x,y) => (x.author||'').localeCompare(y.author||'', 'sl'));
-    default:       return a.sort((x,y) => (y.createdAtMs||0) - (x.createdAtMs||0));
+    case 'old':    return a.sort((x,y) => (x.createdAtMs||0)-(y.createdAtMs||0));
+    case 'rating': return a.sort((x,y) => (Number(y.rating)||0)-(Number(x.rating)||0) || (y.createdAtMs||0)-(x.createdAtMs||0));
+    case 'az':     return a.sort((x,y) => (x.title||'').localeCompare(y.title||'','sl'));
+    case 'author': return a.sort((x,y) => (x.author||'').localeCompare(y.author||'','sl'));
+    default:       return a.sort((x,y) => (y.createdAtMs||0)-(x.createdAtMs||0));
   }
 }
 
 /* ---------- render ---------- */
-function render() {
-  if (view === 'stats') { renderStats(); return; }
-  renderBooks();
-}
-
-function renderGenreFilter() {
-  const counts = {};
-  books.forEach(b => (b.genres || []).forEach(g => { counts[g] = (counts[g] || 0) + 1; }));
-  const list = Object.entries(counts).sort((a,b) => b[1] - a[1] || a[0].localeCompare(b[0], 'sl')).slice(0, 12);
-  const row = $('genreRow');
-  if (!list.length) { row.style.display = 'none'; row.innerHTML = ''; currentGenre = null; return; }
-  row.style.display = '';
-  row.innerHTML =
-    `<button class="chip ${currentGenre ? '' : 'active'}" data-genre="">Vsi žanri</button>` +
-    list.map(([g,c]) => `<button class="chip ${currentGenre===g?'active':''}" data-genre="${esc(g)}">${esc(g)} <span class="cnum">${c}</span></button>`).join('');
-  row.querySelectorAll('.chip').forEach(c => {
-    c.onclick = () => { currentGenre = c.dataset.genre || null; render(); };
-  });
-}
+function render() { view === 'stats' ? renderStats() : renderBooks(); }
 
 function renderBooks() {
   const list = $('list');
   const q = $('search').value.trim().toLowerCase();
 
-  const counts = { all: books.length, read:0, current:0, wish:0, dnf:0 };
+  const counts = { all:books.length, read:0, current:0, wish:0, dnf:0 };
   books.forEach(b => { const s = b.status || 'read'; if (counts[s] !== undefined) counts[s]++; });
-  ['all','read','current','wish','dnf'].forEach(k => { $('c-' + k).textContent = counts[k] || ''; });
+  ['all','read','current','wish','dnf'].forEach(k => { $('c-'+k).textContent = counts[k] || ''; });
 
-  renderGenreFilter();
+  $('sortLabel').textContent = (SORTS.find(s => s.k === currentSort) || SORTS[0]).label;
+  $('sortBtn').classList.toggle('on', currentSort !== 'new');
+  $('genreLabel').textContent = currentGenre || 'Žanri';
+  $('genreBtn').classList.toggle('on', !!currentGenre);
 
   let shown = books;
-  if (currentFilter !== 'all') shown = shown.filter(b => (b.status || 'read') === currentFilter);
-  if (currentGenre) shown = shown.filter(b => (b.genres || []).includes(currentGenre));
+  if (currentFilter !== 'all') shown = shown.filter(b => (b.status||'read') === currentFilter);
+  if (currentGenre) shown = shown.filter(b => (b.genres||[]).includes(currentGenre));
   if (q) {
     shown = shown.filter(b =>
       (b.title||'').toLowerCase().includes(q) ||
       (b.author||'').toLowerCase().includes(q) ||
-      (b.notes||'').toLowerCase().includes(q) ||
-      (b.quotes||'').toLowerCase().includes(q) ||
+      toLines(b.notes).join(' ').toLowerCase().includes(q) ||
+      toLines(b.quotes).join(' ').toLowerCase().includes(q) ||
       (b.genres||[]).some(g => g.includes(q))
     );
   }
@@ -964,30 +864,37 @@ function renderBooks() {
     return;
   }
 
-  list.innerHTML = shown.map(b => cardHtml(b)).join('');
-
+  list.innerHTML = shown.map(cardHtml).join('');
   list.querySelectorAll('.entry').forEach(el => {
     const id = el.getAttribute('data-id');
     el.querySelector('.entry-head').onclick = () => {
       if (expanded.has(id)) expanded.delete(id); else expanded.add(id);
       el.classList.toggle('open', expanded.has(id));
     };
-    const eb = el.querySelector('.editBtn');
-    if (eb) eb.onclick = ev => { ev.stopPropagation(); openSheet(id); };
-    const db_ = el.querySelector('.deleteBtn');
-    if (db_) db_.onclick = ev => { ev.stopPropagation(); removeBook(id); };
+    el.querySelector('.editBtn').onclick   = ev => { ev.stopPropagation(); openSheet(id); };
+    el.querySelector('.deleteBtn').onclick = ev => { ev.stopPropagation(); removeBook(id); };
   });
+}
+
+function starHtml(rating) {
+  const r = Number(rating) || 0;
+  if (!r) return '';
+  return `<span class="stars-wrap"><span class="stars-bg">★★★★★</span>` +
+         `<span class="stars-fg" style="width:${r/5*100}%">★★★★★</span></span>` +
+         `<span class="rating-num">${fmtRating(r)}</span>`;
 }
 
 function cardHtml(b) {
   const color = b.color || PALETTE[0];
   const initial = (b.title || '?').trim().charAt(0);
   const st = b.status || 'read';
-  const dateTxt = formatReadDate(b);
   const isOpen = expanded.has(b.id);
+  const quotes = toLines(b.quotes);
+  const notes  = toLines(b.notes);
   const genres = b.genres || [];
   const pages = Number(b.pages) || 0;
   const pageAt = Number(b.pageAt) || 0;
+  const dateTxt = formatReadDate(b);
 
   const coverHtml = b.coverUrl
     ? `<img src="${esc(b.coverUrl)}" alt="" onerror="this.parentNode.innerHTML='<span class=&quot;cover-fallback&quot;>${esc(initial)}</span>'">`
@@ -999,8 +906,15 @@ function cardHtml(b) {
          <span class="prog-txt">stran ${pageAt} od ${pages} · ${Math.min(100, Math.round(pageAt/pages*100))}%</span>
        </span>` : '';
 
+  const ICON_Q = `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M9.5 5C6 5 3.5 7.7 3.5 11.2c0 3 2.1 5.3 4.9 5.3 1.7 0 2.9-1 2.9-2.5 0-1.4-1-2.4-2.4-2.4-.3 0-.6 0-.8.1.3-1.7 1.8-3 3.6-3.2V5h-2.2Zm10 0c-3.5 0-6 2.7-6 6.2 0 3 2.1 5.3 4.9 5.3 1.7 0 2.9-1 2.9-2.5 0-1.4-1-2.4-2.4-2.4-.3 0-.6 0-.8.1.3-1.7 1.8-3 3.6-3.2V5h-2.2Z"/></svg>`;
+  const ICON_N = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>`;
+  const marks = [];
+  if (quotes.length) marks.push(`<span class="badge-count">${ICON_Q}${quotes.length}</span>`);
+  if (notes.length)  marks.push(`<span class="badge-count">${ICON_N}${notes.length}</span>`);
+
   const details = [];
   if (pages) details.push(`<span class="pill">${pages} str.</span>`);
+  if (b.published) details.push(`<span class="pill">izid ${esc(b.published)}</span>`);
   genres.forEach(g => details.push(`<span class="pill genre">${esc(g)}</span>`));
 
   return `
@@ -1014,6 +928,7 @@ function cardHtml(b) {
           <span class="status-tag ${STATUS_CLASS[st]}">${STATUS_LABEL[st]}</span>
           ${starHtml(b.rating)}
           ${dateTxt ? `<span class="date-tag">${esc(dateTxt)}</span>` : ''}
+          ${marks.join('')}
         </div>
         ${progress}
       </div>
@@ -1021,8 +936,10 @@ function cardHtml(b) {
     </div>
     <div class="entry-body">
       ${details.length ? `<div class="detail-row">${details.join('')}</div>` : ''}
-      ${b.quotes ? `<div class="entry-quotes"><span class="sec-label">Citati</span>${esc(b.quotes)}</div>` : ''}
-      ${b.notes ? `<div class="entry-notes"><span class="sec-label">Opombe</span>${esc(b.notes)}</div>` : ''}
+      ${quotes.length ? `<div class="block"><span class="sec-label">Citati</span>${
+        quotes.map(qq => `<div class="quote-item"><span class="qm qm-o">„</span>${esc(qq)}<span class="qm qm-c">“</span></div>`).join('')}</div>` : ''}
+      ${notes.length ? `<div class="block"><span class="sec-label">Opombe</span><div class="note-list">${
+        notes.map((n,i) => `<div class="note-item"><span class="note-num">${i+1}</span><span class="note-text">${esc(n)}</span></div>`).join('')}</div></div>` : ''}
       <div class="entry-actions">
         <button class="act-btn editBtn">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
@@ -1052,25 +969,24 @@ function renderStats() {
   const avg = rated.length ? rated.reduce((s,b) => s + Number(b.rating), 0) / rated.length : 0;
 
   const yearCount = {};
-  read.forEach(b => { if (b.readYear) yearCount[b.readYear] = (yearCount[b.readYear]||0) + 1; });
-  const years = Object.keys(yearCount).sort((a,b) => b - a).slice(0, 8);
+  read.forEach(b => { if (b.readYear) yearCount[b.readYear] = (yearCount[b.readYear]||0)+1; });
+  const years = Object.keys(yearCount).sort((a,b) => b-a).slice(0,8);
   const maxYear = Math.max(1, ...years.map(y => yearCount[y]));
 
   const authorCount = {};
-  books.forEach(b => { const a = (b.author||'').trim(); if (a) authorCount[a] = (authorCount[a]||0) + 1; });
-  const topAuthors = Object.entries(authorCount).sort((a,b) => b[1]-a[1]).slice(0, 5);
+  books.forEach(b => { const a = (b.author||'').trim(); if (a) authorCount[a] = (authorCount[a]||0)+1; });
+  const topAuthors = Object.entries(authorCount).sort((a,b) => b[1]-a[1]).slice(0,5);
 
-  const genreCount = {};
-  books.forEach(b => (b.genres||[]).forEach(g => { genreCount[g] = (genreCount[g]||0)+1; }));
-  const topGenres = Object.entries(genreCount).sort((a,b) => b[1]-a[1]).slice(0, 6);
+  const topGenres = genreCounts().slice(0,6);
   const maxGenre = Math.max(1, ...topGenres.map(g => g[1]));
 
-  const topRated = [...rated].sort((a,b) => Number(b.rating) - Number(a.rating)).slice(0, 5);
+  const topRated = [...rated].sort((a,b) => Number(b.rating)-Number(a.rating)).slice(0,5);
   const doneThisYear = yearCount[thisYear] || 0;
   const totalPages = read.reduce((s,b) => s + (Number(b.pages)||0), 0);
+  const quoteTotal = books.reduce((s,b) => s + toLines(b.quotes).length, 0);
 
   const goal = Number(settings.goal) || 0;
-  const goalPct = goal ? Math.min(100, doneThisYear / goal * 100) : 0;
+  const goalPct = goal ? Math.min(100, doneThisYear/goal*100) : 0;
   const left = Math.max(0, goal - doneThisYear);
 
   v.innerHTML = `
@@ -1082,19 +998,18 @@ function renderStats() {
       ${goal ? `
         <div class="goal-nums">${doneThisYear} <small>/ ${goal} knjig</small></div>
         <span class="goal-track"><span class="goal-fill" style="width:${goalPct.toFixed(0)}%"></span></span>
-        <span class="goal-note">${
-          doneThisYear >= goal
-            ? 'Cilj dosežen. Bravo!'
-            : `Še ${left} ${left === 1 ? 'knjiga' : left === 2 ? 'knjigi' : left <= 4 ? 'knjige' : 'knjig'} do cilja.`
-        }</span>
+        <span class="goal-note">${doneThisYear >= goal ? 'Cilj dosežen. Bravo!'
+          : `Še ${left} ${left===1?'knjiga':left===2?'knjigi':left<=4?'knjige':'knjig'} do cilja.`}</span>
       ` : `<div class="goal-none">Nastavi cilj in spremljaj napredek skozi leto.</div>`}
     </div>
 
     <div class="stat-grid">
       <div class="stat-box"><div class="stat-num">${books.length}</div><div class="stat-lbl">Vseh vnosov</div></div>
       <div class="stat-box"><div class="stat-num">${read.length}</div><div class="stat-lbl">Prebranih</div></div>
-      <div class="stat-box"><div class="stat-num">${avg ? avg.toFixed(1) : '—'}</div><div class="stat-lbl">Povprečna ocena</div></div>
+      <div class="stat-box"><div class="stat-num">${avg ? fmtRating(Math.round(avg*10)/10) : '—'}</div><div class="stat-lbl">Povprečna ocena</div></div>
       <div class="stat-box"><div class="stat-num">${totalPages ? totalPages.toLocaleString('sl') : '—'}</div><div class="stat-lbl">Prebranih strani</div></div>
+      <div class="stat-box"><div class="stat-num">${quoteTotal || '—'}</div><div class="stat-lbl">Zapisanih citatov</div></div>
+      <div class="stat-box"><div class="stat-num">${topGenres.length || '—'}</div><div class="stat-lbl">Različnih žanrov</div></div>
     </div>
 
     ${years.length ? `
@@ -1115,25 +1030,21 @@ function renderStats() {
           <span class="bar-lbl">${esc(g)}</span>
           <span class="bar-track"><span class="bar-fill" style="width:${(c/maxGenre*100).toFixed(0)}%"></span></span>
           <span class="bar-val">${c}</span>
-        </div>`).join('')}
-    ` : ''}
+        </div>`).join('')}` : ''}
 
     ${topAuthors.length ? `
       <div class="stat-section-title">Najpogostejši avtorji</div>
-      ${topAuthors.map(([a,c]) => `<div class="rank-row"><span class="rank-name">${esc(a)}</span><span class="rank-cnt">${c}×</span></div>`).join('')}
-    ` : ''}
+      ${topAuthors.map(([a,c]) => `<div class="rank-row"><span class="rank-name">${esc(a)}</span><span class="rank-cnt">${c}×</span></div>`).join('')}` : ''}
 
     ${topRated.length ? `
       <div class="stat-section-title">Najbolje ocenjene</div>
-      ${topRated.map(b => `<div class="rank-row"><span class="rank-name">${esc(b.title)}</span><span>${starHtml(b.rating)}</span></div>`).join('')}
-    ` : ''}
+      ${topRated.map(b => `<div class="rank-row"><span class="rank-name">${esc(b.title)}</span><span>${starHtml(b.rating)}</span></div>`).join('')}` : ''}
   `;
-
   const gb = $('goalEditBtn');
   if (gb) gb.onclick = openGoalSheet;
 }
 
-/* ---------- goal sheet ---------- */
+/* ---------- goal ---------- */
 function openGoalSheet() {
   $('goalYearTxt').textContent = thisYear;
   $('fGoal').value = settings.goal || '';
@@ -1147,15 +1058,10 @@ $('goalSave').onclick = async () => {
   const raw = $('fGoal').value.trim();
   const n = raw === '' ? null : Math.max(0, Math.floor(Number(raw)));
   if (raw !== '' && (!Number.isFinite(n) || n <= 0)) { $('fGoal').focus(); return; }
-  const btn = $('goalSave');
-  btn.disabled = true;
-  try {
-    await setDoc(settingsDoc, { goal: n, goalYear: thisYear }, { merge: true });
-    closeGoalSheet();
-  } catch (e) {
-    console.error(e);
-    setStatus('Cilja ni bilo mogoče shraniti.', true);
-  } finally { btn.disabled = false; }
+  const btn = $('goalSave'); btn.disabled = true;
+  try { await setDoc(settingsDoc, { goal:n, goalYear:thisYear }, { merge:true }); closeGoalSheet(); }
+  catch (e) { console.error(e); setStatus('Cilja ni bilo mogoče shraniti.', true); }
+  finally { btn.disabled = false; }
 };
 
 /* ---------- book sheet ---------- */
@@ -1164,79 +1070,74 @@ function openSheet(id) {
   if (id) {
     const b = books.find(x => x.id === id);
     $('sheetTitle').textContent = 'Uredi knjigo';
-    $('fTitle').value  = b.title || '';
-    $('fAuthor').value = b.author || '';
-    $('fQuotes').value = b.quotes || '';
-    $('fNotes').value  = b.notes || '';
-    $('fPages').value  = b.pages || '';
-    $('fPageAt').value = b.pageAt || '';
-    form.color   = b.color || PALETTE[0];
-    form.status  = b.status || 'read';
-    form.rating  = Number(b.rating) || 0;
-    form.month   = b.readMonth ? String(b.readMonth) : '';
-    form.year    = b.readYear ? String(b.readYear) : '';
+    $('fTitle').value     = b.title || '';
+    $('fAuthor').value    = b.author || '';
+    $('fQuotes').value    = toLines(b.quotes).join('\n');
+    $('fNotes').value     = toLines(b.notes).join('\n');
+    $('fPages').value     = b.pages || '';
+    $('fPageAt').value    = b.pageAt || '';
+    $('fPublished').value = b.published || '';
+    form.color    = b.color || PALETTE[0];
+    form.status   = b.status || 'read';
+    form.month    = b.readMonth ? String(b.readMonth) : '';
+    form.year     = b.readYear ? String(b.readYear) : '';
     form.coverUrl = b.coverUrl || '';
-    form.genres  = [...(b.genres || [])];
+    form.genres   = [...(b.genres || [])];
+    rateInput.value = Number(b.rating) || 0;
   } else {
     $('sheetTitle').textContent = 'Nova knjiga';
-    ['fTitle','fAuthor','fQuotes','fNotes','fPages','fPageAt'].forEach(k => { $(k).value = ''; });
-    form.color   = PALETTE[Math.floor(Math.random() * PALETTE.length)];
-    form.status  = 'read';
-    form.rating  = 0;
-    form.month   = '';
-    form.year    = '';
-    form.coverUrl = '';
-    form.genres  = [];
+    ['fTitle','fAuthor','fQuotes','fNotes','fPages','fPageAt','fPublished'].forEach(k => { $(k).value = ''; });
+    form.color    = PALETTE[Math.floor(Math.random()*PALETTE.length)];
+    form.status   = 'read';
+    form.month    = ''; form.year = '';
+    form.coverUrl = ''; form.genres = [];
+    rateInput.value = 0;
   }
   $('genreInput').value = '';
   monthSel.value = form.month;
   yearSel.value = form.year;
-  $('lookupTxt').textContent = form.coverUrl ? 'Podatki nastavljeni.' : 'Poišči naslovnico, leto, strani in žanre.';
+  $('lookupTxt').textContent = form.coverUrl ? 'Podatki nastavljeni.' : 'Vpiši naslov in pritisni Poišči.';
   renderLookupPrev();
-  syncColor(); syncStatus(); syncStars(); renderGenreTags();
+  syncColor(); syncStatus(); syncRate(); renderGenreTags();
   $('overlay').classList.add('open');
   setTimeout(() => $('fTitle').focus(), 80);
 }
 function closeSheet() { $('overlay').classList.remove('open'); editingId = null; }
 
 async function removeBook(id) {
-  try { await deleteDoc(doc(db, "books", id)); expanded.delete(id); }
+  try { await deleteDoc(doc(db,"books",id)); expanded.delete(id); }
   catch (e) { console.error(e); setStatus('Brisanje ni uspelo.', true); }
 }
 
 async function save() {
   const title = $('fTitle').value.trim();
   if (!title) { $('fTitle').focus(); return; }
-
-  const pagesRaw = $('fPages').value.trim();
-  const pageAtRaw = $('fPageAt').value.trim();
+  const num = v => { const s = String(v).trim(); return s === '' ? null : (Math.max(0, Math.floor(Number(s))) || null); };
 
   const payload = {
     title,
     author: $('fAuthor').value.trim(),
-    quotes: $('fQuotes').value.trim(),
-    notes:  $('fNotes').value.trim(),
+    quotes: toLines($('fQuotes').value),
+    notes:  toLines($('fNotes').value),
     genres: [...form.genres],
     color:  form.color,
     status: form.status,
-    rating: form.rating,
-    pages:  pagesRaw === '' ? null : Math.max(0, Math.floor(Number(pagesRaw))) || null,
-    pageAt: pageAtRaw === '' ? null : Math.max(0, Math.floor(Number(pageAtRaw))) || null,
+    rating: Number(rateInput.value) || 0,
+    pages:  num($('fPages').value),
+    pageAt: num($('fPageAt').value),
+    published: num($('fPublished').value),
     readMonth: form.month ? Number(form.month) : null,
     readYear:  form.year ? Number(form.year) : null,
     coverUrl: form.coverUrl || ''
   };
 
-  const btn = $('saveBtn');
-  btn.disabled = true;
+  const btn = $('saveBtn'); btn.disabled = true;
   try {
-    if (editingId) await updateDoc(doc(db, "books", editingId), payload);
-    else await addDoc(booksCol, { ...payload, createdAtMs: Date.now(), createdAt: serverTimestamp() });
+    if (editingId) await updateDoc(doc(db,"books",editingId), payload);
+    else await addDoc(booksCol, { ...payload, createdAtMs:Date.now(), createdAt:serverTimestamp() });
     closeSheet();
-  } catch (e) {
-    console.error(e);
-    setStatus('Shranjevanje ni uspelo.', true);
-  } finally { btn.disabled = false; }
+  } catch (e) { console.error(e); setStatus('Shranjevanje ni uspelo.', true); }
+  finally { btn.disabled = false; }
 }
 
 $('addBtn').onclick = () => openSheet(null);
@@ -1248,18 +1149,14 @@ $('search').oninput = render;
 /* ---------- sync ---------- */
 setStatus('Povezujem…');
 onSnapshot(booksCol, snap => {
-  books = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  books = snap.docs.map(d => ({ id:d.id, ...d.data() }));
   $('addBtn').disabled = false;
-  setStatus('');
-  render();
-}, err => {
-  console.error(err);
-  setStatus('Napaka pri sinhronizaciji.', true);
-});
+  setStatus(''); render();
+}, err => { console.error(err); setStatus('Napaka pri sinhronizaciji.', true); });
 
 onSnapshot(settingsDoc, snap => {
-  const d = snap.exists && snap.exists() ? snap.data() : (snap.data ? snap.data() : null);
-  settings = d || { goal: null, goalYear: thisYear };
+  const d = snap && snap.data ? snap.data() : null;
+  settings = d || { goal:null, goalYear:thisYear };
   if (view === 'stats') renderStats();
 }, err => { console.error(err); });
 </script>
