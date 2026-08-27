@@ -7,28 +7,40 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Bralnik">
 <title>Bralnik</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&display=swap" rel="stylesheet">
 <style>
-  @font-face {
-    font-family: 'system-serif';
-    src: local('New York'), local('Georgia');
-  }
   :root {
-    --bg: #0F1115;
-    --bg-elevated: #171A21;
-    --card: #1C2029;
-    --card-hover: #232838;
-    --line: #2A2F3C;
-    --text: #EDEEF2;
-    --text-soft: #9A9FB0;
-    --text-faint: #5D6272;
-    --accent: #7C9EFF;
-    --accent-soft: rgba(124, 158, 255, 0.14);
-    --accent-glow: rgba(124, 158, 255, 0.35);
-    --danger: #FF6B6B;
-    --danger-soft: rgba(255, 107, 107, 0.12);
-    --radius-lg: 20px;
-    --radius-md: 14px;
-    --radius-sm: 9px;
+    /* Warm dark library — espresso, walnut, parchment */
+    --bg: #14100D;
+    --bg-raised: #1D1813;
+    --card: #241E18;
+    --card-hi: #2E2720;
+    --line: #3A3128;
+    --line-soft: #2C251E;
+
+    --parchment: #EFE6D6;
+    --text: #EFE6D6;
+    --text-soft: #B5A794;
+    --text-faint: #7C6F5F;
+
+    --brass: #C9A227;
+    --brass-soft: rgba(201, 162, 39, 0.15);
+    --sage: #8FA98A;
+    --clay: #C97B5A;
+    --plum: #9C7BA8;
+    --ink-blue: #7A93B8;
+
+    --danger: #D4685C;
+    --danger-soft: rgba(212, 104, 92, 0.14);
+
+    --r-lg: 18px;
+    --r-md: 13px;
+    --r-sm: 9px;
+
+    --display: 'Fraunces', Georgia, serif;
+    --body: 'Literata', Georgia, serif;
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html { -webkit-text-size-adjust: 100%; }
@@ -36,383 +48,343 @@
     margin: 0;
     background: var(--bg);
     background-image:
-      radial-gradient(ellipse 800px 500px at 20% -10%, rgba(124,158,255,0.10), transparent),
-      radial-gradient(ellipse 600px 400px at 100% 20%, rgba(255,150,110,0.05), transparent);
+      radial-gradient(ellipse 700px 420px at 15% -8%, rgba(201,162,39,0.07), transparent 70%),
+      radial-gradient(ellipse 600px 380px at 105% 12%, rgba(201,123,90,0.05), transparent 70%);
     background-attachment: fixed;
     color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif;
+    font-family: var(--body);
     min-height: 100vh;
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
-    letter-spacing: -0.01em;
+    line-height: 1.5;
   }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 18px 16px 130px; }
 
-  .wrap {
-    max-width: 620px;
-    margin: 0 auto;
-    padding: 20px 18px 120px;
-  }
-
-  /* Header */
+  /* ---------- Header ---------- */
   header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 2px 22px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 2px 18px;
   }
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+  .brand { display: flex; align-items: center; gap: 11px; }
   .brand-mark {
-    width: 34px;
-    height: 34px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, var(--accent), #5B6FE8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 17px;
-    box-shadow: 0 4px 16px var(--accent-glow);
+    width: 36px; height: 36px; border-radius: 10px;
+    background: linear-gradient(150deg, var(--brass), #9A7A17);
+    display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
+    box-shadow: 0 3px 14px rgba(201,162,39,0.28);
   }
   h1 {
-    font-size: 20px;
-    font-weight: 700;
-    margin: 0;
-    letter-spacing: -0.02em;
+    font-family: var(--display);
+    font-size: 23px; font-weight: 600; margin: 0;
+    letter-spacing: -0.01em;
+    font-variation-settings: 'SOFT' 40, 'WONK' 1;
   }
-  .stats-pill {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 100px;
-    padding: 6px 14px;
-    font-size: 13px;
-    color: var(--text-soft);
-    font-variant-numeric: tabular-nums;
-    font-weight: 500;
+  .head-actions { display: flex; gap: 6px; }
+  .head-btn {
+    background: var(--card); border: 1px solid var(--line);
+    color: var(--text-soft); border-radius: 10px;
+    width: 38px; height: 38px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all .15s;
   }
-  .stats-pill strong { color: var(--text); font-weight: 700; }
+  .head-btn:active { background: var(--card-hi); color: var(--text); }
+  .head-btn.on { background: var(--brass-soft); border-color: var(--brass); color: var(--brass); }
 
-  /* Search */
-  .search-bar {
-    position: relative;
-    margin-bottom: 20px;
-  }
-  .search-bar svg {
-    position: absolute;
-    left: 16px;
-    top: 50%;
+  /* ---------- Search ---------- */
+  .search-bar { position: relative; margin-bottom: 14px; }
+  .search-bar .s-icon {
+    position: absolute; left: 15px; top: 50%;
     transform: translateY(-50%);
-    pointer-events: none;
-    opacity: 0.45;
+    pointer-events: none; opacity: .5; z-index: 2;
+    display: flex;
   }
-  .search {
+  input[type=text].search {
     width: 100%;
-    padding: 13px 16px 13px 44px;
+    padding: 12px 15px 12px 46px;
     border: 1px solid var(--line);
-    border-radius: var(--radius-md);
+    border-radius: var(--r-md);
     background: var(--card);
-    font-family: inherit;
-    font-size: 16px;
+    font-family: var(--body); font-size: 16px;
     color: var(--text);
-    transition: border-color 0.15s, background 0.15s;
+    transition: border-color .15s, background .15s;
   }
-  .search::placeholder { color: var(--text-faint); }
-  .search:focus {
-    outline: none;
-    border-color: var(--accent);
-    background: var(--bg-elevated);
-  }
+  input[type=text].search::placeholder { color: var(--text-faint); }
+  input[type=text].search:focus { outline: none; border-color: var(--brass); background: var(--bg-raised); }
 
-  /* Sort chips */
-  .chips {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 22px;
-    overflow-x: auto;
-    scrollbar-width: none;
-    padding-bottom: 2px;
+  /* ---------- Filter chips ---------- */
+  .chip-row {
+    display: flex; gap: 7px; overflow-x: auto;
+    scrollbar-width: none; padding-bottom: 3px; margin-bottom: 10px;
   }
-  .chips::-webkit-scrollbar { display: none; }
+  .chip-row::-webkit-scrollbar { display: none; }
   .chip {
-    flex-shrink: 0;
-    padding: 7px 14px;
-    border-radius: 100px;
-    border: 1px solid var(--line);
-    background: transparent;
-    color: var(--text-soft);
-    font-size: 13px;
-    font-weight: 500;
-    font-family: inherit;
-    cursor: pointer;
-    transition: all 0.15s;
+    flex-shrink: 0; padding: 7px 13px; border-radius: 100px;
+    border: 1px solid var(--line); background: transparent;
+    color: var(--text-soft); font-size: 13px; font-weight: 500;
+    font-family: var(--body); cursor: pointer; transition: all .15s;
+    white-space: nowrap;
   }
-  .chip.active {
-    background: var(--accent-soft);
-    border-color: var(--accent);
-    color: var(--accent);
-  }
+  .chip.active { background: var(--brass-soft); border-color: var(--brass); color: var(--brass); }
+  .chip .cnum { opacity: .65; font-size: 11.5px; margin-left: 3px; }
 
-  /* Book cards */
-  .grid {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
+  .sort-row { margin-bottom: 20px; }
+
+  /* ---------- Book cards ---------- */
+  .grid { display: flex; flex-direction: column; gap: 10px; }
   .entry {
     background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    padding: 18px 18px 14px;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.15s;
+    border: 1px solid var(--line-soft);
+    border-radius: var(--r-lg);
+    padding: 15px 16px 12px;
+    position: relative; overflow: hidden;
   }
   .entry::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 3px;
-    background: var(--spine-color, var(--accent));
-    opacity: 0.8;
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px; background: var(--spine, var(--brass)); opacity: .85;
   }
-  .entry-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 10px;
+  .entry-main { display: flex; gap: 13px; }
+  .cover {
+    width: 54px; height: 80px; border-radius: 5px;
+    flex-shrink: 0; overflow: hidden;
+    background: var(--spine, var(--brass));
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,.35);
+    position: relative;
   }
+  .cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .cover-fallback {
+    font-family: var(--display); font-weight: 700; font-size: 22px;
+    color: rgba(0,0,0,.5); text-transform: uppercase;
+  }
+  .entry-info { flex: 1; min-width: 0; }
+  .entry-title, .entry-author, .entry-notes, .entry-quotes { overflow-wrap: anywhere; }
   .entry-title {
-    font-size: 17px;
-    font-weight: 700;
-    margin: 0 0 3px;
-    letter-spacing: -0.015em;
-    line-height: 1.3;
+    font-family: var(--display);
+    font-size: 17.5px; font-weight: 600; margin: 0 0 2px;
+    line-height: 1.28; letter-spacing: -0.005em;
+    font-variation-settings: 'SOFT' 30;
   }
-  .entry-author {
-    font-size: 13.5px;
-    color: var(--text-soft);
-    margin: 0;
-    font-weight: 500;
+  .entry-author { font-size: 13.5px; color: var(--text-soft); margin: 0 0 7px; }
+  .meta-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .status-tag {
+    font-size: 11.5px; font-weight: 600; padding: 3px 9px;
+    border-radius: 100px; letter-spacing: .02em;
   }
-  .initial-badge {
-    width: 38px;
-    height: 38px;
-    border-radius: 11px;
-    background: var(--spine-color, var(--accent));
-    color: rgba(0,0,0,0.55);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 16px;
-    flex-shrink: 0;
-    text-transform: uppercase;
+  .status-read   { background: rgba(143,169,138,.16); color: var(--sage); }
+  .status-current{ background: rgba(122,147,184,.16); color: var(--ink-blue); }
+  .status-wish   { background: rgba(156,123,168,.16); color: var(--plum); }
+  .stars { font-size: 12.5px; color: var(--brass); letter-spacing: 1px; }
+  .date-tag { font-size: 12px; color: var(--text-faint); }
+
+  .entry-notes, .entry-quotes {
+    font-size: 14px; line-height: 1.6; white-space: pre-wrap;
+    margin-top: 11px; padding-top: 11px;
+    border-top: 1px solid var(--line-soft);
+    color: #D3C7B4;
   }
-  .entry-notes {
-    font-size: 14px;
-    line-height: 1.55;
-    white-space: pre-wrap;
-    color: #C7CBD6;
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px solid var(--line);
+  .entry-quotes {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14.5px;
+    color: var(--parchment);
+    border-left: 2px solid var(--brass);
+    border-top: 1px solid var(--line-soft);
+    padding-left: 12px;
   }
-  .entry-actions {
-    display: flex;
-    gap: 4px;
-    margin-top: 10px;
-    justify-content: flex-end;
+  .sec-label {
+    display: block; font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: .09em; color: var(--text-faint);
+    font-family: var(--body); font-style: normal;
+    font-weight: 600; margin-bottom: 5px;
   }
+  .entry-actions { display: flex; gap: 2px; margin-top: 9px; justify-content: flex-end; }
   .icon-btn {
-    background: none;
-    border: none;
-    color: var(--text-faint);
-    cursor: pointer;
-    padding: 7px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.15s, color 0.15s;
+    background: none; border: none; color: var(--text-faint);
+    cursor: pointer; padding: 7px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .15s, color .15s;
   }
-  .icon-btn:hover, .icon-btn:active { background: var(--card-hover); color: var(--text); }
-  .icon-btn.danger:hover, .icon-btn.danger:active { background: var(--danger-soft); color: var(--danger); }
+  .icon-btn:active { background: var(--card-hi); color: var(--text); }
+  .icon-btn.danger:active { background: var(--danger-soft); color: var(--danger); }
 
-  /* Empty state */
-  .empty {
-    text-align: center;
-    padding: 70px 20px;
-  }
-  .empty-icon {
-    font-size: 40px;
-    margin-bottom: 14px;
-    opacity: 0.5;
-  }
+  /* ---------- Empty ---------- */
+  .empty { text-align: center; padding: 64px 20px; }
+  .empty-icon { font-size: 36px; margin-bottom: 12px; opacity: .45; }
   .empty-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--text-soft);
-    margin: 0 0 4px;
+    font-family: var(--display); font-size: 17px; font-weight: 600;
+    color: var(--text-soft); margin: 0 0 4px;
   }
-  .empty-sub {
-    font-size: 13.5px;
-    color: var(--text-faint);
-    margin: 0;
-  }
+  .empty-sub { font-size: 13.5px; color: var(--text-faint); margin: 0; }
 
-  /* FAB */
+  /* ---------- FAB ---------- */
   .fab {
-    position: fixed;
-    right: 20px;
-    bottom: calc(24px + env(safe-area-inset-bottom));
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--accent), #5B6FE8);
-    color: #0F1115;
-    border: none;
-    box-shadow: 0 8px 24px var(--accent-glow), 0 2px 8px rgba(0,0,0,0.3);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.15s;
+    position: fixed; right: 18px; bottom: calc(22px + env(safe-area-inset-bottom));
+    width: 58px; height: 58px; border-radius: 50%;
+    background: linear-gradient(150deg, var(--brass), #A98515);
+    color: #14100D; border: none;
+    box-shadow: 0 7px 22px rgba(201,162,39,.32), 0 2px 8px rgba(0,0,0,.4);
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: transform .14s; z-index: 5;
   }
-  .fab:active { transform: scale(0.92); }
-  .fab:disabled { opacity: 0.4; box-shadow: none; }
+  .fab:active { transform: scale(.92); }
+  .fab:disabled { opacity: .4; box-shadow: none; }
 
-  /* Modal */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(6,7,10,0.6);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    align-items: flex-end;
-    justify-content: center;
-    z-index: 10;
+  /* ---------- Modal ---------- */
+  .overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(8,6,4,.66);
+    backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px);
+    align-items: flex-end; justify-content: center; z-index: 20;
   }
-  .modal-overlay.open { display: flex; animation: fadeIn 0.2s; }
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-  .modal {
-    background: var(--bg-elevated);
-    width: 100%;
-    max-width: 620px;
-    border-radius: 24px 24px 0 0;
-    padding: 10px 20px calc(24px + env(safe-area-inset-bottom));
-    max-height: 90vh;
-    overflow-y: auto;
-    animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  .overlay.open { display: flex; animation: fade .18s; }
+  @keyframes fade { from{opacity:0} to{opacity:1} }
+  .sheet {
+    background: var(--bg-raised); width: 100%; max-width: 640px;
+    border-radius: 22px 22px 0 0;
+    padding: 8px 18px calc(22px + env(safe-area-inset-bottom));
+    max-height: 92vh; overflow-y: auto;
     border-top: 1px solid var(--line);
+    animation: rise .26s cubic-bezier(.16,1,.3,1);
   }
-  @keyframes slideUp {
-    from { transform: translateY(100%); }
-    to { transform: translateY(0); }
-  }
-  .modal-handle {
-    width: 36px;
-    height: 4px;
-    background: var(--line);
-    border-radius: 100px;
-    margin: 10px auto 18px;
-  }
-  .modal h2 {
-    margin: 0 0 20px;
-    font-size: 21px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-  }
-
-  .color-picker {
-    display: flex;
-    gap: 10px;
-    margin: 6px 0 4px;
-  }
-  .color-dot {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: 2px solid transparent;
-    cursor: pointer;
-    transition: transform 0.15s;
-  }
-  .color-dot.selected {
-    border-color: var(--text);
-    transform: scale(1.12);
+  @keyframes rise { from{transform:translateY(100%)} to{transform:translateY(0)} }
+  .handle { width: 34px; height: 4px; background: var(--line); border-radius: 100px; margin: 9px auto 16px; }
+  .sheet h2 {
+    font-family: var(--display); margin: 0 0 18px;
+    font-size: 21px; font-weight: 600; letter-spacing: -0.01em;
+    font-variation-settings: 'SOFT' 40;
   }
 
   label {
-    display: block;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--text-faint);
-    margin: 18px 0 7px;
-    font-weight: 600;
+    display: block; font-size: 11px; text-transform: uppercase;
+    letter-spacing: .08em; color: var(--text-faint);
+    margin: 16px 0 7px; font-weight: 600;
   }
-  label:first-of-type { margin-top: 0; }
-  input[type=text], textarea {
-    width: 100%;
-    padding: 13px 14px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
-    background: var(--card);
-    font-family: inherit;
-    font-size: 16px;
-    color: var(--text);
-    transition: border-color 0.15s;
+  label.first { margin-top: 0; }
+  input[type=text], textarea, select {
+    width: 100%; padding: 12px 13px;
+    border: 1px solid var(--line); border-radius: var(--r-md);
+    background: var(--card); font-family: var(--body); font-size: 16px;
+    color: var(--text); transition: border-color .15s;
   }
-  input[type=text]::placeholder, textarea::placeholder { color: var(--text-faint); }
-  input[type=text]:focus, textarea:focus { outline: none; border-color: var(--accent); }
-  textarea { min-height: 120px; resize: vertical; line-height: 1.5; }
+  input::placeholder, textarea::placeholder { color: var(--text-faint); }
+  input:focus, textarea:focus, select:focus { outline: none; border-color: var(--brass); }
+  textarea { min-height: 92px; resize: vertical; line-height: 1.55; }
+  textarea.quotes { font-family: var(--display); font-style: italic; }
 
-  .modal-buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 24px;
+  .seg { display: flex; gap: 6px; }
+  .seg button {
+    flex: 1; padding: 11px 6px; border-radius: var(--r-md);
+    border: 1px solid var(--line); background: var(--card);
+    color: var(--text-soft); font-family: var(--body);
+    font-size: 13.5px; font-weight: 500; cursor: pointer;
+    transition: all .15s;
   }
+  .seg button.on { background: var(--brass-soft); border-color: var(--brass); color: var(--brass); font-weight: 600; }
+
+  .star-pick { display: flex; gap: 5px; align-items: center; }
+  .star-pick button {
+    background: none; border: none; cursor: pointer; padding: 3px;
+    font-size: 25px; line-height: 1; color: var(--line);
+    transition: color .12s, transform .12s;
+  }
+  .star-pick button.lit { color: var(--brass); }
+  .star-pick button:active { transform: scale(1.18); }
+  .star-clear {
+    font-size: 12px !important; color: var(--text-faint) !important;
+    margin-left: 6px; text-decoration: underline;
+  }
+
+  .date-row { display: flex; gap: 8px; }
+  .date-row select { flex: 1; }
+  select {
+    appearance: none; -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237C6F5F' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 14px center;
+    padding-right: 34px;
+  }
+
+  .color-row { display: flex; gap: 9px; }
+  .dot {
+    width: 29px; height: 29px; border-radius: 50%;
+    border: 2px solid transparent; cursor: pointer; transition: transform .15s;
+  }
+  .dot.sel { border-color: var(--parchment); transform: scale(1.1); }
+
+  .cover-preview-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px; border: 1px solid var(--line);
+    border-radius: var(--r-md); background: var(--card);
+  }
+  .cover-preview {
+    width: 42px; height: 62px; border-radius: 4px; flex-shrink: 0;
+    background: var(--card-hi); overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; color: var(--text-faint); text-align: center;
+  }
+  .cover-preview img { width: 100%; height: 100%; object-fit: cover; }
+  .cover-preview-txt { flex: 1; font-size: 12.5px; color: var(--text-soft); }
+  .mini-btn {
+    padding: 8px 12px; border-radius: 9px; border: 1px solid var(--line);
+    background: transparent; color: var(--text-soft);
+    font-family: var(--body); font-size: 12.5px; cursor: pointer;
+  }
+  .mini-btn:active { background: var(--card-hi); }
+
+  .sheet-btns { display: flex; gap: 9px; margin-top: 22px; }
   .btn {
-    flex: 1;
-    padding: 14px;
-    border-radius: var(--radius-md);
-    border: none;
-    font-family: inherit;
-    font-size: 15.5px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: opacity 0.15s, transform 0.1s;
+    flex: 1; padding: 13px; border-radius: var(--r-md); border: none;
+    font-family: var(--body); font-size: 15.5px; font-weight: 600;
+    cursor: pointer; transition: opacity .15s, transform .1s;
   }
-  .btn:active { transform: scale(0.98); }
-  .btn.primary { background: var(--accent); color: #0F1115; }
+  .btn:active { transform: scale(.98); }
+  .btn.primary { background: var(--brass); color: #14100D; }
   .btn.secondary { background: transparent; color: var(--text-soft); border: 1px solid var(--line); }
-  .btn:disabled { opacity: 0.5; }
+  .btn:disabled { opacity: .5; }
 
-  .status {
-    font-size: 12.5px;
-    color: var(--text-faint);
-    text-align: center;
-    margin: 2px 0 16px;
-    min-height: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
+  /* ---------- Stats ---------- */
+  .stat-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;
   }
-  .status.error { color: var(--danger); }
-  .status.hidden { display: none; }
-  .dot-pulse {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-    animation: pulse 1.2s infinite ease-in-out;
+  .stat-box {
+    background: var(--card); border: 1px solid var(--line-soft);
+    border-radius: var(--r-md); padding: 14px;
   }
-  @keyframes pulse {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 1; }
+  .stat-num {
+    font-family: var(--display); font-size: 27px; font-weight: 600;
+    color: var(--brass); line-height: 1.1;
+    font-variation-settings: 'SOFT' 40;
+  }
+  .stat-lbl { font-size: 12px; color: var(--text-soft); margin-top: 3px; }
+  .stat-section-title {
+    font-family: var(--display); font-size: 15px; font-weight: 600;
+    margin: 22px 0 10px;
+  }
+  .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 7px; }
+  .bar-lbl { font-size: 12.5px; color: var(--text-soft); width: 42px; flex-shrink: 0; }
+  .bar-track { flex: 1; height: 8px; background: var(--card-hi); border-radius: 100px; overflow: hidden; display: block; }
+  .bar-fill { display: block; height: 100%; min-width: 6px; background: var(--brass); border-radius: 100px; }
+  .bar-val { font-size: 12px; color: var(--text-faint); width: 20px; text-align: right; }
+  .rank-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 9px 0; border-bottom: 1px solid var(--line-soft); font-size: 14px;
+  }
+  .rank-row:last-child { border-bottom: none; }
+  .rank-name { color: var(--text); }
+  .rank-cnt { color: var(--text-faint); font-size: 12.5px; }
+
+  /* ---------- Status line ---------- */
+  .status-line {
+    font-size: 12.5px; color: var(--text-faint); text-align: center;
+    margin: 0 0 14px; min-height: 15px;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .status-line.err { color: var(--danger); }
+  .status-line.hide { display: none; }
+  .pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--brass); animation: pl 1.2s infinite; }
+  @keyframes pl { 0%,100%{opacity:.3} 50%{opacity:1} }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
   }
 </style>
 </head>
@@ -420,51 +392,95 @@
 <div class="wrap">
   <header>
     <div class="brand">
-      <div class="brand-mark">📖</div>
+      <div class="brand-mark">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#14100D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      </div>
       <h1>Bralnik</h1>
     </div>
-    <div class="stats-pill"><strong id="countNum">0</strong> knjig</div>
+    <div class="head-actions">
+      <button class="head-btn" id="statsBtn" aria-label="Statistika">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      </button>
+    </div>
   </header>
 
-  <div id="statusMsg" class="status hidden"></div>
+  <div id="statusLine" class="status-line hide"></div>
 
-  <div class="search-bar">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <input class="search" id="search" type="text" placeholder="Išči po naslovu, avtorju, opombah…">
+  <div id="mainView">
+    <div class="search-bar">
+      <span class="s-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+      <input class="search" id="search" type="text" placeholder="Išči po naslovu, avtorju, citatu…">
+    </div>
+
+    <div class="chip-row" id="filterRow">
+      <button class="chip active" data-filter="all">Vse <span class="cnum" id="c-all"></span></button>
+      <button class="chip" data-filter="read">Prebrano <span class="cnum" id="c-read"></span></button>
+      <button class="chip" data-filter="current">Berem <span class="cnum" id="c-current"></span></button>
+      <button class="chip" data-filter="wish">Želim brati <span class="cnum" id="c-wish"></span></button>
+    </div>
+
+    <div class="chip-row sort-row" id="sortRow">
+      <button class="chip active" data-sort="new">Najnovejše</button>
+      <button class="chip" data-sort="old">Najstarejše</button>
+      <button class="chip" data-sort="rating">Najbolje ocenjeno</button>
+      <button class="chip" data-sort="az">A–Ž naslov</button>
+      <button class="chip" data-sort="author">Avtor</button>
+    </div>
+
+    <div class="grid" id="list"></div>
   </div>
 
-  <div class="chips">
-    <button class="chip active" data-sort="new">Najnovejše</button>
-    <button class="chip" data-sort="old">Najstarejše</button>
-    <button class="chip" data-sort="az">A–Ž naslov</button>
-    <button class="chip" data-sort="author">Avtor</button>
-  </div>
-
-  <div class="grid" id="list"></div>
+  <div id="statsView" style="display:none"></div>
 </div>
 
 <button class="fab" id="addBtn" disabled aria-label="Dodaj knjigo">
-  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+  <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
 </button>
 
-<div class="modal-overlay" id="overlay">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <h2 id="modalTitle">Nova knjiga</h2>
+<div class="overlay" id="overlay">
+  <div class="sheet">
+    <div class="handle"></div>
+    <h2 id="sheetTitle">Nova knjiga</h2>
 
-    <label for="fTitle">Naslov knjige</label>
+    <label class="first" for="fTitle">Naslov knjige</label>
     <input type="text" id="fTitle" placeholder="npr. Bratje Karamazovi">
 
     <label for="fAuthor">Avtor</label>
     <input type="text" id="fAuthor" placeholder="npr. Fjodor Dostojevski">
 
+    <label>Naslovnica</label>
+    <div class="cover-preview-row">
+      <div class="cover-preview" id="coverPreview">brez</div>
+      <div class="cover-preview-txt" id="coverTxt">Poišči naslovnico po naslovu in avtorju.</div>
+      <button class="mini-btn" id="findCoverBtn">Poišči</button>
+    </div>
+
+    <label>Status</label>
+    <div class="seg" id="statusSeg">
+      <button data-status="read">Prebrano</button>
+      <button data-status="current">Berem</button>
+      <button data-status="wish">Želim brati</button>
+    </div>
+
+    <label>Ocena</label>
+    <div class="star-pick" id="starPick"></div>
+
+    <label>Kdaj prebrano</label>
+    <div class="date-row">
+      <select id="fMonth"></select>
+      <select id="fYear"></select>
+    </div>
+
     <label>Barva oznake</label>
-    <div class="color-picker" id="colorPicker"></div>
+    <div class="color-row" id="colorRow"></div>
 
-    <label for="fNotes">Opombe in citati</label>
-    <textarea id="fNotes" placeholder="Misli, priljubljeni citati, karkoli si želiš zapomniti…"></textarea>
+    <label for="fQuotes">Citati</label>
+    <textarea id="fQuotes" class="quotes" placeholder="Odlomki, ki si jih želiš zapomniti…"></textarea>
 
-    <div class="modal-buttons">
+    <label for="fNotes">Opombe</label>
+    <textarea id="fNotes" placeholder="Tvoje misli o knjigi…"></textarea>
+
+    <div class="sheet-btns">
       <button class="btn secondary" id="cancelBtn">Prekliči</button>
       <button class="btn primary" id="saveBtn">Shrani</button>
     </div>
@@ -491,99 +507,171 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const booksCol = collection(db, "books");
 
-const PALETTE = ['#7C9EFF', '#FF9B71', '#6EE7B7', '#F5A3C7', '#C9A6FF', '#FFD166'];
+/* ---------- constants ---------- */
+const PALETTE = ['#C9A227', '#C97B5A', '#8FA98A', '#7A93B8', '#9C7BA8', '#B58A6E'];
+const MONTHS = ['januar','februar','marec','april','maj','junij','julij','avgust','september','oktober','november','december'];
+const STATUS_LABEL = { read: 'Prebrano', current: 'Berem', wish: 'Želim brati' };
+const STATUS_CLASS = { read: 'status-read', current: 'status-current', wish: 'status-wish' };
 
+/* ---------- state ---------- */
 let books = [];
 let editingId = null;
 let currentSort = 'new';
+let currentFilter = 'all';
+let showingStats = false;
+let form = { color: PALETTE[0], status: 'read', rating: 0, month: '', year: '', coverUrl: '' };
 
-const statusEl = document.getElementById('statusMsg');
-const addBtn = document.getElementById('addBtn');
-const colorPicker = document.getElementById('colorPicker');
-let selectedColor = PALETTE[0];
+/* ---------- elements ---------- */
+const $ = id => document.getElementById(id);
+const statusLine = $('statusLine');
+const addBtn = $('addBtn');
 
-colorPicker.innerHTML = PALETTE.map(c =>
-  `<div class="color-dot" data-color="${c}" style="background:${c}"></div>`
-).join('');
-function refreshColorDots() {
-  colorPicker.querySelectorAll('.color-dot').forEach(d => {
-    d.classList.toggle('selected', d.dataset.color === selectedColor);
+function setStatus(msg, isErr) {
+  if (!msg) { statusLine.classList.add('hide'); statusLine.innerHTML = ''; return; }
+  statusLine.classList.remove('hide');
+  statusLine.classList.toggle('err', !!isErr);
+  statusLine.innerHTML = isErr ? esc(msg) : `<span class="pulse"></span>${esc(msg)}`;
+}
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+/* ---------- build form controls ---------- */
+$('colorRow').innerHTML = PALETTE.map(c => `<div class="dot" data-color="${c}" style="background:${c}"></div>`).join('');
+$('colorRow').querySelectorAll('.dot').forEach(d => {
+  d.onclick = () => { form.color = d.dataset.color; syncColor(); };
+});
+function syncColor() {
+  $('colorRow').querySelectorAll('.dot').forEach(d => d.classList.toggle('sel', d.dataset.color === form.color));
+}
+
+$('statusSeg').querySelectorAll('button').forEach(b => {
+  b.onclick = () => { form.status = b.dataset.status; syncStatus(); };
+});
+function syncStatus() {
+  $('statusSeg').querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.status === form.status));
+}
+
+const starPick = $('starPick');
+starPick.innerHTML =
+  [1,2,3,4,5].map(n => `<button data-star="${n}" aria-label="${n} zvezdic">★</button>`).join('') +
+  `<button class="star-clear" data-star="0">počisti</button>`;
+starPick.querySelectorAll('button').forEach(b => {
+  b.onclick = () => { form.rating = Number(b.dataset.star); syncStars(); };
+});
+function syncStars() {
+  starPick.querySelectorAll('button[data-star]').forEach(b => {
+    const n = Number(b.dataset.star);
+    if (n === 0) return;
+    b.classList.toggle('lit', n <= form.rating);
   });
 }
-colorPicker.querySelectorAll('.color-dot').forEach(d => {
-  d.onclick = () => { selectedColor = d.dataset.color; refreshColorDots(); };
-});
-refreshColorDots();
 
-function setStatus(msg, isError) {
-  if (!msg) {
-    statusEl.classList.add('hidden');
-    statusEl.innerHTML = '';
-    return;
+const monthSel = $('fMonth');
+monthSel.innerHTML = `<option value="">Mesec —</option>` +
+  MONTHS.map((m,i) => `<option value="${i+1}">${m}</option>`).join('');
+const yearSel = $('fYear');
+const thisYear = new Date().getFullYear();
+let yearOpts = `<option value="">Leto —</option>`;
+for (let y = thisYear; y >= thisYear - 40; y--) yearOpts += `<option value="${y}">${y}</option>`;
+yearSel.innerHTML = yearOpts;
+monthSel.onchange = () => { form.month = monthSel.value; };
+yearSel.onchange = () => { form.year = yearSel.value; };
+
+/* ---------- cover lookup (OpenLibrary) ---------- */
+$('findCoverBtn').onclick = async () => {
+  const title = $('fTitle').value.trim();
+  const author = $('fAuthor').value.trim();
+  if (!title) { $('coverTxt').textContent = 'Najprej vpiši naslov.'; return; }
+  $('coverTxt').textContent = 'Iščem…';
+  try {
+    const params = new URLSearchParams({ title, limit: '5' });
+    if (author) params.set('author', author);
+    const res = await fetch(`https://openlibrary.org/search.json?${params.toString()}`);
+    const data = await res.json();
+    const hit = (data.docs || []).find(d => d.cover_i);
+    if (hit) {
+      form.coverUrl = `https://covers.openlibrary.org/b/id/${hit.cover_i}-M.jpg`;
+      renderCoverPreview();
+      $('coverTxt').textContent = 'Naslovnica najdena.';
+    } else {
+      form.coverUrl = '';
+      renderCoverPreview();
+      $('coverTxt').textContent = 'Ni najdene naslovnice — uporabi barvo.';
+    }
+  } catch (e) {
+    console.error(e);
+    $('coverTxt').textContent = 'Iskanje ni uspelo.';
   }
-  statusEl.classList.remove('hidden');
-  statusEl.classList.toggle('error', !!isError);
-  statusEl.innerHTML = isError ? msg : `<span class="dot-pulse"></span>${msg}`;
+};
+function renderCoverPreview() {
+  const el = $('coverPreview');
+  if (form.coverUrl) el.innerHTML = `<img src="${esc(form.coverUrl)}" alt="">`;
+  else el.textContent = 'brez';
 }
 
-setStatus('Povezujem...');
-
-onSnapshot(booksCol, (snapshot) => {
-  books = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
-  addBtn.disabled = false;
-  setStatus('');
-  render();
-}, (err) => {
-  console.error(err);
-  setStatus('Napaka pri sinhronizaciji.', true);
+/* ---------- filters & sort ---------- */
+$('filterRow').querySelectorAll('.chip').forEach(c => {
+  c.onclick = () => {
+    $('filterRow').querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
+    c.classList.add('active');
+    currentFilter = c.dataset.filter;
+    render();
+  };
 });
-
-function escapeHtml(str) {
-  return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-
-document.querySelectorAll('.chip').forEach(chip => {
-  chip.onclick = () => {
-    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-    chip.classList.add('active');
-    currentSort = chip.dataset.sort;
+$('sortRow').querySelectorAll('.chip').forEach(c => {
+  c.onclick = () => {
+    $('sortRow').querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
+    c.classList.add('active');
+    currentSort = c.dataset.sort;
     render();
   };
 });
 
-function sortBooks(list) {
-  const arr = [...list];
+function sortBooks(arr) {
+  const a = [...arr];
   switch (currentSort) {
-    case 'old': return arr.sort((a,b) => (a.createdAtMs||0) - (b.createdAtMs||0));
-    case 'az': return arr.sort((a,b) => (a.title||'').localeCompare(b.title||'', 'sl'));
-    case 'author': return arr.sort((a,b) => (a.author||'').localeCompare(b.author||'', 'sl'));
-    default: return arr.sort((a,b) => (b.createdAtMs||0) - (a.createdAtMs||0));
+    case 'old': return a.sort((x,y) => (x.createdAtMs||0) - (y.createdAtMs||0));
+    case 'rating': return a.sort((x,y) => (y.rating||0) - (x.rating||0) || (y.createdAtMs||0) - (x.createdAtMs||0));
+    case 'az': return a.sort((x,y) => (x.title||'').localeCompare(y.title||'', 'sl'));
+    case 'author': return a.sort((x,y) => (x.author||'').localeCompare(y.author||'', 'sl'));
+    default: return a.sort((x,y) => (y.createdAtMs||0) - (x.createdAtMs||0));
   }
 }
 
+/* ---------- render list ---------- */
 function render() {
-  const list = document.getElementById('list');
-  const countNum = document.getElementById('countNum');
-  const q = document.getElementById('search').value.trim().toLowerCase();
+  if (showingStats) { renderStats(); return; }
 
-  countNum.textContent = books.length;
+  const list = $('list');
+  const q = $('search').value.trim().toLowerCase();
+
+  const counts = { all: books.length, read: 0, current: 0, wish: 0 };
+  books.forEach(b => { const s = b.status || 'read'; if (counts[s] !== undefined) counts[s]++; });
+  $('c-all').textContent = counts.all || '';
+  $('c-read').textContent = counts.read || '';
+  $('c-current').textContent = counts.current || '';
+  $('c-wish').textContent = counts.wish || '';
 
   let shown = books;
+  if (currentFilter !== 'all') shown = shown.filter(b => (b.status || 'read') === currentFilter);
   if (q) {
-    shown = books.filter(b =>
+    shown = shown.filter(b =>
       (b.title||'').toLowerCase().includes(q) ||
       (b.author||'').toLowerCase().includes(q) ||
-      (b.notes||'').toLowerCase().includes(q)
+      (b.notes||'').toLowerCase().includes(q) ||
+      (b.quotes||'').toLowerCase().includes(q)
     );
   }
   shown = sortBooks(shown);
 
   if (!shown.length) {
+    const isFiltered = q || currentFilter !== 'all';
     list.innerHTML = `
       <div class="empty">
-        <div class="empty-icon">${books.length ? '🔍' : '📚'}</div>
-        <p class="empty-title">${books.length ? 'Ni zadetkov' : 'Še ni knjig'}</p>
-        <p class="empty-sub">${books.length ? 'Poskusi z drugim iskalnim nizom.' : 'Pritisni + in dodaj prvo knjigo.'}</p>
+        <div class="empty-icon">${books.length ? '🔍' : '📖'}</div>
+        <p class="empty-title">${books.length ? 'Ni zadetkov' : 'Polica je prazna'}</p>
+        <p class="empty-sub">${isFiltered ? 'Poskusi z drugim iskanjem ali filtrom.' : 'Pritisni + in dodaj prvo knjigo.'}</p>
       </div>`;
     return;
   }
@@ -591,16 +679,30 @@ function render() {
   list.innerHTML = shown.map(b => {
     const color = b.color || PALETTE[0];
     const initial = (b.title || '?').trim().charAt(0);
+    const st = b.status || 'read';
+    const rating = Number(b.rating) || 0;
+    const dateTxt = formatReadDate(b);
+
+    const coverHtml = b.coverUrl
+      ? `<img src="${esc(b.coverUrl)}" alt="" onerror="this.parentNode.innerHTML='<span class=&quot;cover-fallback&quot;>${esc(initial)}</span>'">`
+      : `<span class="cover-fallback">${esc(initial)}</span>`;
+
     return `
-    <div class="entry" data-id="${b.id}" style="--spine-color:${color}">
-      <div class="entry-head">
-        <div>
-          <p class="entry-title">${escapeHtml(b.title||'')}</p>
-          <p class="entry-author">${escapeHtml(b.author||'')}</p>
+    <div class="entry" data-id="${b.id}" style="--spine:${color}">
+      <div class="entry-main">
+        <div class="cover" style="background:${color}">${coverHtml}</div>
+        <div class="entry-info">
+          <p class="entry-title">${esc(b.title)}</p>
+          <p class="entry-author">${esc(b.author)}</p>
+          <div class="meta-row">
+            <span class="status-tag ${STATUS_CLASS[st]}">${STATUS_LABEL[st]}</span>
+            ${rating ? `<span class="stars">${'★'.repeat(rating)}${'☆'.repeat(5-rating)}</span>` : ''}
+            ${dateTxt ? `<span class="date-tag">${esc(dateTxt)}</span>` : ''}
+          </div>
         </div>
-        <div class="initial-badge" style="background:${color}">${escapeHtml(initial)}</div>
       </div>
-      ${b.notes ? `<div class="entry-notes">${escapeHtml(b.notes)}</div>` : ''}
+      ${b.quotes ? `<div class="entry-quotes"><span class="sec-label">Citati</span>${esc(b.quotes)}</div>` : ''}
+      ${b.notes ? `<div class="entry-notes"><span class="sec-label">Opombe</span>${esc(b.notes)}</div>` : ''}
       <div class="entry-actions">
         <button class="icon-btn editBtn" aria-label="Uredi">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
@@ -612,90 +714,180 @@ function render() {
     </div>`;
   }).join('');
 
-  list.querySelectorAll('.entry').forEach(entryEl => {
-    const id = entryEl.getAttribute('data-id');
-    entryEl.querySelector('.editBtn').onclick = () => openModal(id);
-    entryEl.querySelector('.deleteBtn').onclick = () => deleteBook(id);
+  list.querySelectorAll('.entry').forEach(el => {
+    const id = el.getAttribute('data-id');
+    el.querySelector('.editBtn').onclick = () => openSheet(id);
+    el.querySelector('.deleteBtn').onclick = () => removeBook(id);
   });
 }
 
-function openModal(id) {
-  editingId = id || null;
-  const modalTitle = document.getElementById('modalTitle');
-  const fTitle = document.getElementById('fTitle');
-  const fAuthor = document.getElementById('fAuthor');
-  const fNotes = document.getElementById('fNotes');
-
-  if (id) {
-    const b = books.find(x => x.id === id);
-    modalTitle.textContent = 'Uredi knjigo';
-    fTitle.value = b.title || '';
-    fAuthor.value = b.author || '';
-    fNotes.value = b.notes || '';
-    selectedColor = b.color || PALETTE[0];
-  } else {
-    modalTitle.textContent = 'Nova knjiga';
-    fTitle.value = '';
-    fAuthor.value = '';
-    fNotes.value = '';
-    selectedColor = PALETTE[Math.floor(Math.random() * PALETTE.length)];
-  }
-  refreshColorDots();
-  document.getElementById('overlay').classList.add('open');
-  setTimeout(() => fTitle.focus(), 80);
+function formatReadDate(b) {
+  const y = b.readYear, m = b.readMonth;
+  if (y && m) return `${MONTHS[m-1]} ${y}`;
+  if (y) return String(y);
+  return '';
 }
 
-function closeModal() {
-  document.getElementById('overlay').classList.remove('open');
+/* ---------- stats ---------- */
+$('statsBtn').onclick = () => {
+  showingStats = !showingStats;
+  $('statsBtn').classList.toggle('on', showingStats);
+  $('mainView').style.display = showingStats ? 'none' : '';
+  $('statsView').style.display = showingStats ? '' : 'none';
+  render();
+};
+
+function renderStats() {
+  const v = $('statsView');
+  const read = books.filter(b => (b.status||'read') === 'read');
+  const rated = books.filter(b => Number(b.rating) > 0);
+  const avg = rated.length ? (rated.reduce((s,b) => s + Number(b.rating), 0) / rated.length) : 0;
+
+  const yearCount = {};
+  read.forEach(b => { if (b.readYear) yearCount[b.readYear] = (yearCount[b.readYear]||0) + 1; });
+  const years = Object.keys(yearCount).sort((a,b) => b - a).slice(0, 8);
+  const maxYear = Math.max(1, ...years.map(y => yearCount[y]));
+
+  const authorCount = {};
+  books.forEach(b => { const a = (b.author||'').trim(); if (a) authorCount[a] = (authorCount[a]||0) + 1; });
+  const topAuthors = Object.entries(authorCount).sort((a,b) => b[1] - a[1]).slice(0, 5);
+
+  const topRated = [...rated].sort((a,b) => b.rating - a.rating).slice(0, 5);
+  const thisYearCount = yearCount[thisYear] || 0;
+
+  v.innerHTML = `
+    <div class="stat-grid">
+      <div class="stat-box"><div class="stat-num">${books.length}</div><div class="stat-lbl">Vseh vnosov</div></div>
+      <div class="stat-box"><div class="stat-num">${read.length}</div><div class="stat-lbl">Prebranih</div></div>
+      <div class="stat-box"><div class="stat-num">${thisYearCount}</div><div class="stat-lbl">Letos (${thisYear})</div></div>
+      <div class="stat-box"><div class="stat-num">${avg ? avg.toFixed(1) : '—'}</div><div class="stat-lbl">Povprečna ocena</div></div>
+    </div>
+
+    ${years.length ? `
+      <div class="stat-section-title">Prebrano po letih</div>
+      ${years.map(y => `
+        <div class="bar-row">
+          <span class="bar-lbl">${y}</span>
+          <span class="bar-track"><span class="bar-fill" style="width:${(yearCount[y]/maxYear*100).toFixed(0)}%"></span></span>
+          <span class="bar-val">${yearCount[y]}</span>
+        </div>`).join('')}
+    ` : `<div class="stat-section-title">Prebrano po letih</div>
+         <p class="empty-sub">Dodaj leto branja pri knjigah, da se pokaže pregled.</p>`}
+
+    ${topAuthors.length ? `
+      <div class="stat-section-title">Najpogostejši avtorji</div>
+      ${topAuthors.map(([a,c]) => `
+        <div class="rank-row"><span class="rank-name">${esc(a)}</span><span class="rank-cnt">${c}×</span></div>
+      `).join('')}
+    ` : ''}
+
+    ${topRated.length ? `
+      <div class="stat-section-title">Najbolje ocenjene</div>
+      ${topRated.map(b => `
+        <div class="rank-row"><span class="rank-name">${esc(b.title)}</span><span class="stars">${'★'.repeat(b.rating)}</span></div>
+      `).join('')}
+    ` : ''}
+  `;
+}
+
+/* ---------- sheet ---------- */
+function openSheet(id) {
+  editingId = id || null;
+  if (id) {
+    const b = books.find(x => x.id === id);
+    $('sheetTitle').textContent = 'Uredi knjigo';
+    $('fTitle').value = b.title || '';
+    $('fAuthor').value = b.author || '';
+    $('fQuotes').value = b.quotes || '';
+    $('fNotes').value = b.notes || '';
+    form.color = b.color || PALETTE[0];
+    form.status = b.status || 'read';
+    form.rating = Number(b.rating) || 0;
+    form.month = b.readMonth ? String(b.readMonth) : '';
+    form.year = b.readYear ? String(b.readYear) : '';
+    form.coverUrl = b.coverUrl || '';
+  } else {
+    $('sheetTitle').textContent = 'Nova knjiga';
+    $('fTitle').value = '';
+    $('fAuthor').value = '';
+    $('fQuotes').value = '';
+    $('fNotes').value = '';
+    form.color = PALETTE[Math.floor(Math.random() * PALETTE.length)];
+    form.status = 'read';
+    form.rating = 0;
+    form.month = '';
+    form.year = '';
+    form.coverUrl = '';
+  }
+  monthSel.value = form.month;
+  yearSel.value = form.year;
+  $('coverTxt').textContent = form.coverUrl ? 'Naslovnica nastavljena.' : 'Poišči naslovnico po naslovu in avtorju.';
+  renderCoverPreview();
+  syncColor(); syncStatus(); syncStars();
+  $('overlay').classList.add('open');
+  setTimeout(() => $('fTitle').focus(), 80);
+}
+function closeSheet() {
+  $('overlay').classList.remove('open');
   editingId = null;
 }
 
-async function deleteBook(id) {
-  try {
-    await deleteDoc(doc(db, "books", id));
-  } catch (e) {
-    console.error(e);
-    setStatus('Brisanje ni uspelo.', true);
-  }
+async function removeBook(id) {
+  try { await deleteDoc(doc(db, "books", id)); }
+  catch (e) { console.error(e); setStatus('Brisanje ni uspelo.', true); }
 }
 
-async function handleSave() {
-  const title = document.getElementById('fTitle').value.trim();
-  const author = document.getElementById('fAuthor').value.trim();
-  const notes = document.getElementById('fNotes').value.trim();
+async function save() {
+  const title = $('fTitle').value.trim();
+  if (!title) { $('fTitle').focus(); return; }
 
-  if (!title) {
-    document.getElementById('fTitle').focus();
-    return;
-  }
+  const payload = {
+    title,
+    author: $('fAuthor').value.trim(),
+    quotes: $('fQuotes').value.trim(),
+    notes: $('fNotes').value.trim(),
+    color: form.color,
+    status: form.status,
+    rating: form.rating,
+    readMonth: form.month ? Number(form.month) : null,
+    readYear: form.year ? Number(form.year) : null,
+    coverUrl: form.coverUrl || ''
+  };
 
-  const saveBtn = document.getElementById('saveBtn');
-  saveBtn.disabled = true;
-
+  const btn = $('saveBtn');
+  btn.disabled = true;
   try {
     if (editingId) {
-      await updateDoc(doc(db, "books", editingId), { title, author, notes, color: selectedColor });
+      await updateDoc(doc(db, "books", editingId), payload);
     } else {
-      await addDoc(booksCol, {
-        title, author, notes, color: selectedColor,
-        createdAtMs: Date.now(),
-        createdAt: serverTimestamp()
-      });
+      await addDoc(booksCol, { ...payload, createdAtMs: Date.now(), createdAt: serverTimestamp() });
     }
-    closeModal();
+    closeSheet();
   } catch (e) {
     console.error(e);
     setStatus('Shranjevanje ni uspelo.', true);
   } finally {
-    saveBtn.disabled = false;
+    btn.disabled = false;
   }
 }
 
-document.getElementById('addBtn').onclick = () => openModal(null);
-document.getElementById('cancelBtn').onclick = closeModal;
-document.getElementById('saveBtn').onclick = handleSave;
-document.getElementById('overlay').onclick = (e) => { if (e.target.id === 'overlay') closeModal(); };
-document.getElementById('search').oninput = render;
+$('addBtn').onclick = () => openSheet(null);
+$('cancelBtn').onclick = closeSheet;
+$('saveBtn').onclick = save;
+$('overlay').onclick = e => { if (e.target.id === 'overlay') closeSheet(); };
+$('search').oninput = render;
+
+/* ---------- sync ---------- */
+setStatus('Povezujem…');
+onSnapshot(booksCol, snap => {
+  books = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  addBtn.disabled = false;
+  setStatus('');
+  render();
+}, err => {
+  console.error(err);
+  setStatus('Napaka pri sinhronizaciji.', true);
+});
 </script>
 </body>
 </html>
