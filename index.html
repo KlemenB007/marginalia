@@ -384,7 +384,8 @@
   @keyframes fade { from{opacity:0} to{opacity:1} }
   .sheet {
     background:var(--bg-raised); width:100%; max-width:640px; border-radius:22px 22px 0 0;
-    padding:8px 18px calc(22px + env(safe-area-inset-bottom)); max-height:92vh; overflow-y:auto;
+    padding:8px 18px calc(22px + env(safe-area-inset-bottom)); max-height:92vh;
+    overflow:hidden auto; overscroll-behavior:contain;
     border-top:1px solid var(--line); animation:rise .26s cubic-bezier(.16,1,.3,1);
   }
   .sheet.compact { padding-bottom:calc(14px + env(safe-area-inset-bottom)); }
@@ -2105,7 +2106,8 @@ function openSheet(id){
   $('lookupTxt').textContent=bookCover?'Podatki nastavljeni.':'Vpiši naslov in pritisni Poišči.';
   renderPrev('lookupPrev',bookCover);
   $('overlay').classList.add('open');
-  setTimeout(()=>$('fTitle').focus(),80);
+  $('overlay').querySelector('.sheet').scrollTop=0;
+  setTimeout(()=>{ $('fTitle').focus({preventScroll:true}); $('overlay').querySelector('.sheet').scrollTop=0; },80);
 }
 function closeSheet(){ $('overlay').classList.remove('open'); editingId=null; }
 const num=v=>{ const s=String(v).trim(); return s===''?null:(Math.max(0,Math.floor(Number(s)))||null); };
@@ -2162,7 +2164,8 @@ function openPodSheet(id){
   $('pLookupTxt').textContent=podCover?'Podatki nastavljeni.':'Vpiši ime in pritisni Poišči.';
   renderPrev('pLookupPrev',podCover);
   $('podOverlay').classList.add('open');
-  setTimeout(()=>$('pTitle').focus(),80);
+  $('podOverlay').querySelector('.sheet').scrollTop=0;
+  setTimeout(()=>{ $('pTitle').focus({preventScroll:true}); $('podOverlay').querySelector('.sheet').scrollTop=0; },80);
 }
 function closePodSheet(){ $('podOverlay').classList.remove('open'); editingPodId=null; }
 $('podCancel').onclick=closePodSheet;
@@ -2280,7 +2283,8 @@ function openEpSheet(podId,epId){
   $('epFindRow').style.display = (par && par.itunesId) ? '' : 'none';
   $('epFindTxt').textContent='Poišči epizodo v katalogu.';
   $('epOverlay').classList.add('open');
-  setTimeout(()=>$('eTitle').focus(),80);
+  $('epOverlay').querySelector('.sheet').scrollTop=0;
+  setTimeout(()=>{ $('eTitle').focus({preventScroll:true}); $('epOverlay').querySelector('.sheet').scrollTop=0; },80);
 }
 function closeEpSheet(){ $('epOverlay').classList.remove('open'); editingEpId=null; epParentId=null; }
 $('epCancel').onclick=closeEpSheet;
