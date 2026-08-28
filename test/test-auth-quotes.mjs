@@ -9,6 +9,14 @@ const srv=http.createServer((q,r)=>{ const u=q.url.split('?')[0]; const f=path.j
 await new Promise(r=>srv.listen(PORT,r));
 
 const R=[]; const ck=(n,c,e)=>R.push({n,ok:!!c,e:c?'':(e||'')});
+async function setList(id, text){
+  const vals=String(text).split('\n').map(s=>s.trim()).filter(Boolean);
+  const tas=page.locator(`#${id} textarea`);
+  for(let i=0;i<vals.length;i++){
+    if(i>=await tas.count()){ await page.click(`#${id}Add`); await page.waitForTimeout(60); }
+    await tas.nth(i).fill(vals[i]);
+  }
+}
 const CORS={'Access-Control-Allow-Origin':'*'};
 const browser=await chromium.launch();
 const page=await browser.newPage({viewport:{width:402,height:874}});
@@ -162,8 +170,8 @@ await page.fill('#pTitle','Apparatus');
 await page.click('#pLookupBtn'); await page.waitForTimeout(700);
 ck('lookup stored catalogue link', (await page.locator('#pLookupTxt').textContent()).includes('katalog'));
 ck('podcast extra fields collapsed by default', !(await page.locator('#pNotes').isVisible()));
-await page.click('#podMoreToggle'); await page.waitForTimeout(200);
-await page.fill('#pNotes','Poslušam med tekom.');
+await page.click('#podMoreToggle'); await page.waitForTimeout(400);
+await setList('pNotes','Poslušam med tekom.');
 await page.click('#podSave'); await page.waitForTimeout(600);
 const pod=await page.evaluate(()=>window.__mock.dump('podcasts').find(p=>p.title==='Apparatus'));
 ck('podcast saved with itunesId', pod.itunesId===111, JSON.stringify(pod.itunesId));
@@ -207,7 +215,7 @@ ck('date autofilled', /^\d{4}-\d{2}-\d{2}$/.test(await page.locator('#eDate').in
 
 ck('episode extras auto-opened after catalogue fill', await page.locator('#eNum').isVisible());
 await page.locator('#eRating').fill('5');
-await page.fill('#eQuotes','Molk je tudi odgovor.');
+await setList('eQuotes','Molk je tudi odgovor.');
 await page.click('#epSave'); await page.waitForTimeout(500);
 ck('episode saved', (await page.locator('.ep').count())===1);
 ck('state now derived as listened', (await page.locator('.pod-hero .status-tag').textContent())==='Vse poslušano');
@@ -261,8 +269,8 @@ await page.click('#navBooks'); await page.waitForTimeout(320);
 await page.click('#addBtn'); await page.waitForTimeout(350);
 await page.fill('#fTitle','Nova knjiga');
 await page.locator('#fRating').fill('4');
-await page.click('#bookMoreToggle'); await page.waitForTimeout(200);
-await page.fill('#fQuotes','Prvi citat.\nDrugi citat.');
+await page.click('#bookMoreToggle'); await page.waitForTimeout(400);
+await setList('fQuotes','Prvi citat.\nDrugi citat.');
 await page.click('#saveBtn'); await page.waitForTimeout(500);
 const nb=await page.evaluate(()=>window.__mock.dump('books').find(b=>b.title==='Nova knjiga'));
 ck('book saved with userId', nb.userId==='u_google');

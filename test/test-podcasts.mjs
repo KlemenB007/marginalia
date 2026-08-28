@@ -10,7 +10,16 @@ await new Promise(r=>srv.listen(PORT,r));
 
 const R=[]; const ck=(n,c,e)=>R.push({n,ok:!!c,e:c?'':(e||'')});
 const showMore=async sel=>{ const t=page.locator(sel);
-  if((await t.getAttribute('aria-expanded'))!=='true'){ await t.click(); await page.waitForTimeout(150); } };
+  if((await t.getAttribute('aria-expanded'))!=='true'){ await t.click(); await page.waitForTimeout(400); } };
+// vnos citatov/opomb po vrsticah (#fQuotes, #fNotes, #eQuotes, #eNotes, #pNotes)
+async function setList(id, text){
+  const vals=String(text).split('\n').map(s=>s.trim()).filter(Boolean);
+  const tas=page.locator(`#${id} textarea`);
+  for(let i=0;i<vals.length;i++){
+    if(i>=await tas.count()){ await page.click(`#${id}Add`); await page.waitForTimeout(60); }
+    await tas.nth(i).fill(vals[i]);
+  }
+}
 async function ensureOpen(epLoc){
   if(!(await epLoc.locator('.ep-body').isVisible())){
     await epLoc.locator('.ep-row').click();
@@ -74,7 +83,7 @@ await showMore('#podMoreToggle');
 const pg=await page.locator('#pGenreTags .g-tag').allTextContents();
 ck('genres added minus "Podcasts"', pg.length===2 && !pg.join('').toLowerCase().includes('podcasts'), JSON.stringify(pg));
 
-await page.fill('#pNotes','Opomba ena.');
+await setList('pNotes','Opomba ena.');
 await page.click('#podSave'); await page.waitForTimeout(500);
 
 const savedPod=await page.evaluate(()=>window.__mock.dump('podcasts')[0]);
@@ -110,8 +119,8 @@ await page.fill('#eNum','42');
 await page.fill('#eMinutes','58');
 await page.fill('#eDate','2026-08-12');
 await page.locator('#eRating').fill('5');
-await page.fill('#eQuotes','Citat iz epizode.\nDrugi citat epizode.');
-await page.fill('#eNotes','Prva opomba.\nDruga opomba.\nTretja.');
+await setList('eQuotes','Citat iz epizode.\nDrugi citat epizode.');
+await setList('eNotes','Prva opomba.\nDruga opomba.\nTretja.');
 await page.click('#epSave'); await page.waitForTimeout(450);
 
 let pod=await page.evaluate(()=>window.__mock.dump('podcasts')[0]);
@@ -230,8 +239,8 @@ await page.selectOption('#fMonth','5');
 ck('book details collapsed by default', !(await page.locator('#fPages').isVisible()));
 await showMore('#bookMoreToggle');
 await page.fill('#fPages','420');
-await page.fill('#fQuotes','Knjižni citat.');
-await page.fill('#fNotes','Opomba a.\nOpomba b.');
+await setList('fQuotes','Knjižni citat.');
+await setList('fNotes','Opomba a.\nOpomba b.');
 await page.fill('#genreInput','zgodovina'); await page.press('#genreInput','Enter');
 await page.click('#saveBtn'); await page.waitForTimeout(450);
 const bk=await page.evaluate(()=>window.__mock.dump('books')[0]);
@@ -280,9 +289,14 @@ const expQ2=await page.evaluate(()=>{
 ck('quote total counts books + episodes', nums[8]===String(expQ2), nums[8]+' vs '+expQ2);
 ck('top episodes section present', titles.some(t=>t.includes('epizode')));
 ck('stats has Grafi section', titles.includes('Grafi'));
+// grafi se gradijo ob drsenju do njih
+for(const c of await page.locator('#statsView .chart-card').all()){
+  await c.scrollIntoViewIfNeeded(); await page.waitForTimeout(250);
+}
 await page.waitForTimeout(500);
 const drawn=await page.evaluate(()=>(window.__statCharts||[]).length);
 ck('stat charts drawn', drawn>=2, 'drawn='+drawn);
+await page.evaluate(()=>window.scrollTo(0,0)); await page.waitForTimeout(200);
 ck('period chips present', (await page.locator('.stat-chips .chip').count())>=1);
 const perChip=page.locator('.stat-chips .chip').nth(1);
 if(await perChip.count()){
@@ -327,7 +341,7 @@ ck('podcast title literal', (await page.locator('.pod-hero h2').textContent()).i
 await page.click('#epAdd'); await page.waitForTimeout(320);
 await page.fill('#eTitle','<script>x</script>Ep');
 await showMore('#epMoreToggle');
-await page.fill('#eNotes','<i>nope</i>');
+await setList('eNotes','<i>nope</i>');
 await page.click('#epSave'); await page.waitForTimeout(420);
 ck('episode html escaped', (await page.locator('.ep-title script, .ep .note-text i').count())===0);
 await ensureOpen(page.locator('.ep').first());
