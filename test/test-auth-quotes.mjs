@@ -161,6 +161,8 @@ ck('notes label mentions episodes', (await page.locator('label[for=pNotes]').tex
 await page.fill('#pTitle','Apparatus');
 await page.click('#pLookupBtn'); await page.waitForTimeout(700);
 ck('lookup stored catalogue link', (await page.locator('#pLookupTxt').textContent()).includes('katalog'));
+ck('podcast extra fields collapsed by default', !(await page.locator('#pNotes').isVisible()));
+await page.click('#podMoreToggle'); await page.waitForTimeout(200);
 await page.fill('#pNotes','Poslušam med tekom.');
 await page.click('#podSave'); await page.waitForTimeout(600);
 const pod=await page.evaluate(()=>window.__mock.dump('podcasts').find(p=>p.title==='Apparatus'));
@@ -203,6 +205,7 @@ ck('number autofilled', (await page.locator('#eNum').inputValue())==='7');
 ck('duration autofilled', (await page.locator('#eMinutes').inputValue())==='47');
 ck('date autofilled', /^\d{4}-\d{2}-\d{2}$/.test(await page.locator('#eDate').inputValue()));
 
+ck('episode extras auto-opened after catalogue fill', await page.locator('#eNum').isVisible());
 await page.locator('#eRating').fill('5');
 await page.fill('#eQuotes','Molk je tudi odgovor.');
 await page.click('#epSave'); await page.waitForTimeout(500);
@@ -258,6 +261,7 @@ await page.click('#navBooks'); await page.waitForTimeout(320);
 await page.click('#addBtn'); await page.waitForTimeout(350);
 await page.fill('#fTitle','Nova knjiga');
 await page.locator('#fRating').fill('4');
+await page.click('#bookMoreToggle'); await page.waitForTimeout(200);
 await page.fill('#fQuotes','Prvi citat.\nDrugi citat.');
 await page.click('#saveBtn'); await page.waitForTimeout(500);
 const nb=await page.evaluate(()=>window.__mock.dump('books').find(b=>b.title==='Nova knjiga'));

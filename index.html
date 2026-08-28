@@ -15,6 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&display=swap" rel="stylesheet">
+<script defer src="vendor/chart.umd.min.js"></script>
 <style>
   :root {
     /* base — cool graphite */
@@ -484,6 +485,20 @@
   .mini-btn:active { background:var(--card-hi); }
   .mini-btn:disabled { opacity:.5; }
 
+  .more-toggle {
+    width:100%; display:flex; align-items:center; justify-content:space-between; gap:8px;
+    padding:14px 2px; margin-top:20px; background:none; border:none;
+    border-top:1px solid var(--line-soft); color:var(--text-soft);
+    font-family:var(--body); font-size:13.5px; font-weight:600; cursor:pointer;
+  }
+  .more-toggle:active { color:var(--text); }
+  .more-chev { color:var(--text-faint); transition:transform .2s; display:flex; flex-shrink:0; }
+  .more-toggle[aria-expanded="true"] .more-chev { transform:rotate(180deg); }
+  .more-fields { display:none; }
+  .more-fields.open { display:block; animation:moreIn .22s ease; }
+  .more-fields > *:first-child { margin-top:6px; }
+  @keyframes moreIn { from{opacity:0; transform:translateY(-5px)} to{opacity:1; transform:translateY(0)} }
+
   .sheet-btns { display:flex; gap:9px; margin-top:22px; }
   .btn { flex:1; padding:13px; border-radius:var(--r-md); border:none; font-family:var(--body); font-size:15.5px; font-weight:600; cursor:pointer; transition:opacity .15s, transform .1s; }
   .btn:active { transform:scale(.98); }
@@ -518,11 +533,35 @@
   .rank-name { color:var(--text); min-width:0; overflow-wrap:anywhere; }
   .rank-cnt { color:var(--text-faint); font-size:12.5px; flex-shrink:0; }
 
+  .stat-chips { display:flex; gap:7px; overflow-x:auto; scrollbar-width:none; margin:2px 0 14px; padding-bottom:3px; }
+  .stat-chips::-webkit-scrollbar { display:none; }
+  .stat-chips .chip { flex-shrink:0; }
+  .chart-card { background:var(--card); border:1px solid var(--line-soft); border-radius:var(--r-md); padding:14px 14px 12px; margin-bottom:12px; }
+  .chart-card h4 { font-family:var(--display); font-size:14px; font-weight:600; margin:0 0 12px; }
+  .chart-box { position:relative; height:220px; }
+  .chart-box.tall { height:264px; }
+  .chart-empty { font-size:12.5px; color:var(--text-faint); padding:6px 0 10px; }
+  @keyframes fadeUp { from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:translateY(0)} }
+
   .status-line { font-size:12.5px; color:var(--text-faint); text-align:center; margin:0 0 14px; min-height:15px; display:flex; align-items:center; justify-content:center; gap:6px; }
   .status-line.err { color:var(--danger); }
   .status-line.hide { display:none; }
   .pulse { width:6px; height:6px; border-radius:50%; background:var(--acc); animation:pl 1.2s infinite; }
   @keyframes pl { 0%,100%{opacity:.3} 50%{opacity:1} }
+
+  /* --- subtilne animacije med deli aplikacije --- */
+  .view-in { animation:viewIn .24s cubic-bezier(.16,1,.3,1) both; }
+  @keyframes viewIn { from{opacity:0; transform:translateY(7px)} to{opacity:1; transform:translateY(0)} }
+  @keyframes cardIn { from{opacity:0; transform:translateY(9px)} to{opacity:1; transform:translateY(0)} }
+  #list > .entry, #podList > .entry { animation:cardIn .28s ease both; }
+  #list > .entry:nth-child(1), #podList > .entry:nth-child(1) { animation-delay:.02s }
+  #list > .entry:nth-child(2), #podList > .entry:nth-child(2) { animation-delay:.05s }
+  #list > .entry:nth-child(3), #podList > .entry:nth-child(3) { animation-delay:.08s }
+  #list > .entry:nth-child(4), #podList > .entry:nth-child(4) { animation-delay:.11s }
+  #list > .entry:nth-child(5), #podList > .entry:nth-child(5) { animation-delay:.14s }
+  #list > .entry:nth-child(6), #podList > .entry:nth-child(6) { animation-delay:.17s }
+  #list > .entry:nth-child(7), #podList > .entry:nth-child(7) { animation-delay:.20s }
+  #list > .entry:nth-child(n+8), #podList > .entry:nth-child(n+8) { animation-delay:.22s }
 
   @media (prefers-reduced-motion:reduce) { * { animation-duration:.01ms !important; transition-duration:.01ms !important; } }
 </style>
@@ -713,21 +752,28 @@
   </div>
   <label>Kdaj sem prebral</label>
   <div class="date-row"><select id="fMonth"></select><select id="fYear"></select></div>
-  <div class="two-col">
-    <div><label for="fPages">Strani skupaj</label><input type="number" id="fPages" inputmode="numeric" placeholder="npr. 320"></div>
-    <div id="pageAtWrap"><label for="fPageAt">Na strani</label><input type="number" id="fPageAt" inputmode="numeric" placeholder="npr. 145"></div>
+
+  <button type="button" class="more-toggle" id="bookMoreToggle" aria-expanded="false">
+    <span>Več podrobnosti</span>
+    <span class="more-chev"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+  </button>
+  <div class="more-fields" id="bookMore">
+    <div class="two-col">
+      <div><label for="fPages">Strani skupaj</label><input type="number" id="fPages" inputmode="numeric" placeholder="npr. 320"></div>
+      <div id="pageAtWrap"><label for="fPageAt">Na strani</label><input type="number" id="fPageAt" inputmode="numeric" placeholder="npr. 145"></div>
+    </div>
+    <label for="fPublished">Leto izida <span class="hint">Podatek o knjigi, ne o tvojem branju.</span></label>
+    <input type="number" id="fPublished" inputmode="numeric" placeholder="npr. 2010">
+    <label>Žanri</label>
+    <div class="genre-box"><div class="genre-tags" id="genreTags"></div><input type="text" id="genreInput" placeholder="Vpiši žanr in pritisni Enter…"></div>
+    <div class="genre-sugg" id="genreSugg"></div>
+    <label>Barva oznake</label>
+    <div class="color-row" id="colorRow"></div>
+    <label for="fQuotes">Citati <span class="hint">Vsaka nova vrstica je svoj citat.</span></label>
+    <textarea id="fQuotes" class="quotes" placeholder="Prvi citat…&#10;Drugi citat…"></textarea>
+    <label for="fNotes">Opombe <span class="hint">Vsaka nova vrstica je svoja opomba.</span></label>
+    <textarea id="fNotes" placeholder="Prva misel…&#10;Druga misel…"></textarea>
   </div>
-  <label for="fPublished">Leto izida <span class="hint">Podatek o knjigi, ne o tvojem branju.</span></label>
-  <input type="number" id="fPublished" inputmode="numeric" placeholder="npr. 2010">
-  <label>Žanri</label>
-  <div class="genre-box"><div class="genre-tags" id="genreTags"></div><input type="text" id="genreInput" placeholder="Vpiši žanr in pritisni Enter…"></div>
-  <div class="genre-sugg" id="genreSugg"></div>
-  <label>Barva oznake</label>
-  <div class="color-row" id="colorRow"></div>
-  <label for="fQuotes">Citati <span class="hint">Vsaka nova vrstica je svoj citat.</span></label>
-  <textarea id="fQuotes" class="quotes" placeholder="Prvi citat…&#10;Drugi citat…"></textarea>
-  <label for="fNotes">Opombe <span class="hint">Vsaka nova vrstica je svoja opomba.</span></label>
-  <textarea id="fNotes" placeholder="Prva misel…&#10;Druga misel…"></textarea>
   <div class="sheet-btns">
     <button class="btn secondary" id="cancelBtn">Prekliči</button>
     <button class="btn primary" id="saveBtn">Shrani</button>
@@ -748,13 +794,19 @@
     <div class="lookup-txt" id="pLookupTxt">Vpiši ime in pritisni Poišči.</div>
     <button class="mini-btn" id="pLookupBtn">Poišči</button>
   </div>
-  <label>Žanri</label>
-  <div class="genre-box"><div class="genre-tags" id="pGenreTags"></div><input type="text" id="pGenreInput" placeholder="Vpiši žanr in pritisni Enter…"></div>
-  <div class="genre-sugg" id="pGenreSugg"></div>
-  <label>Barva oznake</label>
-  <div class="color-row" id="pColorRow"></div>
-  <label for="pNotes">Opombe o podcastu <span class="hint">Vsaka nova vrstica je svoja opomba. Citate zapiši pri epizodah.</span></label>
-  <textarea id="pNotes" placeholder="Prva misel…&#10;Druga misel…"></textarea>
+  <button type="button" class="more-toggle" id="podMoreToggle" aria-expanded="false">
+    <span>Več podrobnosti</span>
+    <span class="more-chev"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+  </button>
+  <div class="more-fields" id="podMore">
+    <label class="first">Žanri</label>
+    <div class="genre-box"><div class="genre-tags" id="pGenreTags"></div><input type="text" id="pGenreInput" placeholder="Vpiši žanr in pritisni Enter…"></div>
+    <div class="genre-sugg" id="pGenreSugg"></div>
+    <label>Barva oznake</label>
+    <div class="color-row" id="pColorRow"></div>
+    <label for="pNotes">Opombe o podcastu <span class="hint">Vsaka nova vrstica je svoja opomba. Citate zapiši pri epizodah.</span></label>
+    <textarea id="pNotes" placeholder="Prva misel…&#10;Druga misel…"></textarea>
+  </div>
   <div class="sheet-btns">
     <button class="btn secondary" id="podCancel">Prekliči</button>
     <button class="btn primary" id="podSave">Shrani</button>
@@ -784,10 +836,6 @@
   </div>
   <label class="first" for="eTitle">Naslov epizode</label>
   <input type="text" id="eTitle" placeholder="npr. Kaj nam pove tišina">
-  <div class="two-col">
-    <div><label for="eNum">Št. epizode</label><input type="number" id="eNum" inputmode="numeric" placeholder="npr. 42"></div>
-    <div><label for="eMinutes">Trajanje (min)</label><input type="number" id="eMinutes" inputmode="numeric" placeholder="npr. 58"></div>
-  </div>
   <label for="eDate">Kdaj sem poslušal</label>
   <input type="date" id="eDate">
   <label>Status</label>
@@ -806,10 +854,21 @@
     <input type="range" class="rate-range" id="eRating" min="0" max="5" step="0.5" value="0" aria-label="Ocena">
     <div class="rate-scale"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
   </div>
-  <label for="eQuotes">Citati <span class="hint">Vsaka nova vrstica je svoj citat.</span></label>
-  <textarea id="eQuotes" class="quotes" placeholder="Prvi citat…&#10;Drugi citat…"></textarea>
-  <label for="eNotes">Opombe <span class="hint">Vsaka nova vrstica je svoja opomba.</span></label>
-  <textarea id="eNotes" placeholder="Prva misel…&#10;Druga misel…"></textarea>
+
+  <button type="button" class="more-toggle" id="epMoreToggle" aria-expanded="false">
+    <span>Več podrobnosti</span>
+    <span class="more-chev"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+  </button>
+  <div class="more-fields" id="epMore">
+    <div class="two-col">
+      <div><label class="first" for="eNum">Št. epizode</label><input type="number" id="eNum" inputmode="numeric" placeholder="npr. 42"></div>
+      <div><label class="first" for="eMinutes">Trajanje (min)</label><input type="number" id="eMinutes" inputmode="numeric" placeholder="npr. 58"></div>
+    </div>
+    <label for="eQuotes">Citati <span class="hint">Vsaka nova vrstica je svoj citat.</span></label>
+    <textarea id="eQuotes" class="quotes" placeholder="Prvi citat…&#10;Drugi citat…"></textarea>
+    <label for="eNotes">Opombe <span class="hint">Vsaka nova vrstica je svoja opomba.</span></label>
+    <textarea id="eNotes" placeholder="Prva misel…&#10;Druga misel…"></textarea>
+  </div>
   <div class="sheet-btns">
     <button class="btn secondary" id="epCancel">Prekliči</button>
     <button class="btn primary" id="epSave">Shrani</button>
@@ -1191,6 +1250,8 @@ let openPodId = null;
 let editingId = null, editingPodId = null, editingEpId = null, epParentId = null;
 let currentSort = 'new', currentFilter = 'all', currentGenre = null;
 let podFilter = 'all';
+let statsPeriod = 'all';   // 'all' or a year (number) — filters the stats charts
+let statCharts = [];
 let expanded = new Set(), podExpanded = new Set(), epExpanded = new Set();
 
 const $ = id => document.getElementById(id);
@@ -1285,11 +1346,42 @@ function makeGenres(tagsId, inputId, suggId, suggList){
   return { set(v){ items=[...(v||[])]; input.value=''; render(); }, get(){ return [...items]; }, add };
 }
 
+function makeMore(toggleId, boxId){
+  const t=$(toggleId), b=$(boxId), lbl=t.querySelector('span');
+  const set=open=>{
+    t.setAttribute('aria-expanded', open ? 'true' : 'false');
+    b.classList.toggle('open', open);
+    lbl.textContent = open ? 'Manj podrobnosti' : 'Več podrobnosti';
+  };
+  t.onclick=()=>set(t.getAttribute('aria-expanded')!=='true');
+  return { set, open:()=>set(true), collapse:()=>set(false), isOpen:()=>t.getAttribute('aria-expanded')==='true' };
+}
+
+const REDUCE_MOTION = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+function countUp(el){
+  const raw = el.textContent.trim();
+  if(REDUCE_MOTION || !/^\d{2,}$/.test(raw)) return;   // le cela števila >= 10
+  const target = +raw, dur = 480, t0 = performance.now();
+  const step = now => {
+    const p = Math.min(1, (now - t0) / dur);
+    el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+    if(p < 1) requestAnimationFrame(step);
+    else el.textContent = raw;
+  };
+  requestAnimationFrame(step);
+}
+
 const bookRating = makeRating('fRating','rateFg','rateVal');
 const epRating   = makeRating('eRating','eRateFg','eRateVal');
 const bookColor  = makeColors('colorRow', BOOK_PALETTE);
 const podColor   = makeColors('pColorRow', POD_PALETTE);
-const bookStatus = makeSeg('statusSeg', v=>{ $('pageAtWrap').style.display = (v==='current'||v==='dnf')?'':'none'; });
+const bookMore   = makeMore('bookMoreToggle','bookMore');
+const podMore    = makeMore('podMoreToggle','podMore');
+const epMore     = makeMore('epMoreToggle','epMore');
+const bookStatus = makeSeg('statusSeg', v=>{
+  $('pageAtWrap').style.display = (v==='current'||v==='dnf')?'':'none';
+  if(v==='current'||v==='dnf') bookMore.open();
+});
 const epStatus   = makeSeg('eStatusSeg');
 const bookGenres = makeGenres('genreTags','genreInput','genreSugg',GENRE_SUGG);
 const podGenres  = makeGenres('pGenreTags','pGenreInput','pGenreSugg',POD_GENRE_SUGG);
@@ -1435,6 +1527,9 @@ function goTo(v){
   const navAcc = (v==='books') ? 'var(--acc-book)' : (v==='pods'||v==='podDetail') ? 'var(--acc-pod)' : 'var(--cloud)';
   document.querySelector('.nav').style.setProperty('--acc', navAcc);
   render();
+  const VIEW_EL = { home:'homeView', books:'booksView', pods:'podsView', podDetail:'podDetailView', stats:'statsView' };
+  const av = $(VIEW_EL[v]);
+  if(av){ av.classList.remove('view-in'); void av.offsetWidth; av.classList.add('view-in'); }
 }
 $('navHome').onclick =()=>{ openPodId=null; goTo('home'); };
 $('navBooks').onclick=()=>{ openPodId=null; goTo('books'); };
@@ -1963,7 +2058,121 @@ function epRow(e,idx){
 }
 
 /* ---------- stats ---------- */
+const GENRE_COLORS = ['#E5A45B','#9C8CFA','#7EC8C4','#E38FB4','#77C293','#D98B6A','#8E9BD4','#C9A86B'];
+
+function epYM(iso){ const m=/^(\d{4})-(\d{2})/.exec(String(iso||'')); return m?{y:+m[1],m:+m[2]}:null; }
+
+function statYears(){
+  const s=new Set();
+  books.forEach(b=>{ if(b.readYear) s.add(+b.readYear); });
+  pods.forEach(p=>(p.episodes||[]).forEach(e=>{ const d=epYM(e.date); if(d) s.add(d.y); }));
+  return [...s].sort((a,b)=>b-a);
+}
+
+function destroyStatCharts(){
+  statCharts.forEach(c=>{ try{ c.destroy(); }catch(e){} });
+  statCharts=[];
+}
+
+function withChartLib(fn){
+  if(window.Chart) return fn();
+  let n=0;
+  const t=setInterval(()=>{
+    if(window.Chart){ clearInterval(t); fn(); }
+    else if(n++>40){ clearInterval(t); }
+  },100);
+}
+
+function chartCommonOpts(){
+  const cs=getComputedStyle(document.documentElement);
+  const grid=cs.getPropertyValue('--line-soft').trim()||'#20252C';
+  const tick=cs.getPropertyValue('--text-faint').trim()||'#6D7480';
+  return { grid, tick,
+    legend:{ position:'bottom', labels:{ boxWidth:9, boxHeight:9, usePointStyle:true, padding:14,
+      color:cs.getPropertyValue('--text-soft').trim()||'#A3AAB5', font:{ family:"'Literata',Georgia,serif" } } } };
+}
+
+function buildStatChart(id, config){
+  const el=$(id); if(!el) return;
+  try{ statCharts.push(new Chart(el.getContext('2d'), config)); }catch(e){ console.warn('chart',id,e); }
+}
+
+function buildStatCharts(){
+  const co=chartCommonOpts();
+  const yearSel = statsPeriod==='all' ? null : Number(statsPeriod);
+  const barScales = {
+    x:{ grid:{ display:false }, ticks:{ color:co.tick, font:{ size:11 } } },
+    y:{ beginAtZero:true, ticks:{ precision:0, stepSize:1, color:co.tick, font:{ size:11 } }, grid:{ color:co.grid } }
+  };
+  const baseOpts = { responsive:true, maintainAspectRatio:false, animation:{ duration:500 },
+    plugins:{ legend:co.legend, tooltip:{ boxPadding:6 } } };
+
+  const doneBooks=books.filter(b=>(b.status||'read')==='read');
+  const allEps=pods.flatMap(p=>(p.episodes||[]).map(e=>({...e,pod:p.title})));
+  const doneEps=allEps.filter(e=>(e.status||'read')==='read');
+
+  /* --- 1. Aktivnost skozi čas --- */
+  let labels, bookData, epData;
+  if(yearSel){
+    labels = MONTHS.map(m=>m.slice(0,3));
+    bookData = Array(12).fill(0); epData = Array(12).fill(0);
+    doneBooks.forEach(b=>{ if(+b.readYear===yearSel && b.readMonth) bookData[b.readMonth-1]++; });
+    doneEps.forEach(e=>{ const d=epYM(e.date); if(d && d.y===yearSel) epData[d.m-1]++; });
+  } else {
+    const ys=statYears().slice().reverse();
+    labels = ys.length?ys:[thisYear];
+    bookData = labels.map(y=>doneBooks.filter(b=>+b.readYear===y).length);
+    epData   = labels.map(y=>doneEps.filter(e=>{ const d=epYM(e.date); return d && d.y===y; }).length);
+    labels = labels.map(String);
+  }
+  if(bookData.some(n=>n) || epData.some(n=>n)){
+    buildStatChart('chAktivnost', { type:'bar',
+      data:{ labels, datasets:[
+        { label:'Knjige', data:bookData, backgroundColor:ACC_BOOK, borderRadius:4, maxBarThickness:34 },
+        { label:'Epizode', data:epData, backgroundColor:ACC_POD, borderRadius:4, maxBarThickness:34 } ] },
+      options:{ ...baseOpts, scales:barScales } });
+  }
+
+  /* --- 2. Razdelitev ocen --- */
+  const bBuck=[0,0,0,0,0], eBuck=[0,0,0,0,0];
+  books.forEach(b=>{ const r=Number(b.rating); if(r>0 && (!yearSel || +b.readYear===yearSel)) bBuck[Math.min(4,Math.round(r)-1)]++; });
+  allEps.forEach(e=>{ const r=Number(e.rating); const d=epYM(e.date);
+    if(r>0 && (!yearSel || (d && d.y===yearSel))) eBuck[Math.min(4,Math.round(r)-1)]++; });
+  if(bBuck.some(n=>n) || eBuck.some(n=>n)){
+    buildStatChart('chOcene', { type:'bar',
+      data:{ labels:['1★','2★','3★','4★','5★'], datasets:[
+        { label:'Knjige', data:bBuck, backgroundColor:ACC_BOOK, borderRadius:4, maxBarThickness:40 },
+        { label:'Epizode', data:eBuck, backgroundColor:ACC_POD, borderRadius:4, maxBarThickness:40 } ] },
+      options:{ ...baseOpts, scales:barScales } });
+  }
+
+  /* --- 3. Žanri (knjige) --- */
+  const gc={};
+  books.forEach(b=>{ if(!yearSel || +b.readYear===yearSel) (b.genres||[]).forEach(g=>{ gc[g]=(gc[g]||0)+1; }); });
+  const gTop=Object.entries(gc).sort((a,b)=>b[1]-a[1]).slice(0,7);
+  if(gTop.length){
+    buildStatChart('chZanri', { type:'doughnut',
+      data:{ labels:gTop.map(g=>g[0]), datasets:[{ data:gTop.map(g=>g[1]),
+        backgroundColor:GENRE_COLORS, borderColor:getComputedStyle(document.documentElement).getPropertyValue('--card').trim()||'#1A1E24', borderWidth:2 }] },
+      options:{ ...baseOpts, cutout:'56%',
+        plugins:{ legend:{ ...co.legend, position:'right' }, tooltip:{ boxPadding:6 } } } });
+  }
+
+  /* --- 4. Epizode po podcastih --- */
+  const podEp=pods.map(p=>[p.title,(p.episodes||[]).filter(e=>!yearSel || (epYM(e.date)||{}).y===yearSel).length])
+    .filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  if(podEp.length){
+    buildStatChart('chPods', { type:'bar',
+      data:{ labels:podEp.map(x=>x[0]), datasets:[{ label:'Epizode', data:podEp.map(x=>x[1]),
+        backgroundColor:ACC_POD, borderRadius:4, maxBarThickness:26 }] },
+      options:{ ...baseOpts, indexAxis:'y', plugins:{ legend:{ display:false }, tooltip:{ boxPadding:6 } },
+        scales:{ x:{ beginAtZero:true, ticks:{ precision:0, stepSize:1, color:co.tick }, grid:{ color:co.grid } },
+                 y:{ grid:{ display:false }, ticks:{ color:co.tick, font:{ size:11 } } } } } });
+  }
+}
+
 function renderStats(){
+  destroyStatCharts();
   const v=$('statsView');
   const read=books.filter(b=>(b.status||'read')==='read');
   const rated=books.filter(b=>Number(b.rating)>0);
@@ -1971,15 +2180,12 @@ function renderStats(){
 
   const yearCount={};
   read.forEach(b=>{ if(b.readYear) yearCount[b.readYear]=(yearCount[b.readYear]||0)+1; });
-  const years=Object.keys(yearCount).sort((a,b)=>b-a).slice(0,8);
-  const maxYear=Math.max(1,...years.map(y=>yearCount[y]));
 
   const authorCount={};
   books.forEach(b=>{ const a=(b.author||'').trim(); if(a) authorCount[a]=(authorCount[a]||0)+1; });
   const topAuthors=Object.entries(authorCount).sort((a,b)=>b[1]-a[1]).slice(0,5);
 
   const topGenres=genreCounts().slice(0,6);
-  const maxGenre=Math.max(1,...topGenres.map(g=>g[1]));
   const topRated=[...rated].sort((a,b)=>Number(b.rating)-Number(a.rating)).slice(0,5);
 
   const doneThisYear=yearCount[thisYear]||0;
@@ -1990,8 +2196,6 @@ function renderStats(){
   const epMinutes=epsDone.reduce((s,e)=>s+(Number(e.minutes)||0),0);
   const epRated=allEps.filter(e=>Number(e.rating)>0);
   const epAvg=epRated.length?epRated.reduce((s,e)=>s+Number(e.rating),0)/epRated.length:0;
-  const podEpCount=pods.map(p=>[p.title,(p.episodes||[]).length]).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1]).slice(0,5);
-  const maxPodEp=Math.max(1,...podEpCount.map(x=>x[1]));
   const topEps=[...epRated].sort((a,b)=>Number(b.rating)-Number(a.rating)).slice(0,5);
 
   const quoteTotal = books.reduce((s,b)=>s+toLines(b.quotes).length,0)
@@ -2001,6 +2205,11 @@ function renderStats(){
   const goalPct=goal?Math.min(100,doneThisYear/goal*100):0;
   const left=Math.max(0,goal-doneThisYear);
   const tick=n=>n===1?'knjiga':n===2?'knjigi':n<=4?'knjige':'knjig';
+
+  const years=statYears();
+  if(statsPeriod!=='all' && !years.includes(Number(statsPeriod))) statsPeriod='all';
+  const chip=(k,lbl)=>`<button class="chip ${String(statsPeriod)===String(k)?'active':''}" data-period="${k}">${lbl}</button>`;
+  const chipsRow = `<div class="stat-chips">${chip('all','Vse')}${years.map(y=>chip(y,y)).join('')}</div>`;
 
   v.innerHTML=`
     <div class="goal-card">
@@ -2033,21 +2242,22 @@ function renderStats(){
       <div class="stat-box"><div class="stat-num">${topGenres.length||'—'}</div><div class="stat-lbl">Žanrov pri knjigah</div></div>
     </div>
 
-    ${years.length?`<div class="stat-section-title">Prebrano po letih</div>
-      ${years.map(y=>`<div class="bar-row"><span class="bar-lbl narrow">${y}</span>
-        <span class="bar-track"><span class="bar-fill" style="width:${(yearCount[y]/maxYear*100).toFixed(0)}%"></span></span>
-        <span class="bar-val">${yearCount[y]}</span></div>`).join('')}`
-      :`<div class="stat-section-title">Prebrano po letih</div><p class="empty-sub">Dodaj leto branja pri knjigah.</p>`}
-
-    ${podEpCount.length?`<div class="stat-section-title">Največ epizod</div>
-      ${podEpCount.map(([t,c])=>`<div class="bar-row"><span class="bar-lbl">${esc(t)}</span>
-        <span class="bar-track"><span class="bar-fill" style="width:${(c/maxPodEp*100).toFixed(0)}%"></span></span>
-        <span class="bar-val">${c}</span></div>`).join('')}`:''}
-
-    ${topGenres.length?`<div class="stat-section-title">Najpogostejši žanri</div>
-      ${topGenres.map(([g,c])=>`<div class="bar-row"><span class="bar-lbl">${esc(g)}</span>
-        <span class="bar-track"><span class="bar-fill" style="width:${(c/maxGenre*100).toFixed(0)}%"></span></span>
-        <span class="bar-val">${c}</span></div>`).join('')}`:''}
+    <div class="stat-section-title">Grafi</div>
+    ${(books.length||pods.length)?`
+    ${chipsRow}
+    <div class="chart-card"><h4>Aktivnost ${statsPeriod==='all'?'po letih':'v letu '+statsPeriod}</h4>
+      <div class="chart-box"><canvas id="chAktivnost"></canvas></div>
+      <div class="chart-empty" id="emAktivnost" style="display:none">Za to obdobje ni podatkov z datumom.</div></div>
+    <div class="chart-card"><h4>Razdelitev ocen</h4>
+      <div class="chart-box"><canvas id="chOcene"></canvas></div>
+      <div class="chart-empty" id="emOcene" style="display:none">Še ni ocenjenih vnosov.</div></div>
+    <div class="chart-card"><h4>Žanri knjig</h4>
+      <div class="chart-box tall"><canvas id="chZanri"></canvas></div>
+      <div class="chart-empty" id="emZanri" style="display:none">Dodaj žanre pri knjigah.</div></div>
+    <div class="chart-card"><h4>Epizode po podcastih</h4>
+      <div class="chart-box"><canvas id="chPods"></canvas></div>
+      <div class="chart-empty" id="emPods" style="display:none">Še ni epizod.</div></div>`
+    :`<p class="empty-sub">Ko dodaš prve knjige in epizode, se tu pokažejo grafi.</p>`}
 
     ${topAuthors.length?`<div class="stat-section-title">Najpogostejši avtorji</div>
       ${topAuthors.map(([a,c])=>`<div class="rank-row"><span class="rank-name">${esc(a)}</span><span class="rank-cnt">${c}×</span></div>`).join('')}`:''}
@@ -2060,6 +2270,21 @@ function renderStats(){
   `;
   const gb=$('goalEditBtn');
   if(gb) gb.onclick=openGoalSheet;
+  v.querySelectorAll('.stat-num').forEach(countUp);
+  v.querySelectorAll('.stat-chips .chip').forEach(c=>{
+    c.onclick=()=>{ const p=c.dataset.period; statsPeriod = p==='all'?'all':Number(p); renderStats(); };
+  });
+  withChartLib(()=>{
+    if(view!=='stats') return;
+    buildStatCharts();
+    window.__statCharts = statCharts;
+    [['chAktivnost','emAktivnost'],['chOcene','emOcene'],['chZanri','emZanri'],['chPods','emPods']].forEach(([cid,eid])=>{
+      const has=statCharts.some(ch=>ch.canvas && ch.canvas.id===cid);
+      const box=$(cid)?.closest('.chart-box'); const em=$(eid);
+      if(box) box.style.display = has?'':'none';
+      if(em) em.style.display = has?'none':'';
+    });
+  });
 }
 
 /* ---------- goal ---------- */
@@ -2103,6 +2328,10 @@ function openSheet(id){
     bookColor.random(); bookStatus.set('read'); bookRating.set(0); bookGenres.set([]);
     bookCover=''; monthSel.value=''; yearSel.value='';
   }
+  const bookMoreFilled = !!($('fPages').value || $('fPageAt').value || $('fPublished').value
+    || $('fQuotes').value || $('fNotes').value || bookGenres.get().length
+    || bookStatus.get()==='current' || bookStatus.get()==='dnf');
+  if(id && bookMoreFilled) bookMore.open(); else bookMore.collapse();
   $('lookupTxt').textContent=bookCover?'Podatki nastavljeni.':'Vpiši naslov in pritisni Poišči.';
   renderPrev('lookupPrev',bookCover);
   $('overlay').classList.add('open');
@@ -2161,6 +2390,8 @@ function openPodSheet(id){
     podItunesId = null;
     podCover='';
   }
+  const podMoreFilled = !!($('pNotes').value || podGenres.get().length);
+  if(id && podMoreFilled) podMore.open(); else podMore.collapse();
   $('pLookupTxt').textContent=podCover?'Podatki nastavljeni.':'Vpiši ime in pritisni Poišči.';
   renderPrev('pLookupPrev',podCover);
   $('podOverlay').classList.add('open');
@@ -2233,6 +2464,7 @@ function renderEpFind(){
       if(e.num) $('eNum').value=e.num;
       if(e.minutes) $('eMinutes').value=e.minutes;
       if(e.date && !$('eDate').value) $('eDate').value=e.date;
+      if(e.num || e.minutes) epMore.open();
       $('epFindTxt').textContent='Izpolnjeno iz kataloga.';
       closeEpFind();
     };
@@ -2279,6 +2511,8 @@ function openEpSheet(podId,epId){
     ['eTitle','eNum','eMinutes','eDate','eQuotes','eNotes'].forEach(k=>{ $(k).value=''; });
     epStatus.set('read'); epRating.set(0);
   }
+  const epMoreFilled = !!($('eNum').value || $('eMinutes').value || $('eQuotes').value || $('eNotes').value);
+  if(epId && epMoreFilled) epMore.open(); else epMore.collapse();
   const par=pods.find(x=>x.id===podId);
   $('epFindRow').style.display = (par && par.itunesId) ? '' : 'none';
   $('epFindTxt').textContent='Poišči epizodo v katalogu.';

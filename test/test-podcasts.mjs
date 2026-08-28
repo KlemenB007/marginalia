@@ -9,6 +9,8 @@ const srv=http.createServer((q,r)=>{ const u=q.url.split('?')[0]; const f=path.j
 await new Promise(r=>srv.listen(PORT,r));
 
 const R=[]; const ck=(n,c,e)=>R.push({n,ok:!!c,e:c?'':(e||'')});
+const showMore=async sel=>{ const t=page.locator(sel);
+  if((await t.getAttribute('aria-expanded'))!=='true'){ await t.click(); await page.waitForTimeout(150); } };
 async function ensureOpen(epLoc){
   if(!(await epLoc.locator('.ep-body').isVisible())){
     await epLoc.locator('.ep-row').click();
@@ -67,6 +69,8 @@ await page.click('#pLookupBtn'); await page.waitForTimeout(600);
 ck('itunes called', itunesCalls.includes('Apparatus'), JSON.stringify(itunesCalls));
 ck('lookup filled host', (await page.locator('#pHost').inputValue())==='Marcel Štefančič');
 ck('lookup cover https', await page.evaluate(()=>document.querySelector('#pLookupPrev img')?.src.startsWith('https://')));
+ck('podcast details collapsed by default', !(await page.locator('#pNotes').isVisible()));
+await showMore('#podMoreToggle');
 const pg=await page.locator('#pGenreTags .g-tag').allTextContents();
 ck('genres added minus "Podcasts"', pg.length===2 && !pg.join('').toLowerCase().includes('podcasts'), JSON.stringify(pg));
 
@@ -100,6 +104,8 @@ ck('episode sheet opens', await page.locator('#epOverlay').evaluate(e=>e.classLi
   ck('episode sheet has no sideways scroll', m.xover<=0, 'x overflow='+m.xover);
 }
 await page.fill('#eTitle','Kaj nam pove tišina');
+ck('episode extras collapsed by default', !(await page.locator('#eNum').isVisible()));
+await showMore('#epMoreToggle');
 await page.fill('#eNum','42');
 await page.fill('#eMinutes','58');
 await page.fill('#eDate','2026-08-12');
@@ -137,11 +143,13 @@ await page.click('#epCancel'); await page.waitForTimeout(200);
 
 // second + third episode
 await page.click('#epAdd'); await page.waitForTimeout(300);
+await showMore('#epMoreToggle');
 await page.fill('#eTitle','Starejša epizoda'); await page.fill('#eNum','41');
 await page.fill('#eDate','2026-07-01'); await page.fill('#eMinutes','45');
 await page.locator('#eRating').fill('3');
 await page.click('#epSave'); await page.waitForTimeout(400);
 await page.click('#epAdd'); await page.waitForTimeout(300);
+await showMore('#epMoreToggle');
 await page.fill('#eTitle','Najnovejsa'); await page.fill('#eDate','2026-08-20'); await page.fill('#eMinutes','30');
 await page.click('#eStatusSeg button[data-status=wish]');
 await page.click('#epSave'); await page.waitForTimeout(400);
@@ -219,6 +227,8 @@ await page.fill('#fTitle','Homo Deus'); await page.fill('#fAuthor','Y N Harari')
 await page.locator('#fRating').fill('4');
 await page.selectOption('#fYear', String(new Date().getFullYear()));
 await page.selectOption('#fMonth','5');
+ck('book details collapsed by default', !(await page.locator('#fPages').isVisible()));
+await showMore('#bookMoreToggle');
 await page.fill('#fPages','420');
 await page.fill('#fQuotes','Knjižni citat.');
 await page.fill('#fNotes','Opomba a.\nOpomba b.');
@@ -246,7 +256,7 @@ ck('book edit prefills genre', (await page.locator('#genreTags .g-tag').count())
 await page.click('#cancelBtn'); await page.waitForTimeout(250);
 
 // ===== 11. Stats =====
-await page.click('#navStats'); await page.waitForTimeout(400);
+await page.click('#navStats'); await page.waitForTimeout(700); // + čas za count-up števcev
 const titles=await page.locator('.stat-section-title').allTextContents();
 ck('stats has Knjige section', titles.includes('Knjige'));
 ck('stats has Podcasti section', titles.includes('Podcasti'));
@@ -269,8 +279,17 @@ const expQ2=await page.evaluate(()=>{
 });
 ck('quote total counts books + episodes', nums[8]===String(expQ2), nums[8]+' vs '+expQ2);
 ck('top episodes section present', titles.some(t=>t.includes('epizode')));
-const bw=await page.evaluate(()=>[...document.querySelectorAll('.bar-fill')].map(b=>b.getBoundingClientRect().width));
-ck('stat bars have width', bw.length>0 && bw.every(w=>w>0), JSON.stringify(bw));
+ck('stats has Grafi section', titles.includes('Grafi'));
+await page.waitForTimeout(500);
+const drawn=await page.evaluate(()=>(window.__statCharts||[]).length);
+ck('stat charts drawn', drawn>=2, 'drawn='+drawn);
+ck('period chips present', (await page.locator('.stat-chips .chip').count())>=1);
+const perChip=page.locator('.stat-chips .chip').nth(1);
+if(await perChip.count()){
+  await perChip.click(); await page.waitForTimeout(400);
+  ck('period chip activates', await perChip.evaluate(e=>e.classList.contains('active')));
+  await page.click('.stat-chips .chip[data-period=all]'); await page.waitForTimeout(300);
+}
 
 // ===== 12. Goal still works =====
 await page.click('#goalEditBtn'); await page.waitForTimeout(300);
@@ -307,6 +326,7 @@ ck('podcast html escaped', (await page.locator('.pod-hero h2 img').count())===0)
 ck('podcast title literal', (await page.locator('.pod-hero h2').textContent()).includes('<img'));
 await page.click('#epAdd'); await page.waitForTimeout(320);
 await page.fill('#eTitle','<script>x</script>Ep');
+await showMore('#epMoreToggle');
 await page.fill('#eNotes','<i>nope</i>');
 await page.click('#epSave'); await page.waitForTimeout(420);
 ck('episode html escaped', (await page.locator('.ep-title script, .ep .note-text i').count())===0);

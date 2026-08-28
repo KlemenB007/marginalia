@@ -69,4 +69,12 @@ fs.writeFileSync(OUT, html);
 const icon = path.join(root, 'icon.png');
 if (fs.existsSync(icon)) fs.copyFileSync(icon, path.join(here, 'icon.png'));
 
+// lokalna kopija Chart.js (<script src="vendor/chart.umd.min.js">)
+const vSrc = path.join(root, 'vendor');
+if (fs.existsSync(vSrc)) {
+  const vOut = path.join(here, 'vendor');
+  fs.mkdirSync(vOut, { recursive: true });
+  for (const f of fs.readdirSync(vSrc)) fs.copyFileSync(path.join(vSrc, f), path.join(vOut, f));
+}
+
 console.log(`app.html zgrajen — zamenjanih ${hits} uvozov, ${(html.length/1024).toFixed(1)} KB`);
