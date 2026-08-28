@@ -1,0 +1,5 @@
+node_modules/
+test/app.html
+test/icon.png
+test/*.png
+.DS_Store

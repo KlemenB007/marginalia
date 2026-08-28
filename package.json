@@ -1,0 +1,18 @@
+{
+  "name": "marginalia",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Marginalia — PWA za beleženje prebranih knjig in poslušanih podcastov",
+  "scripts": {
+    "test": "node test/run-all.mjs",
+    "test:build": "node test/build-test-app.mjs",
+    "test:podcasts": "node test/build-test-app.mjs && node test/test-podcasts.mjs",
+    "test:home": "node test/build-test-app.mjs && node test/test-home-theme.mjs",
+    "test:auth": "node test/build-test-app.mjs && node test/test-auth-quotes.mjs",
+    "serve": "python3 -m http.server 8000"
+  },
+  "devDependencies": {
+    "playwright": "^1.56.0"
+  }
+}
