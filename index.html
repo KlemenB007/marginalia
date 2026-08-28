@@ -2361,7 +2361,7 @@ $('resetBtn').onclick=async()=>{
   try{ await sendPasswordResetEmail(auth,em); setAuthMsg('Poslali smo ti povezavo za ponastavitev gesla.','ok'); }
   catch(e){ console.error(e); setAuthMsg(authError(e),'err'); }
 };
-const GOOGLE_CLIENT_ID = "TUKAJ-PRILEPI-WEB-CLIENT-ID";
+const GOOGLE_CLIENT_ID = "990992068049-52s8de2e4bp1kkubosc5470k44op276t.apps.googleusercontent.com";
 
 function initGoogle(){
   if(!window.google || !google.accounts || !google.accounts.id){
