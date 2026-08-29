@@ -21,9 +21,11 @@ if (!run('build-test-app.mjs', 'Priprava testne kopije')) {
 }
 
 const suites = [
+  ['test-units.mjs',       'Enote (utils, lookups)'],
   ['test-podcasts.mjs',    'Knjige, podcasti in epizode'],
   ['test-home-theme.mjs',  'Domači zaslon in barvna shema'],
   ['test-auth-quotes.mjs', 'Prijava, citat dneva, katalog epizod'],
+  ['test-features.mjs',    'Izvoz, razveljavi izbris, pregled citatov'],
 ];
 
 const failed = [];

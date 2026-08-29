@@ -7,9 +7,11 @@
   "scripts": {
     "test": "node test/run-all.mjs",
     "test:build": "node test/build-test-app.mjs",
+    "test:units": "node test/test-units.mjs",
     "test:podcasts": "node test/build-test-app.mjs && node test/test-podcasts.mjs",
     "test:home": "node test/build-test-app.mjs && node test/test-home-theme.mjs",
     "test:auth": "node test/build-test-app.mjs && node test/test-auth-quotes.mjs",
+    "test:features": "node test/build-test-app.mjs && node test/test-features.mjs",
     "serve": "python3 -m http.server 8000"
   },
   "devDependencies": {

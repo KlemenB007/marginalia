@@ -108,6 +108,9 @@
 
   <!-- ===== STATS ===== -->
   <div id="statsView" style="display:none"></div>
+
+  <!-- ===== QUOTES ===== -->
+  <div id="quotesView" style="display:none"></div>
 </div>
 
 <nav class="nav">
@@ -146,6 +149,8 @@
   </div>
   <div class="opt-list">
     <button class="opt" id="acctStats"><span>Statistika</span></button>
+    <button class="opt" id="acctQuotes"><span>Vsi citati</span></button>
+    <button class="opt" id="acctExport"><span>Izvozi podatke</span><span class="opt-count">varnostna kopija</span></button>
     <button class="opt" id="acctSignOut"><span style="color:var(--danger)">Odjava</span></button>
   </div>
 </div></div>
@@ -338,6 +343,11 @@
     <button class="btn primary" id="goalSave">Shrani</button>
   </div>
 </div></div>
+
+<div id="toast" class="toast" hidden>
+  <span id="toastMsg"></span>
+  <button id="toastUndo" type="button">Razveljavi</button>
+</div>
 
 <script type="module" src="app.js"></script>
 </body>

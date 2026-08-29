@@ -67,6 +67,52 @@ function setStatus(msg,isErr){
   statusLine.classList.toggle('err',!!isErr);
   statusLine.innerHTML = isErr ? esc(msg) : `<span class="pulse"></span>${esc(msg)}`;
 }
+
+/* ---------- izbris z možnostjo razveljavitve ---------- */
+/* Vnos se najprej samo odstrani iz lokalnega stanja in skrije (5 s okno z
+   gumbom „Razveljavi"). Šele ob izteku okna se dejansko izbriše iz baze. */
+let pendingDeletedIds = new Set();   // id-ji, ki jih sinhronizacija med oknom prezre
+let pendingDelete = null;            // { ids, commit, undo }
+let pendingTimer = null;
+
+function showToast(msg){
+  $('toastMsg').textContent = msg;
+  $('toast').hidden = false;
+}
+function hideToast(){ $('toast').hidden = true; }
+
+function armDelete({ ids, label, apply, restore, commit }){
+  flushPendingDelete();                       // če je še kaj v teku, to najprej dokončaj
+  ids.forEach(i=>pendingDeletedIds.add(i));
+  apply();
+  render();
+  pendingDelete = {
+    ids, commit,
+    undo(){ ids.forEach(i=>pendingDeletedIds.delete(i)); restore(); render(); }
+  };
+  showToast(label);
+  pendingTimer = setTimeout(flushPendingDelete, 5000);
+}
+async function flushPendingDelete(){
+  if(pendingTimer){ clearTimeout(pendingTimer); pendingTimer=null; }
+  const p = pendingDelete; pendingDelete = null;
+  hideToast();
+  if(!p) return;
+  try{ await p.commit(); }
+  finally{ p.ids.forEach(i=>pendingDeletedIds.delete(i)); }
+}
+function cancelPendingDelete(){
+  if(pendingTimer){ clearTimeout(pendingTimer); pendingTimer=null; }
+  pendingDelete = null;
+  pendingDeletedIds.clear();
+  hideToast();
+}
+$('toastUndo').onclick = ()=>{
+  if(pendingTimer){ clearTimeout(pendingTimer); pendingTimer=null; }
+  const p = pendingDelete; pendingDelete = null;
+  hideToast();
+  if(p) p.undo();
+};
 /* ---------- reusable controls ---------- */
 function makeRating(rangeId, fgId, valId){
   const r=$(rangeId);
@@ -320,15 +366,16 @@ function goTo(v){
   $('podsView').style.display      = v==='pods' ? '' : 'none';
   $('podDetailView').style.display = v==='podDetail' ? '' : 'none';
   $('statsView').style.display     = v==='stats' ? '' : 'none';
+  $('quotesView').style.display    = v==='quotes' ? '' : 'none';
   $('navHome').classList.toggle('on', v==='home');
   $('navBooks').classList.toggle('on', v==='books');
   $('navPods').classList.toggle('on', v==='pods' || v==='podDetail');
   $('navStats').classList.toggle('on', v==='stats');
-  $('addBtn').style.visibility = v==='stats' ? 'hidden' : '';
+  $('addBtn').style.visibility = (v==='stats'||v==='quotes') ? 'hidden' : '';
   const navAcc = (v==='books') ? 'var(--acc-book)' : (v==='pods'||v==='podDetail') ? 'var(--acc-pod)' : 'var(--cloud)';
   document.querySelector('.nav').style.setProperty('--acc', navAcc);
   render();
-  const VIEW_EL = { home:'homeView', books:'booksView', pods:'podsView', podDetail:'podDetailView', stats:'statsView' };
+  const VIEW_EL = { home:'homeView', books:'booksView', pods:'podsView', podDetail:'podDetailView', stats:'statsView', quotes:'quotesView' };
   const av = $(VIEW_EL[v]);
   if(av){ av.classList.remove('view-in'); void av.offsetWidth; av.classList.add('view-in'); }
 }
@@ -414,6 +461,7 @@ function sortItems(arr){
 function render(){
   if(view==='home') return renderHome();
   if(view==='stats') return renderStats();
+  if(view==='quotes') return renderQuotes();
   if(view==='pods') return renderPods();
   if(view==='podDetail') return renderPodDetail();
   renderBooks();
@@ -531,6 +579,7 @@ function renderHome(){
       <p class="qday-text"><span class="qday-mark">\u201E</span>${esc(qd.text)}<span class="qday-mark">\u201C</span></p>
       ${qd.author?`<p class="qday-author">${esc(qd.author)}</p>`:''}
       ${qd.src?`<p class="qday-src">${esc(qd.src)}</p>`:''}
+      ${qCount()?`<button class="qday-all" id="qdayAll">Prebrskaj vse citate (${qCount()}) \u2192</button>`:''}
     </div>
 
     <div class="nudge">
@@ -579,6 +628,7 @@ function renderHome(){
   $('hubBooks').onclick=()=>goTo('books');
   $('hubPods').onclick =()=>goTo('pods');
   const hg=$('homeGoal'); if(hg) hg.onclick=()=>goTo('stats');
+  const qa=$('qdayAll'); if(qa) qa.onclick=()=>goTo('quotes');
   v.querySelectorAll('.mini').forEach(el=>{
     el.onclick=()=>{
       const id=el.dataset.id;
@@ -1161,6 +1211,100 @@ function renderStats(){
   });
 }
 
+/* ---------- pregled citatov ---------- */
+let quoteSearch = '';
+let quoteKind = 'all';   // 'all' | 'book' | 'pod'
+
+function allQuotes(){
+  const out = [];
+  books.forEach(b=>toLines(b.quotes).forEach(t=>out.push({
+    text:t, who:b.author||'', src:b.title||'', kind:'book', id:b.id, ts:b.createdAtMs||0
+  })));
+  pods.forEach(p=>(p.episodes||[]).forEach(e=>toLines(e.quotes).forEach(t=>out.push({
+    text:t, who:p.host||'', src:(p.title||'')+' · '+(e.title||''), kind:'pod', id:p.id, epId:e.id, ts:p.createdAtMs||0
+  }))));
+  return out.sort((a,b)=>b.ts-a.ts);
+}
+
+function qbCard(x){
+  return `<button class="qb-card" data-kind="${x.kind}" data-id="${esc(x.id)}"${x.epId?` data-ep="${esc(x.epId)}"`:''}
+      style="--acc:${x.kind==='pod'?ACC_POD:ACC_BOOK}">
+    <div class="quote-item" style="margin-bottom:9px">${esc(x.text)}</div>
+    <div class="qb-src">${esc(x.src)}${x.who?` · ${esc(x.who)}`:''}</div>
+  </button>`;
+}
+
+function renderQuotes(){
+  const v = $('quotesView');
+  const all = allQuotes();
+  const bookN = all.filter(x=>x.kind==='book').length;
+  const podN  = all.filter(x=>x.kind==='pod').length;
+  const q = quoteSearch.trim().toLowerCase();
+
+  let shown = all;
+  if(quoteKind!=='all') shown = shown.filter(x=>x.kind===quoteKind);
+  if(q) shown = shown.filter(x=>
+    x.text.toLowerCase().includes(q) ||
+    x.who.toLowerCase().includes(q) ||
+    x.src.toLowerCase().includes(q));
+
+  const searchIcon = `<span class="s-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>`;
+  const chip = (k,lbl)=>`<button class="chip ${quoteKind===k?'active':''}" data-kind="${k}">${lbl}</button>`;
+
+  v.innerHTML = `
+    <div class="back-bar"><button class="back-btn" id="qbBack">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Domov
+    </button></div>
+    <h2 class="greet" style="margin-bottom:4px">Citati</h2>
+    <p class="greet-sub">${all.length
+      ? `${all.length} ${slPlural(all.length,['zapisan citat','zapisana citata','zapisani citati','zapisanih citatov'])}`
+      : 'Še brez zapisanih citatov.'}</p>
+    ${all.length ? `
+    <div class="search-bar">${searchIcon}
+      <input class="search" id="qbSearch" type="text" placeholder="Išči po besedilu, avtorju, viru…" value="${esc(quoteSearch)}">
+    </div>
+    ${(bookN && podN) ? `<div class="chip-row">${chip('all','Vsi')}${chip('book','Knjige')}${chip('pod','Podcasti')}</div>` : ''}
+    ` : ''}
+    <div class="grid">
+      ${shown.length ? shown.map(qbCard).join('')
+        : `<div class="empty"><div class="empty-icon">${all.length?'🔍':'✍️'}</div>
+           <p class="empty-title">${all.length?'Ni zadetkov':'Še brez citatov'}</p>
+           <p class="empty-sub">${all.length?'Poskusi z drugim iskanjem ali filtrom.':'Citate zapišeš pri knjigi ali epizodi.'}</p></div>`}
+    </div>`;
+
+  $('qbBack').onclick = ()=>goTo('home');
+  const s = $('qbSearch');
+  if(s){
+    s.oninput = ()=>{
+      const c = s.selectionStart;
+      quoteSearch = s.value;
+      renderQuotes();
+      const ns = $('qbSearch');
+      if(ns){ ns.focus(); try{ ns.setSelectionRange(c,c); }catch(e){} }
+    };
+  }
+  v.querySelectorAll('.chip[data-kind]').forEach(c=>{
+    c.onclick = ()=>{ quoteKind = c.dataset.kind; renderQuotes(); };
+  });
+  v.querySelectorAll('.qb-card').forEach(el=>{
+    el.onclick = ()=>{
+      const id = el.dataset.id;
+      if(el.dataset.kind==='pod'){
+        openPodId = id; epExpanded.clear();
+        if(el.dataset.ep) epExpanded.add(el.dataset.ep);
+        goTo('podDetail'); window.scrollTo({top:0});
+      } else {
+        expanded.add(id); goTo('books');
+        setTimeout(()=>{
+          const card = document.querySelector(`#list .entry[data-id="${id}"]`);
+          if(card) card.scrollIntoView({block:'center'});
+        }, 60);
+      }
+    };
+  });
+}
+
 /* ---------- goal ---------- */
 function openGoalSheet(){
   $('goalYearTxt').textContent=thisYear;
@@ -1249,9 +1393,16 @@ async function saveBook(){
   }catch(e){ console.error(e); setStatus('Shranjevanje ni uspelo.',true); }
   finally{ b.disabled=false; }
 }
-async function removeBook(id){
-  try{ await deleteDoc(doc(db,"books",id)); expanded.delete(id); }
-  catch(e){ console.error(e); setStatus('Brisanje ni uspelo.',true); }
+function removeBook(id){
+  const idx=books.findIndex(x=>x.id===id);
+  if(idx<0) return;
+  const snap=books[idx];
+  armDelete({
+    ids:[id], label:'Knjiga izbrisana',
+    apply(){ books.splice(idx,1); expanded.delete(id); },
+    restore(){ books.splice(Math.min(idx,books.length),0,snap); },
+    commit(){ return deleteDoc(doc(db,"books",id)).catch(e=>{ console.error(e); setStatus('Brisanje ni uspelo.',true); }); }
+  });
 }
 $('cancelBtn').onclick=closeSheet;
 $('saveBtn').onclick=saveBook;
@@ -1315,9 +1466,16 @@ $('podSave').onclick=async()=>{
   }catch(e){ console.error(e); setStatus('Shranjevanje ni uspelo.',true); }
   finally{ b.disabled=false; }
 };
-async function removePod(id){
-  try{ await deleteDoc(doc(db,"podcasts",id)); podExpanded.delete(id); openPodId=null; goTo('pods'); }
-  catch(e){ console.error(e); setStatus('Brisanje ni uspelo.',true); }
+function removePod(id){
+  const idx=pods.findIndex(x=>x.id===id);
+  if(idx<0) return;
+  const snap=pods[idx];
+  armDelete({
+    ids:[id], label:'Podcast izbrisan',
+    apply(){ pods.splice(idx,1); podExpanded.delete(id); openPodId=null; goTo('pods'); },
+    restore(){ pods.splice(Math.min(idx,pods.length),0,snap); },
+    commit(){ return deleteDoc(doc(db,"podcasts",id)).catch(e=>{ console.error(e); setStatus('Brisanje ni uspelo.',true); }); }
+  });
 }
 
 /* ---------- episode catalogue picker ---------- */
@@ -1509,12 +1667,18 @@ $('epSave').onclick=async()=>{
   catch(e){ console.error(e); setStatus('Shranjevanje ni uspelo.',true); }
   finally{ b.disabled=false; }
 };
-async function removeEpisode(podId,epId){
+function removeEpisode(podId,epId){
   const p=pods.find(x=>x.id===podId);
-  if(!p) return;
-  const list=(p.episodes||[]).filter(x=>x.id!==epId);
-  try{ await updateDoc(doc(db,"podcasts",podId),{episodes:list}); epExpanded.delete(epId); }
-  catch(e){ console.error(e); setStatus('Brisanje ni uspelo.',true); }
+  if(!p||!p.episodes) return;
+  const idx=p.episodes.findIndex(x=>x.id===epId);
+  if(idx<0) return;
+  const snap=p.episodes[idx];
+  armDelete({
+    ids:[epId], label:'Epizoda izbrisana',
+    apply(){ p.episodes.splice(idx,1); epExpanded.delete(epId); },
+    restore(){ p.episodes.splice(Math.min(idx,p.episodes.length),0,snap); },
+    commit(){ return updateDoc(doc(db,"podcasts",podId),{episodes:p.episodes}).catch(e=>{ console.error(e); setStatus('Brisanje ni uspelo.',true); }); }
+  });
 }
 
 /* ---------- auth ---------- */
@@ -1608,6 +1772,32 @@ $('acctBtn').onclick=()=>{
 };
 $('acctOverlay').onclick=e=>{ if(e.target.id==='acctOverlay') $('acctOverlay').classList.remove('open'); };
 $('acctStats').onclick=()=>{ $('acctOverlay').classList.remove('open'); goTo('stats'); };
+$('acctQuotes').onclick=()=>{ $('acctOverlay').classList.remove('open'); goTo('quotes'); };
+$('acctExport').onclick=async()=>{
+  $('acctOverlay').classList.remove('open');
+  const data={
+    app:'Marginalia', version:1,
+    exportedAt:new Date().toISOString(),
+    account:{ uid:user?user.uid:'', email:(user&&user.email)||'' },
+    books, podcasts:pods,
+    settings:{ goal:settings.goal??null, goalYear:settings.goalYear??thisYear }
+  };
+  const fname=`marginalia-${new Date().toISOString().slice(0,10)}.json`;
+  const file=new File([JSON.stringify(data,null,2)], fname, { type:'application/json' });
+  try{
+    if(navigator.canShare && navigator.canShare({ files:[file] })){
+      await navigator.share({ files:[file], title:'Marginalia — izvoz' });
+      return;
+    }
+  }catch(e){ if(e && e.name==='AbortError') return; }
+  const url=URL.createObjectURL(file);
+  const a=document.createElement('a');
+  a.href=url; a.download=fname;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url), 4000);
+  setStatus('Izvoz pripravljen.');
+  setTimeout(()=>{ if(statusLine.textContent==='Izvoz pripravljen.') setStatus(''); }, 2500);
+};
 $('acctSignOut').onclick=async()=>{
   $('acctOverlay').classList.remove('open');
   try{ await signOut(auth); }catch(e){ console.error(e); }
@@ -1637,12 +1827,15 @@ function startSync(uid){
   const ready=()=>{ if(booksReady&&podsReady){ $('addBtn').disabled=false; setStatus(''); } };
 
   unsubs.push(onSnapshot(query(booksCol, where('userId','==',uid)), snap=>{
-    books=snap.docs.map(d=>({id:d.id,...d.data()}));
+    books=snap.docs.map(d=>({id:d.id,...d.data()})).filter(b=>!pendingDeletedIds.has(b.id));
     booksReady=true; ready(); render();
   }, err=>{ console.error(err); setStatus('Napaka pri sinhronizaciji.',true); }));
 
   unsubs.push(onSnapshot(query(podsCol, where('userId','==',uid)), snap=>{
-    pods=snap.docs.map(d=>({id:d.id,...d.data()}));
+    pods=snap.docs.map(d=>({id:d.id,...d.data()}))
+      .filter(p=>!pendingDeletedIds.has(p.id))
+      .map(p=>(pendingDeletedIds.size && Array.isArray(p.episodes))
+        ? { ...p, episodes:p.episodes.filter(e=>!pendingDeletedIds.has(e.id)) } : p);
     podsReady=true; ready(); render();
   }, err=>{ console.error(err); setStatus('Napaka pri sinhronizaciji.',true); }));
 
@@ -1657,6 +1850,7 @@ onAuthStateChanged(auth, async u=>{
   user=u;
   if(!u){
     stopSync();
+    cancelPendingDelete();
     books=[]; pods=[]; settings={goal:null,goalYear:thisYear};
     expanded.clear(); podExpanded.clear(); epExpanded.clear();
     openPodId=null; epCatalog=[]; epCatalogFor=null;

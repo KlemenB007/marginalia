@@ -105,18 +105,21 @@ npm test
    Firebase v `firebase.js` z lokalnimi lažnimi moduli, GSI `<script>` z lažnim in
    odstrani `<link rel="manifest">` → nastanejo `test/app.html` + `test/*.js` +
    `test/style.css` (pričakuje 5 zamenjav: 3 Firebase + GSI + manifest)
-2. požene vse tri zbirke testov
+2. požene vse zbirke testov
 3. izpiše skupni rezultat
 
 Posamezna zbirka:
 
 ```bash
+npm run test:units      # čiste funkcije v utils.js in lookups.js (brez brskalnika)
 npm run test:podcasts   # knjige, podcasti, epizode, postavitev
 npm run test:home       # domači zaslon, barvna shema, navigacija
 npm run test:auth       # prijava, citat dneva, katalog epizod
+npm run test:features   # izvoz JSON, „Razveljavi" izbris, pregled citatov
 ```
 
-Skupaj 271 preverjanj (podcasti 119, domov 59, prijava 93).
+`test:units` teče v golem Node-u (globalni `fetch` je med testom zamenjan),
+ostale v Chromiumu prek Playwrighta.
 
 ### Kaj je v katerem lažnem modulu
 
@@ -230,8 +233,18 @@ kako je izgledala na telefonu.
 - **Prijava z Apple** — zahteva članstvo v Apple Developer Program (99 USD letno).
 - **Nalaganje po delih** — smiselno šele pri nekaj sto rednih uporabnikih.
   Trenutno se ob vsakem odprtju preberejo vsi uporabnikovi zapisi.
-- **Brisanje brez razveljavitve** — `removeBook` / `removePod` / `removeEpisode`
-  takoj izbrišejo zapis in izbris se sinhronizira. Manjka potrditev ali „Razveljavi".
+- **Uvoz** — izvoz v JSON je (gumb „Izvozi podatke" v računu), uvoza nazaj še ni.
+
+### Narejeno
+
+- **Razveljavi izbris** — `removeBook` / `removePod` / `removeEpisode` vnos najprej
+  samo skrijejo in šele po 5 s (okno z gumbom „Razveljavi", `#toast`) dejansko
+  izbrišejo iz baze. Med oknom sinhronizacija te id-je prezre (`pendingDeletedIds`).
+- **Pregled citatov** — pogled `quotes` (`renderQuotes`): vsi citati iz knjig in
+  epizod na enem mestu, z iskanjem in filtrom knjige/podcasti. Vhod z domačega
+  zaslona (gumb pod „Mislijo dneva") in iz računa.
+- **Izvoz podatkov** — gumb v računu ponudi `navigator.share` (iPad/iPhone → „Shrani
+  v Datoteke"), sicer prenese `marginalia-RRRR-MM-DD.json`.
 
 Prijava z Google deluje tudi v načinu z domačega zaslona: uporablja Google Identity
 Services (`google.accounts.id` + `signInWithCredential` z ID žetonom, oboje v `app.js`),

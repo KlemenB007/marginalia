@@ -197,6 +197,8 @@ await page.click('#epCancel'); await page.waitForTimeout(250);
 const del=page.locator('.ep',{hasText:'Preimenovana'}).first();
 await ensureOpen(del);
 await del.locator('.epDel').click(); await page.waitForTimeout(400);
+ck('episode hidden at once', (await page.locator('.ep',{hasText:'Preimenovana'}).count())===0);
+await page.waitForTimeout(7000);   // 5 s okno „Razveljavi" -> šele nato dejanski izbris
 pod=await page.evaluate(()=>window.__mock.dump('podcasts')[0]);
 ck('episode deleted', pod.episodes.length===2);
 ck('other episodes intact', pod.episodes.some(e=>e.title==='Najnovejsa'));
@@ -320,8 +322,9 @@ ck('logo clears pod search', (await page.locator('#podSearch').inputValue())==='
 await page.click('#navPods'); await page.waitForTimeout(300);
 await page.locator('#podList .entry .entry-head').click(); await page.waitForTimeout(350);
 await page.click('#podDelete'); await page.waitForTimeout(450);
-ck('podcast deleted', (await page.evaluate(()=>window.__mock.dump('podcasts').length))===0);
 ck('returned to pod list after delete', await page.locator('#podsView').isVisible());
+await page.waitForTimeout(7000);   // 5 s okno „Razveljavi" -> šele nato dejanski izbris
+ck('podcast deleted', (await page.evaluate(()=>window.__mock.dump('podcasts').length))===0);
 ck('books survive podcast delete', (await page.evaluate(()=>window.__mock.dump('books').length))===1);
 
 // ===== 15. Guards =====

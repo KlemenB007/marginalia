@@ -6,7 +6,7 @@
    Ob spremembi datotek dvigni številko v CACHE (v1 -> v2 ...), da se stari
    predpomnilnik počisti. */
 
-const CACHE = 'marginalia-v2';
+const CACHE = 'marginalia-v3';
 
 const SHELL = [
   './',
