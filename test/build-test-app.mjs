@@ -58,17 +58,19 @@ const jsSwaps = [
   [/https:\/\/www\.gstatic\.com\/firebasejs\/[\d.]+\/firebase-firestore\.js/g, './mock-firebase-firestore.js'],
   [/https:\/\/www\.gstatic\.com\/firebasejs\/[\d.]+\/firebase-auth\.js/g,      './mock-firebase-auth.js'],
 ];
-// index.html: pravi GSI <script> -> lažni
+// index.html: pravi GSI <script> -> lažni; manifest (PWA) v testu ne rabimo
 const htmlSwaps = [
   [/<script src="https:\/\/accounts\.google\.com\/gsi\/client"[^>]*><\/script>/g, GSI_STUB],
+  [/<link rel="manifest"[^>]*>\s*/g, ''],
 ];
 
 let hits = 0;
 for (const [re, to] of jsSwaps)   { hits += (js.match(re)   || []).length; js   = js.replace(re, to); }
 for (const [re, to] of htmlSwaps) { hits += (html.match(re) || []).length; html = html.replace(re, to); }
 
-if (hits < 4) {
-  console.error(`Opozorilo: pričakoval 4 zamenjave, našel ${hits}. So se poti spremenile?`);
+// 3 Firebase uvozi (app.js) + GSI <script> + manifest <link> (index.html)
+if (hits < 5) {
+  console.error(`Opozorilo: pričakoval 5 zamenjav, našel ${hits}. So se poti spremenile?`);
   process.exit(1);
 }
 

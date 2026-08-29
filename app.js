@@ -1641,7 +1641,7 @@ function openSheet(id){
   $('overlay').querySelector('.sheet').scrollTop=0;
   sheetLoading=false;
   setTimeout(()=>{
-    $('fTitle').focus({preventScroll:true});
+    if(!editingId) $('fTitle').focus({preventScroll:true});   // pri urejanju ne sprožamo tipkovnice
     $('overlay').querySelector('.sheet').scrollTop=0;
     bookQuotes.reflow(); bookNotes.reflow();
   },80);
@@ -1710,7 +1710,7 @@ function openPodSheet(id){
   renderPrev('pLookupPrev',podCover);
   $('podOverlay').classList.add('open');
   $('podOverlay').querySelector('.sheet').scrollTop=0;
-  setTimeout(()=>{ $('pTitle').focus({preventScroll:true}); $('podOverlay').querySelector('.sheet').scrollTop=0; podNotes.reflow(); },80);
+  setTimeout(()=>{ if(!editingPodId) $('pTitle').focus({preventScroll:true}); $('podOverlay').querySelector('.sheet').scrollTop=0; podNotes.reflow(); },80);
 }
 function closePodSheet(){ $('podOverlay').classList.remove('open'); editingPodId=null; }
 $('podCancel').onclick=closePodSheet;
@@ -1839,7 +1839,7 @@ function openEpSheet(podId,epId){
   $('epFindTxt').textContent='Poišči epizodo v katalogu.';
   $('epOverlay').classList.add('open');
   $('epOverlay').querySelector('.sheet').scrollTop=0;
-  setTimeout(()=>{ $('eTitle').focus({preventScroll:true}); $('epOverlay').querySelector('.sheet').scrollTop=0; epQuotes.reflow(); epNotes.reflow(); },80);
+  setTimeout(()=>{ if(!editingEpId) $('eTitle').focus({preventScroll:true}); $('epOverlay').querySelector('.sheet').scrollTop=0; epQuotes.reflow(); epNotes.reflow(); },80);
 }
 function closeEpSheet(){ $('epOverlay').classList.remove('open'); editingEpId=null; epParentId=null; }
 $('epCancel').onclick=closeEpSheet;
@@ -1849,24 +1849,30 @@ $('epOverlay').onclick=e=>{ if(e.target.id==='epOverlay') closeEpSheet(); };
 function enableSheetSwipe(overlayId, closeFn){
   const ov=$(overlayId); if(!ov) return;
   const sheet=ov.querySelector('.sheet'); if(!sheet) return;
-  let startY=0, dy=0, active=false;
+  const THRESHOLD=14;                 // koliko px mora prst prepotovati, preden je to poteg
+  let startY=0, startX=0, dy=0, tracking=false, dragging=false;
   const start=e=>{
-    if(sheet.scrollTop>0) { active=false; return; }
-    const t=e.target;
-    if(t.closest('input,textarea,select,.rate-range,.seg')) return;
-    startY=e.touches[0].clientY; dy=0; active=true;
-    sheet.classList.add('dragging');
+    tracking=false; dragging=false;
+    if(sheet.scrollTop>0) return;     // vsebina je oddrsana navzdol — pusti navadno drsenje
+    // poteg se ne sme začeti na gumbu, polju ali drugi kontrolni komponenti
+    if(e.target.closest('input,textarea,select,button,a,label,.seg,.rate-range,.color-row,.genre-tags,.opt')) return;
+    startY=e.touches[0].clientY; startX=e.touches[0].clientX; dy=0; tracking=true;
   };
   const move=e=>{
-    if(!active) return;
+    if(!tracking) return;
     dy=e.touches[0].clientY-startY;
-    if(dy<=0){ sheet.style.transform=''; return; }
-    sheet.style.transform=`translateY(${dy}px)`;
+    if(!dragging){
+      const dx=e.touches[0].clientX-startX;
+      if(dy>THRESHOLD && dy>Math.abs(dx)){ dragging=true; sheet.classList.add('dragging'); }
+      else return;                    // dokler ni jasnega navpičnega potega, se ne dogaja nič
+    }
+    sheet.style.transform=`translateY(${Math.max(0,dy)}px)`;
     sheet.style.opacity=String(Math.max(.55, 1-dy/600));
   };
   const end=()=>{
-    if(!active) return;
-    active=false;
+    tracking=false;
+    if(!dragging) return;
+    dragging=false;
     sheet.classList.remove('dragging');
     sheet.style.transform=''; sheet.style.opacity='';
     if(dy>120){
@@ -1879,13 +1885,24 @@ function enableSheetSwipe(overlayId, closeFn){
   sheet.addEventListener('touchend', end);
   sheet.addEventListener('touchcancel', end);
 }
-[['overlay',closeSheet],['podOverlay',closePodSheet],['epOverlay',closeEpSheet],
+const SHEET_CLOSERS=[
+ ['overlay',closeSheet],['podOverlay',closePodSheet],['epOverlay',closeEpSheet],
  ['epFindOverlay',closeEpFind],['goalOverlay',()=>$('goalOverlay').classList.remove('open')],
  ['sortOverlay',()=>$('sortOverlay').classList.remove('open')],
  ['genreOverlay',()=>$('genreOverlay').classList.remove('open')],
  ['acctOverlay',()=>$('acctOverlay').classList.remove('open')],
  ['addPickOverlay',()=>$('addPickOverlay').classList.remove('open')]
-].forEach(([id,fn])=>enableSheetSwipe(id,fn));
+];
+SHEET_CLOSERS.forEach(([id,fn])=>enableSheetSwipe(id,fn));
+
+/* Escape zapre najbolj zgornje odprto okno (tipkovnica na iPadu) */
+document.addEventListener('keydown', e=>{
+  if(e.key!=='Escape') return;
+  const open=SHEET_CLOSERS.filter(([id])=>$(id).classList.contains('open'));
+  if(!open.length) return;
+  open.sort((a,b)=>(parseInt(getComputedStyle($(b[0])).zIndex)||0)-(parseInt(getComputedStyle($(a[0])).zIndex)||0));
+  open[0][1]();
+});
 $('epSave').onclick=async()=>{
   const title=$('eTitle').value.trim();
   if(!title){ $('eTitle').focus(); return; }
@@ -2079,3 +2096,10 @@ onAuthStateChanged(auth, async u=>{
   startSync(u.uid);
   goTo('home');
 });
+
+/* ---------- service worker (samo v živo, prek https) ---------- */
+if('serviceWorker' in navigator && location.protocol==='https:'){
+  window.addEventListener('load', ()=>{
+    navigator.serviceWorker.register('sw.js').catch(e=>console.warn('SW registracija ni uspela', e));
+  });
+}

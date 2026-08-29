@@ -1,0 +1,17 @@
+{
+  "name": "Marginalia",
+  "short_name": "Marginalia",
+  "description": "Polica knjig in podcastov — s citati in mislimi, ki jih ne želiš pozabiti.",
+  "lang": "sl",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0E1013",
+  "theme_color": "#0E1013",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

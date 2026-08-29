@@ -9,19 +9,28 @@ PWA za beleženje prebranih knjig in poslušanih podcastov. Slovenski vmesnik, t
 
 ## Zgradba projekta
 
-Namerno **ena sama datoteka**: `index.html` vsebuje HTML, CSS in JavaScript skupaj.
-Ni gradbenega postopka, ni prevajanja, ni odvisnosti v času izvajanja razen Firebase
-in pisav Google Fonts, ki se naložita s CDN.
+Brez gradbenega postopka in brez prevajanja. Aplikacija so tri navadne datoteke,
+ki se objavijo take, kot so. Edine odvisnosti v času izvajanja so Firebase, pisave
+Google Fonts in prijava Google (GSI), ki se naložijo s CDN; Chart.js je priložen
+lokalno v `vendor/`.
 
 ```
-index.html      celotna aplikacija (~150 KB)
-icon.png        ikona za domači zaslon (apple-touch-icon)
-test/           testi (ne objavljajo se na strežnik)
-package.json    samo za teste
+index.html            HTML-ogrodje (naloži style.css in app.js)
+style.css             ves slog
+app.js                vsa logika + Firebase konfiguracija (ES-modul; Firebase se uvozi z `import`)
+manifest.webmanifest  PWA: ime, barve, ikone, standalone
+sw.js                 service worker — predpomni lupino aplikacije za offline zagon
+icon.png              apple-touch-icon (180×180)
+icon-192.png          PWA ikona
+icon-512.png          PWA ikona (tudi maskable)
+vendor/chart.umd.min.js   Chart.js v4 (grafi v statistiki) — mora se commitati
+test/                 testi (ne objavljajo se na strežnik)
+package.json          samo za teste
 ```
 
-Ta odločitev je zavestna: datoteko je mogoče urejati prek spletnega vmesnika GitHub
-brez orodij in objaviti z enim commitom.
+`index.html` nalaga `<link rel="stylesheet" href="style.css">` in
+`<script type="module" src="app.js">`. Razdelitev je bila narejena, ker je bila ena
+datoteka pretežka za urejanje; objava je še vedno en `git push`.
 
 ---
 
@@ -34,10 +43,18 @@ brez orodij in objaviti z enim commitom.
 | Naslovnice knjig | Google Books API, rezerva OpenLibrary |
 | Podcasti in epizode | iTunes Search API (`lookup` z `entity=podcastEpisode`) |
 | Gostovanje | GitHub Pages |
+| Namestitev / offline | `manifest.webmanifest` + `sw.js` (predpomni lupino) |
 
-Firebase konfiguracija je **namenoma vidna v `index.html`**. Pri Firebase za splet je
-to običajna praksa — ključ je javen po zasnovi, dostop pa varujejo varnostna pravila
-Firestore. Ne skrivaj je in ne prestavljaj v spremenljivke okolja.
+Firebase konfiguracija je **namenoma vidna v `app.js`** (na vrhu datoteke). Pri Firebase
+za splet je to običajna praksa — ključ je javen po zasnovi, dostop pa varujejo varnostna
+pravila Firestore. Ne skrivaj je in ne prestavljaj v spremenljivke okolja.
+
+Service worker (`sw.js`) predpomni le lupino aplikacije (HTML/CSS/JS/ikone/Chart.js)
+po vzorcu *stale-while-revalidate*: ob odprtju takoj postreže iz predpomnilnika, v
+ozadju pa osveži. Klici na Firestore, Google in Apple gredo vedno na omrežje.
+Registrira se **samo prek `https:`** (torej ne v testih ali na `python -m http.server`).
+Ob spremembi datotek dvigni številko v `const CACHE = 'marginalia-v1'`, da se stari
+predpomnilnik počisti.
 
 ### Podatkovni model
 
@@ -78,8 +95,10 @@ npm test
 
 `npm test` naredi troje:
 
-1. `test/build-test-app.mjs` vzame pravi `index.html` in zamenja uvoze Firebase
-   z lokalnimi lažnimi moduli → nastane `test/app.html`
+1. `test/build-test-app.mjs` vzame prave `index.html`, `app.js` in `style.css`,
+   zamenja uvoze Firebase z lokalnimi lažnimi moduli, GSI `<script>` z lažnim in
+   odstrani `<link rel="manifest">` → nastanejo `test/app.html`, `test/app.js`,
+   `test/style.css` (pričakuje 5 zamenjav)
 2. požene vse tri zbirke testov
 3. izpiše skupni rezultat
 
@@ -91,7 +110,7 @@ npm run test:home       # domači zaslon, barvna shema, navigacija
 npm run test:auth       # prijava, citat dneva, katalog epizod
 ```
 
-Skupaj okoli 260 preverjanj.
+Skupaj 271 preverjanj (podcasti 119, domov 59, prijava 93).
 
 ### Kaj je v katerem lažnem modulu
 
@@ -143,6 +162,11 @@ npm run serve      # ali: python3 -m http.server 8000
 
 Odpri `http://127.0.0.1:8000`. Pozor: to piše v **pravo** bazo.
 
+Service worker se prek navadnega `http` ne registrira, zato offline zagona tu ni
+mogoče preizkusiti. To se preveri na živi strani: odpri aplikacijo z domačega zaslona,
+vklopi letalski način in jo znova odpri — lupina se mora naložiti (podatki se
+sinhronizirajo, ko je povezava spet na voljo).
+
 ---
 
 ## Objava
@@ -151,13 +175,15 @@ GitHub Pages objavi vsak commit v vejo `main` samodejno, v minuti ali dveh.
 Posebnega koraka za gradnjo ni.
 
 ```bash
-git add index.html
+git add -A
 git commit -m "opis spremembe"
 git push
 ```
 
 Mapa `test/` je v repozitoriju nemoteča — GitHub Pages postreže samo tisto,
-kar brskalnik zahteva.
+kar brskalnik zahteva. Ob spremembi `sw.js` ali lupine (`index.html`, `style.css`,
+`app.js`, `vendor/`) dvigni `CACHE` v `sw.js`, sicer starejši obiskovalci dobijo
+osvežene datoteke šele ob drugem odprtju.
 
 ---
 
@@ -177,6 +203,13 @@ potrebuje višji `z-index`, sicer je neuporabno na dotik.
 
 **Velikost vnosnih polj.** Vsaj `16px`, sicer iOS ob dotiku približa stran.
 
+**Poteg za zapiranje oken.** `enableSheetSwipe` posluša dotik na celotni `.sheet`.
+Poteg se sme sprožiti šele po ~14 px jasno navpičnega premika in nikoli, če se dotik
+začne na gumbu ali polju — sicer je na iPadu požrl tap na „Prekliči".
+
+**Tipkovnica pri urejanju.** Okna ob odprtju samodejno fokusirajo naslov samo pri
+*novem* vnosu (`if(!editingId)` …), da pri urejanju ne skoči tipkovnica čez gumbe.
+
 **Prelivanje.** Po vsaki spremembi postavitve preveri širino pri 320 px.
 
 **Vsaka sprememba naj bo pred oddajo pognana skozi `npm test` in vizualno pregledana
@@ -187,11 +220,13 @@ kako je izgledala na telefonu.
 
 ## Odprto
 
-- **Prijava z Google v načinu z domačega zaslona.** Preusmeritev na iOS odpre Safari
-  kot ločeno aplikacijo in seja se izgubi. V teku je prehod na Google Identity Services
-  (`signInWithCredential` z ID žetonom), ki prijavo prikaže znotraj strani.
-  Zahteva Web client ID in vpis `https://klemenb007.github.io` med
-  *Authorized JavaScript origins* v Google Cloud Console.
 - **Prijava z Apple** — zahteva članstvo v Apple Developer Program (99 USD letno).
 - **Nalaganje po delih** — smiselno šele pri nekaj sto rednih uporabnikih.
   Trenutno se ob vsakem odprtju preberejo vsi uporabnikovi zapisi.
+- **Brisanje brez razveljavitve** — `removeBook` / `removePod` / `removeEpisode`
+  takoj izbrišejo zapis in izbris se sinhronizira. Manjka potrditev ali „Razveljavi".
+
+Prijava z Google deluje tudi v načinu z domačega zaslona: uporablja Google Identity
+Services (`google.accounts.id` + `signInWithCredential` z ID žetonom, oboje v `app.js`),
+zato prijava ostane znotraj strani in se seja ne izgubi. Zahteva Web client ID in vpis
+`https://klemenb007.github.io` med *Authorized JavaScript origins* v Google Cloud Console.
