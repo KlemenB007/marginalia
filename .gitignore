@@ -1,6 +1,10 @@
 node_modules/
 test/app.html
 test/app.js
+test/firebase.js
+test/utils.js
+test/lookups.js
+test/quotes.js
 test/style.css
 test/icon.png
 test/*.png

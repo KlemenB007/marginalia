@@ -6,13 +6,17 @@
    Ob spremembi datotek dvigni številko v CACHE (v1 -> v2 ...), da se stari
    predpomnilnik počisti. */
 
-const CACHE = 'marginalia-v1';
+const CACHE = 'marginalia-v2';
 
 const SHELL = [
   './',
   './index.html',
   './style.css',
   './app.js',
+  './firebase.js',
+  './utils.js',
+  './lookups.js',
+  './quotes.js',
   './manifest.webmanifest',
   './icon.png',
   './icon-192.png',

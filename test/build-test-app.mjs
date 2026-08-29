@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /**
- * Naredi testno kopijo aplikacije: test/app.html + test/app.js + test/style.css
+ * Naredi testno kopijo aplikacije: test/app.html + test/{app,firebase,utils,lookups,quotes}.js + test/style.css
  *
- * Vzame prave ../index.html, ../app.js in ../style.css ter zamenja uvoze
- * Firebase (v app.js) z lokalnimi lažnimi moduli in pravi GSI <script>
+ * Vzame prave ../index.html, ../style.css in vse ../*.js module ter zamenja uvoze
+ * Firebase (v firebase.js) z lokalnimi lažnimi moduli in pravi GSI <script>
  * (v index.html) z lažnim, da testi tečejo brez omrežja in brez prave baze.
  *
  * Zagon:  node test/build-test-app.mjs
@@ -16,13 +16,14 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, '..');
 
 const SRC_HTML = path.join(root, 'index.html');
-const SRC_JS   = path.join(root, 'app.js');
 const SRC_CSS  = path.join(root, 'style.css');
 const OUT_HTML = path.join(here, 'app.html');
-const OUT_JS   = path.join(here, 'app.js');
 const OUT_CSS  = path.join(here, 'style.css');
 
-for (const f of [SRC_HTML, SRC_JS, SRC_CSS]) {
+// vsi ES-moduli aplikacije; Firebase se zamenja samo v firebase.js
+const JS_MODULES = ['app.js', 'firebase.js', 'utils.js', 'lookups.js', 'quotes.js'];
+
+for (const f of [SRC_HTML, SRC_CSS, ...JS_MODULES.map(m => path.join(root, m))]) {
   if (!fs.existsSync(f)) {
     console.error('Ne najdem', path.basename(f), 'v', root);
     process.exit(1);
@@ -30,7 +31,6 @@ for (const f of [SRC_HTML, SRC_JS, SRC_CSS]) {
 }
 
 let html = fs.readFileSync(SRC_HTML, 'utf8');
-let js   = fs.readFileSync(SRC_JS, 'utf8');
 
 // Lažni Google Identity Services: brez omrežja, z resničnim klikljivim gumbom.
 const GSI_STUB = `<script>
@@ -65,17 +65,21 @@ const htmlSwaps = [
 ];
 
 let hits = 0;
-for (const [re, to] of jsSwaps)   { hits += (js.match(re)   || []).length; js   = js.replace(re, to); }
 for (const [re, to] of htmlSwaps) { hits += (html.match(re) || []).length; html = html.replace(re, to); }
 
-// 3 Firebase uvozi (app.js) + GSI <script> + manifest <link> (index.html)
+for (const mod of JS_MODULES) {
+  let src = fs.readFileSync(path.join(root, mod), 'utf8');
+  for (const [re, to] of jsSwaps) { hits += (src.match(re) || []).length; src = src.replace(re, to); }
+  fs.writeFileSync(path.join(here, mod), src);
+}
+
+// 3 Firebase uvozi (firebase.js) + GSI <script> + manifest <link> (index.html)
 if (hits < 5) {
   console.error(`Opozorilo: pričakoval 5 zamenjav, našel ${hits}. So se poti spremenile?`);
   process.exit(1);
 }
 
 fs.writeFileSync(OUT_HTML, html);
-fs.writeFileSync(OUT_JS, js);
 fs.copyFileSync(SRC_CSS, OUT_CSS);
 
 // ikona, da se <link rel="apple-touch-icon" href="icon.png"> ne lomi
@@ -90,5 +94,4 @@ if (fs.existsSync(vSrc)) {
   for (const f of fs.readdirSync(vSrc)) fs.copyFileSync(path.join(vSrc, f), path.join(vOut, f));
 }
 
-const kb = ((html.length + js.length) / 1024).toFixed(1);
-console.log(`app.html + app.js + style.css zgrajeni — zamenjanih ${hits} uvozov, ${kb} KB`);
+console.log(`app.html + ${JS_MODULES.join(', ')} + style.css zgrajeni — zamenjanih ${hits} uvozov`);

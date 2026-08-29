@@ -17,7 +17,11 @@ lokalno v `vendor/`.
 ```
 index.html            HTML-ogrodje (naloži style.css in app.js)
 style.css             ves slog
-app.js                vsa logika + Firebase konfiguracija (ES-modul; Firebase se uvozi z `import`)
+app.js                glavna logika: stanje, izris, okna, sinhronizacija (ES-modul, vstopna točka)
+firebase.js           Firebase konfiguracija in povezava; izvozi vse Firebase funkcije za app.js
+utils.js              čiste pomožne funkcije in ikone (esc, toLines, starHtml …)
+lookups.js            poizvedbe po Google Books, OpenLibrary in iTunes
+quotes.js             nabor citatov za „Misel dneva"
 manifest.webmanifest  PWA: ime, barve, ikone, standalone
 sw.js                 service worker — predpomni lupino aplikacije za offline zagon
 icon.png              apple-touch-icon (180×180)
@@ -29,7 +33,8 @@ package.json          samo za teste
 ```
 
 `index.html` nalaga `<link rel="stylesheet" href="style.css">` in
-`<script type="module" src="app.js">`. Razdelitev je bila narejena, ker je bila ena
+`<script type="module" src="app.js">`. `app.js` nato z `import` potegne `firebase.js`,
+`utils.js`, `lookups.js` in `quotes.js`. Razdelitev je bila narejena, ker je bila ena
 datoteka pretežka za urejanje; objava je še vedno en `git push`.
 
 ---
@@ -45,7 +50,7 @@ datoteka pretežka za urejanje; objava je še vedno en `git push`.
 | Gostovanje | GitHub Pages |
 | Namestitev / offline | `manifest.webmanifest` + `sw.js` (predpomni lupino) |
 
-Firebase konfiguracija je **namenoma vidna v `app.js`** (na vrhu datoteke). Pri Firebase
+Firebase konfiguracija je **namenoma vidna v `firebase.js`**. Pri Firebase
 za splet je to običajna praksa — ključ je javen po zasnovi, dostop pa varujejo varnostna
 pravila Firestore. Ne skrivaj je in ne prestavljaj v spremenljivke okolja.
 
@@ -95,10 +100,11 @@ npm test
 
 `npm test` naredi troje:
 
-1. `test/build-test-app.mjs` vzame prave `index.html`, `app.js` in `style.css`,
-   zamenja uvoze Firebase z lokalnimi lažnimi moduli, GSI `<script>` z lažnim in
-   odstrani `<link rel="manifest">` → nastanejo `test/app.html`, `test/app.js`,
-   `test/style.css` (pričakuje 5 zamenjav)
+1. `test/build-test-app.mjs` vzame prave `index.html`, `style.css` in vse module
+   (`app.js`, `firebase.js`, `utils.js`, `lookups.js`, `quotes.js`), zamenja uvoze
+   Firebase v `firebase.js` z lokalnimi lažnimi moduli, GSI `<script>` z lažnim in
+   odstrani `<link rel="manifest">` → nastanejo `test/app.html` + `test/*.js` +
+   `test/style.css` (pričakuje 5 zamenjav: 3 Firebase + GSI + manifest)
 2. požene vse tri zbirke testov
 3. izpiše skupni rezultat
 
@@ -182,7 +188,8 @@ git push
 
 Mapa `test/` je v repozitoriju nemoteča — GitHub Pages postreže samo tisto,
 kar brskalnik zahteva. Ob spremembi `sw.js` ali lupine (`index.html`, `style.css`,
-`app.js`, `vendor/`) dvigni `CACHE` v `sw.js`, sicer starejši obiskovalci dobijo
+`app.js`, `firebase.js`, `utils.js`, `lookups.js`, `quotes.js`, `vendor/`) dvigni
+`CACHE` v `sw.js` in dopolni seznam `SHELL`, sicer starejši obiskovalci dobijo
 osvežene datoteke šele ob drugem odprtju.
 
 ---

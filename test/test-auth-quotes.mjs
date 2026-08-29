@@ -133,7 +133,7 @@ ck('quote is italic', qFont.style==='italic');
 ck('quote is prominent', qFont.size>=17, String(qFont.size));
 
 // validate the collection from source
-const srcJs=fs.readFileSync(path.join(DIR,'app.js'),'utf8');
+const srcJs=fs.readFileSync(path.join(DIR,'quotes.js'),'utf8');
 const arrMatch=srcJs.match(/const QUOTES = \[([\s\S]*?)\n\];/);
 const quoteLines=arrMatch[1].split('\n').map(l=>l.trim()).filter(l=>l.startsWith('"'));
 const parsed=quoteLines.map(l=>l.replace(/^"|",?$/g,''));
