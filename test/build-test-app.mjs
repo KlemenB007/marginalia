@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 /**
- * Naredi testno kopijo aplikacije: test/app.html
+ * Naredi testno kopijo aplikacije: test/app.html + test/app.js + test/style.css
  *
- * Vzame pravi ../index.html in zamenja uvoze Firebase z lokalnimi
- * lažnimi moduli, da testi tečejo brez omrežja in brez prave baze.
+ * Vzame prave ../index.html, ../app.js in ../style.css ter zamenja uvoze
+ * Firebase (v app.js) z lokalnimi lažnimi moduli in pravi GSI <script>
+ * (v index.html) z lažnim, da testi tečejo brez omrežja in brez prave baze.
  *
  * Zagon:  node test/build-test-app.mjs
  */
@@ -14,15 +15,22 @@ import { fileURLToPath } from 'url';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, '..');
 
-const SRC = path.join(root, 'index.html');
-const OUT = path.join(here, 'app.html');
+const SRC_HTML = path.join(root, 'index.html');
+const SRC_JS   = path.join(root, 'app.js');
+const SRC_CSS  = path.join(root, 'style.css');
+const OUT_HTML = path.join(here, 'app.html');
+const OUT_JS   = path.join(here, 'app.js');
+const OUT_CSS  = path.join(here, 'style.css');
 
-if (!fs.existsSync(SRC)) {
-  console.error('Ne najdem index.html v', root);
-  process.exit(1);
+for (const f of [SRC_HTML, SRC_JS, SRC_CSS]) {
+  if (!fs.existsSync(f)) {
+    console.error('Ne najdem', path.basename(f), 'v', root);
+    process.exit(1);
+  }
 }
 
-let html = fs.readFileSync(SRC, 'utf8');
+let html = fs.readFileSync(SRC_HTML, 'utf8');
+let js   = fs.readFileSync(SRC_JS, 'utf8');
 
 // Lažni Google Identity Services: brez omrežja, z resničnim klikljivim gumbom.
 const GSI_STUB = `<script>
@@ -44,26 +52,29 @@ window.google = { accounts: { id: {
 } } };
 </script>`;
 
-const swaps = [
+// app.js: uvozi Firebase s CDN-ja -> lokalni lažni moduli
+const jsSwaps = [
   [/https:\/\/www\.gstatic\.com\/firebasejs\/[\d.]+\/firebase-app\.js/g,       './mock-firebase-app.js'],
   [/https:\/\/www\.gstatic\.com\/firebasejs\/[\d.]+\/firebase-firestore\.js/g, './mock-firebase-firestore.js'],
   [/https:\/\/www\.gstatic\.com\/firebasejs\/[\d.]+\/firebase-auth\.js/g,      './mock-firebase-auth.js'],
+];
+// index.html: pravi GSI <script> -> lažni
+const htmlSwaps = [
   [/<script src="https:\/\/accounts\.google\.com\/gsi\/client"[^>]*><\/script>/g, GSI_STUB],
 ];
 
 let hits = 0;
-for (const [re, to] of swaps) {
-  const n = (html.match(re) || []).length;
-  hits += n;
-  html = html.replace(re, to);
-}
+for (const [re, to] of jsSwaps)   { hits += (js.match(re)   || []).length; js   = js.replace(re, to); }
+for (const [re, to] of htmlSwaps) { hits += (html.match(re) || []).length; html = html.replace(re, to); }
 
-if (!hits) {
-  console.error('Opozorilo: nobenega uvoza Firebase nisem našel. Se je pot spremenila?');
+if (hits < 4) {
+  console.error(`Opozorilo: pričakoval 4 zamenjave, našel ${hits}. So se poti spremenile?`);
   process.exit(1);
 }
 
-fs.writeFileSync(OUT, html);
+fs.writeFileSync(OUT_HTML, html);
+fs.writeFileSync(OUT_JS, js);
+fs.copyFileSync(SRC_CSS, OUT_CSS);
 
 // ikona, da se <link rel="apple-touch-icon" href="icon.png"> ne lomi
 const icon = path.join(root, 'icon.png');
@@ -77,4 +88,5 @@ if (fs.existsSync(vSrc)) {
   for (const f of fs.readdirSync(vSrc)) fs.copyFileSync(path.join(vSrc, f), path.join(vOut, f));
 }
 
-console.log(`app.html zgrajen — zamenjanih ${hits} uvozov, ${(html.length/1024).toFixed(1)} KB`);
+const kb = ((html.length + js.length) / 1024).toFixed(1);
+console.log(`app.html + app.js + style.css zgrajeni — zamenjanih ${hits} uvozov, ${kb} KB`);

@@ -2,7 +2,7 @@ import { chromium } from 'playwright';
 import http from 'http'; import fs from 'fs'; import path from 'path';
 
 const DIR=new URL('.', import.meta.url).pathname, PORT=8970;
-const T={'.html':'text/html','.js':'text/javascript','.png':'image/png'};
+const T={'.html':'text/html','.js':'text/javascript','.css':'text/css','.png':'image/png'};
 const srv=http.createServer((q,r)=>{ const u=q.url.split('?')[0]; const f=path.join(DIR,u==='/'?'app.html':u);
   if(!fs.existsSync(f)){ r.writeHead(404); return r.end(); }
   r.writeHead(200,{'Content-Type':T[path.extname(f)]||'text/plain'}); r.end(fs.readFileSync(f)); });
@@ -133,8 +133,8 @@ ck('quote is italic', qFont.style==='italic');
 ck('quote is prominent', qFont.size>=17, String(qFont.size));
 
 // validate the collection from source
-const srcHtml=fs.readFileSync(path.join(DIR,'app.html'),'utf8');
-const arrMatch=srcHtml.match(/const QUOTES = \[([\s\S]*?)\n\];/);
+const srcJs=fs.readFileSync(path.join(DIR,'app.js'),'utf8');
+const arrMatch=srcJs.match(/const QUOTES = \[([\s\S]*?)\n\];/);
 const quoteLines=arrMatch[1].split('\n').map(l=>l.trim()).filter(l=>l.startsWith('"'));
 const parsed=quoteLines.map(l=>l.replace(/^"|",?$/g,''));
 ck('quote collection sizeable', parsed.length>200, String(parsed.length));
