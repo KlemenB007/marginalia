@@ -1,5 +1,7 @@
 node_modules/
 test/app.html
+test/app.js
+test/style.css
 test/icon.png
 test/*.png
 test/vendor/
