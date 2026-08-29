@@ -167,6 +167,23 @@
   }
   .note-text { min-width:0; }
 
+  /* hitri vnos citata/opombe kar na kartici med branjem */
+  .quick-add { margin-top:14px; padding-top:13px; border-top:1px solid var(--line-soft); }
+  .quick-add textarea {
+    width:100%; min-height:44px; padding:11px 13px; border:1px solid var(--line);
+    border-radius:var(--r-md); background:var(--card-hi); color:var(--text);
+    font-family:var(--body); font-size:15px; line-height:1.5; resize:none; overflow:hidden;
+  }
+  .quick-add textarea:focus { outline:none; border-color:var(--acc); }
+  .qa-btns { display:flex; gap:8px; margin-top:8px; }
+  .qa-btn {
+    flex:1; padding:9px; border-radius:10px; border:1px solid var(--line);
+    background:transparent; color:var(--text-soft); font-family:var(--body); font-size:13px;
+    cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; transition:all .15s;
+  }
+  .qa-btn:active { background:var(--card-hi); color:var(--text); }
+  .qa-btn.filled { border-color:color-mix(in srgb, var(--acc) 40%, transparent); color:var(--acc); }
+
   .entry-actions { display:flex; gap:8px; margin-top:14px; }
   .act-btn {
     flex:1; padding:9px; border-radius:10px; border:1px solid var(--line); background:transparent;
@@ -257,9 +274,8 @@
   /* ---------- home ---------- */
   #homeView { position:relative; }
   #homeView::before {
-    content:''; position:absolute; left:0; right:0; top:-120px; height:340px; z-index:-1;
-    background:radial-gradient(ellipse at 30% 0%, rgba(229,164,91,.10), transparent 70%);
-    pointer-events:none;
+    content:''; position:fixed; left:0; right:0; top:0; height:46vh; z-index:-1; pointer-events:none;
+    background:radial-gradient(ellipse 105% 55% at 50% -8%, rgba(229,164,91,.12), transparent 72%);
   }
   .greet { margin:0 0 4px; font-family:var(--display); font-size:25px; font-weight:600; font-variation-settings:'SOFT' 40,'WONK' 1; }
   .greet-sub { margin:0 0 20px; font-size:13.5px; color:var(--text-soft); }
@@ -443,7 +459,8 @@
 
   /* ---- vnos citatov / opomb po vrsticah ---- */
   .rep-list { display:flex; flex-direction:column; gap:8px; }
-  .rep-item { display:flex; gap:8px; align-items:flex-start; animation:repIn .2s ease; }
+  .rep-item { display:flex; gap:8px; align-items:flex-start; }
+  .rep-item.anim-in { animation:repIn .2s ease; }
   @keyframes repIn { from{opacity:0; transform:translateY(-5px)} to{opacity:1; transform:translateY(0)} }
   .rep-item textarea {
     flex:1; min-height:46px; height:46px; padding:12px 13px; line-height:1.5;
@@ -545,6 +562,8 @@
   .more-fields > .more-inner { overflow:hidden; min-height:0; }
   .more-fields.open { grid-template-rows:1fr; opacity:1; visibility:visible; transition:grid-template-rows .34s cubic-bezier(.22,1,.36,1), opacity .26s ease, visibility 0s; }
   .more-fields > .more-inner > *:first-child { margin-top:6px; }
+  /* med odpiranjem okna: nastavi stanje brez animacije, da se ne trese */
+  .more-fields.no-anim { transition:none; }
   /* namig, da se da odpreti več možnosti */
   @keyframes moreHint {
     0%,100% { transform:translateY(0); }
@@ -1326,6 +1345,8 @@ function toLines(v){
   return String(v||'').split('\n').map(x=>x.trim()).filter(Boolean);
 }
 function fmtRating(r){ return Number.isInteger(r)?String(r):r.toFixed(1).replace('.',','); }
+/* slovenska sklanjatev: forms = [1, 2, 3–4, 5+] */
+function slPlural(n, forms){ const m=n%100; return forms[m===1?0:m===2?1:(m===3||m===4)?2:3]; }
 function normGenre(g){ return String(g||'').trim().toLowerCase().replace(/\s+/g,' '); }
 function httpsify(u){ return String(u||'').replace(/^http:/,'https:'); }
 function uid(){ return 'e_'+Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
@@ -1418,9 +1439,9 @@ function makeList(wrapId, opts){
 
   function grow(ta){ ta.style.height='auto'; ta.style.height=Math.max(46, ta.scrollHeight)+'px'; }
   function ensureOne(){ if(!wrap.children.length) wrap.appendChild(item('')); }
-  function item(val){
+  function item(val, animIn){
     const row = document.createElement('div');
-    row.className = 'rep-item';
+    row.className = animIn ? 'rep-item anim-in' : 'rep-item';
     const ta = document.createElement('textarea');
     ta.rows = 1; ta.value = val || ''; ta.placeholder = opts.placeholder || '';
     const del = document.createElement('button');
@@ -1430,7 +1451,7 @@ function makeList(wrapId, opts){
     ta.addEventListener('keydown', e=>{
       if(e.key === 'Enter' && !e.shiftKey){
         e.preventDefault();
-        const n = item('');
+        const n = item('', true);
         row.after(n);
         const nt = n.querySelector('textarea'); nt.focus(); grow(nt);
       } else if(e.key === 'Backspace' && ta.value === '' && wrap.children.length > 1){
@@ -1446,7 +1467,7 @@ function makeList(wrapId, opts){
     return row;
   }
   addBtn.addEventListener('click', ()=>{
-    const n = item('');
+    const n = item('', true);
     wrap.appendChild(n);
     const nt = n.querySelector('textarea'); nt.focus();
   });
@@ -1456,6 +1477,8 @@ function makeList(wrapId, opts){
       const list = (arr && arr.length) ? arr : [''];
       list.forEach(v=>wrap.appendChild(item(v)));
     },
+    /* po odprtju okna: znova izračunaj višine (scrollHeight je 0, dokler je okno skrito) */
+    reflow(){ [...wrap.querySelectorAll('textarea')].forEach(grow); },
     get(){ return [...wrap.querySelectorAll('textarea')].map(t=>t.value.trim()).filter(Boolean); },
     filled(){ return [...wrap.querySelectorAll('textarea')].some(t=>t.value.trim()); }
   };
@@ -1463,16 +1486,22 @@ function makeList(wrapId, opts){
 
 function makeMore(toggleId, boxId){
   const t=$(toggleId), b=$(boxId), lbl=t.querySelector('span');
-  const set=open=>{
+  const collapsedLabel=()=> lbl.dataset.summary ? 'Več podrobnosti · '+lbl.dataset.summary : 'Več podrobnosti';
+  const set=(open, instant)=>{
+    if(instant) b.classList.add('no-anim');
     t.setAttribute('aria-expanded', open ? 'true' : 'false');
     b.classList.toggle('open', open);
-    lbl.textContent = open ? 'Manj podrobnosti' : 'Več podrobnosti';
+    lbl.textContent = open ? 'Manj podrobnosti' : collapsedLabel();
     if(open) t.classList.remove('hint');
+    // dvojni reflow: stanje se uveljavi brez animacije, nato animacijo spet vklopimo
+    if(instant){ void b.offsetWidth; b.classList.remove('no-anim'); void b.offsetWidth; }
   };
   t.onclick=()=>{ t.classList.remove('hint'); set(t.getAttribute('aria-expanded')!=='true'); };
   return {
-    set, open:()=>set(true), collapse:()=>set(false),
+    set, open:i=>set(true,i), collapse:i=>set(false,i),
     isOpen:()=>t.getAttribute('aria-expanded')==='true',
+    /* kratek povzetek, kaj je skrito notri (npr. "3 citati, 2 opombi") */
+    summary(txt){ lbl.dataset.summary = txt || ''; if(t.getAttribute('aria-expanded')!=='true') lbl.textContent = collapsedLabel(); },
     /* kratek namig, da se skriva več možnosti */
     nudge(){
       if(REDUCE_MOTION || t.getAttribute('aria-expanded')==='true') return;
@@ -1529,9 +1558,10 @@ const podColor   = makeColors('pColorRow', POD_PALETTE);
 const bookMore   = makeMore('bookMoreToggle','bookMore');
 const podMore    = makeMore('podMoreToggle','podMore');
 const epMore     = makeMore('epMoreToggle','epMore');
+let sheetLoading = false;
 const bookStatus = makeSeg('statusSeg', v=>{
   $('pageAtWrap').style.display = (v==='current'||v==='dnf')?'':'none';
-  if(v==='current'||v==='dnf') bookMore.open();
+  if(!sheetLoading && (v==='current'||v==='dnf')) bookMore.open();
 });
 const epStatus   = makeSeg('eStatusSeg');
 const bookGenres = makeGenres('genreTags','genreInput','genreSugg',GENRE_SUGG);
@@ -1983,7 +2013,26 @@ function renderBooks(){
     el.querySelector('.entry-head').onclick=()=>{ expanded.has(id)?expanded.delete(id):expanded.add(id); el.classList.toggle('open',expanded.has(id)); };
     el.querySelector('.editBtn').onclick=ev=>{ ev.stopPropagation(); openSheet(id); };
     el.querySelector('.deleteBtn').onclick=ev=>{ ev.stopPropagation(); removeBook(id); };
+    const qa=el.querySelector('.qa-input');
+    const qQ=el.querySelector('.qa-quote'), qN=el.querySelector('.qa-note');
+    const qaSync=()=>{
+      qa.style.height='auto'; qa.style.height=Math.max(44,qa.scrollHeight)+'px';
+      const has=!!qa.value.trim();
+      qQ.classList.toggle('filled',has); qN.classList.toggle('filled',has);
+    };
+    qa.addEventListener('input',qaSync);
+    qQ.onclick=ev=>{ ev.stopPropagation(); const v=qa.value.trim(); if(!v) return; qa.value=''; qaSync(); quickAdd(id,'quotes',v); };
+    qN.onclick=ev=>{ ev.stopPropagation(); const v=qa.value.trim(); if(!v) return; qa.value=''; qaSync(); quickAdd(id,'notes',v); };
   });
+}
+async function quickAdd(id, field, text){
+  const b=books.find(x=>x.id===id); if(!b) return;
+  const next=toLines(b[field]).concat(text.trim());
+  try{
+    await updateDoc(doc(db,"books",id),{[field]:next});
+    setStatus(field==='quotes'?'Citat dodan':'Opomba dodana');
+    setTimeout(()=>{ if(statusLine.textContent==='Citat dodan'||statusLine.textContent==='Opomba dodana') setStatus(''); },1600);
+  }catch(e){ console.error(e); setStatus('Shranjevanje ni uspelo.',true); }
 }
 
 function bookCard(b){
@@ -2024,6 +2073,13 @@ function bookCard(b){
     <div class="entry-body"><div class="reveal-inner">
       ${details.length?`<div class="detail-row">${details.join('')}</div>`:''}
       ${quotesHtml(quotes)}${notesHtml(notes)}
+      <div class="quick-add">
+        <textarea class="qa-input" rows="1" placeholder="Med branjem: zapiši citat ali misel…"></textarea>
+        <div class="qa-btns">
+          <button type="button" class="qa-btn qa-quote">${ICON_Q} Kot citat</button>
+          <button type="button" class="qa-btn qa-note">${ICON_N} Kot opomba</button>
+        </div>
+      </div>
       <div class="entry-actions">
         <button class="act-btn editBtn">${EDIT_SVG} Uredi</button>
         <button class="act-btn danger deleteBtn">${DEL_SVG} Izbriši</button>
@@ -2178,7 +2234,29 @@ function renderPodDetail(){
     el.querySelector('.ep-row').onclick=()=>{ epExpanded.has(eid)?epExpanded.delete(eid):epExpanded.add(eid); el.classList.toggle('open',epExpanded.has(eid)); };
     el.querySelector('.epEdit').onclick=ev=>{ ev.stopPropagation(); openEpSheet(p.id,eid); };
     el.querySelector('.epDel').onclick=ev=>{ ev.stopPropagation(); removeEpisode(p.id,eid); };
+    const qa=el.querySelector('.qa-input');
+    const qQ=el.querySelector('.qa-quote'), qN=el.querySelector('.qa-note');
+    const qaSync=()=>{
+      qa.style.height='auto'; qa.style.height=Math.max(44,qa.scrollHeight)+'px';
+      const has=!!qa.value.trim();
+      qQ.classList.toggle('filled',has); qN.classList.toggle('filled',has);
+    };
+    qa.addEventListener('input',qaSync);
+    qQ.onclick=ev=>{ ev.stopPropagation(); const val=qa.value.trim(); if(!val) return; qa.value=''; qaSync(); quickAddEp(p.id,eid,'quotes',val); };
+    qN.onclick=ev=>{ ev.stopPropagation(); const val=qa.value.trim(); if(!val) return; qa.value=''; qaSync(); quickAddEp(p.id,eid,'notes',val); };
   });
+}
+async function quickAddEp(podId, epId, field, text){
+  const p=pods.find(x=>x.id===podId); if(!p) return;
+  const list=(p.episodes||[]).map(e=>{
+    if(e.id!==epId) return e;
+    return { ...e, [field]: toLines(e[field]).concat(text.trim()) };
+  });
+  try{
+    await updateDoc(doc(db,"podcasts",podId),{episodes:list});
+    setStatus(field==='quotes'?'Citat dodan':'Opomba dodana');
+    setTimeout(()=>{ if(statusLine.textContent==='Citat dodan'||statusLine.textContent==='Opomba dodana') setStatus(''); },1600);
+  }catch(e){ console.error(e); setStatus('Shranjevanje ni uspelo.',true); }
 }
 
 function epRow(e,idx){
@@ -2206,6 +2284,13 @@ function epRow(e,idx){
     </div>
     <div class="ep-body"><div class="reveal-inner">
       ${quotesHtml(quotes)}${notesHtml(notes)}
+      <div class="quick-add">
+        <textarea class="qa-input" rows="1" placeholder="Med poslušanjem: zapiši citat ali misel…"></textarea>
+        <div class="qa-btns">
+          <button type="button" class="qa-btn qa-quote">${ICON_Q} Kot citat</button>
+          <button type="button" class="qa-btn qa-note">${ICON_N} Kot opomba</button>
+        </div>
+      </div>
       <div class="entry-actions">
         <button class="act-btn epEdit">${EDIT_SVG} Uredi</button>
         <button class="act-btn danger epDel">${DEL_SVG} Izbriši</button>
@@ -2485,6 +2570,7 @@ $('goalSave').onclick=async()=>{
 /* ---------- book sheet ---------- */
 function openSheet(id){
   editingId=id||null;
+  sheetLoading=true;
   if(id){
     const b=books.find(x=>x.id===id);
     $('sheetTitle').textContent='Uredi knjigo';
@@ -2505,15 +2591,26 @@ function openSheet(id){
     bookColor.random(); bookStatus.set('read'); bookRating.set(0); bookGenres.set([]);
     bookCover=''; monthSel.value=''; yearSel.value='';
   }
-  const bookMoreFilled = !!($('fPages').value || $('fPageAt').value || $('fPublished').value
-    || bookQuotes.filled() || bookNotes.filled() || bookGenres.get().length
-    || bookStatus.get()==='current' || bookStatus.get()==='dnf');
-  if(id && bookMoreFilled) bookMore.open(); else { bookMore.collapse(); bookMore.nudge(); }
+  // povzetek, kaj je skrito pod "Več podrobnosti"
+  const sum=[];
+  const nq=bookQuotes.get().length, nn=bookNotes.get().length;
+  if(nq) sum.push(nq+' '+slPlural(nq,['citat','citata','citati','citatov']));
+  if(nn) sum.push(nn+' '+slPlural(nn,['opomba','opombi','opombe','opomb']));
+  if($('fPages').value || $('fPageAt').value || $('fPublished').value) sum.push('strani');
+  if(bookGenres.get().length) sum.push(slPlural(bookGenres.get().length,['žanr','žanra','žanri','žanrov']));
+  bookMore.summary(sum.join(', '));
+  bookMore.collapse(true);
+  if(!sum.length) setTimeout(()=>bookMore.nudge(), 480);
   $('lookupTxt').textContent=bookCover?'Podatki nastavljeni.':'Vpiši naslov in pritisni Poišči.';
   renderPrev('lookupPrev',bookCover);
   $('overlay').classList.add('open');
   $('overlay').querySelector('.sheet').scrollTop=0;
-  setTimeout(()=>{ $('fTitle').focus({preventScroll:true}); $('overlay').querySelector('.sheet').scrollTop=0; },80);
+  sheetLoading=false;
+  setTimeout(()=>{
+    $('fTitle').focus({preventScroll:true});
+    $('overlay').querySelector('.sheet').scrollTop=0;
+    bookQuotes.reflow(); bookNotes.reflow();
+  },80);
 }
 function closeSheet(){ $('overlay').classList.remove('open'); editingId=null; }
 const num=v=>{ const s=String(v).trim(); return s===''?null:(Math.max(0,Math.floor(Number(s)))||null); };
@@ -2568,13 +2665,18 @@ function openPodSheet(id){
     podItunesId = null;
     podCover='';
   }
-  const podMoreFilled = !!(podNotes.filled() || podGenres.get().length);
-  if(id && podMoreFilled) podMore.open(); else { podMore.collapse(); podMore.nudge(); }
+  const psum=[];
+  const pnn=podNotes.get().length;
+  if(pnn) psum.push(pnn+' '+slPlural(pnn,['opomba','opombi','opombe','opomb']));
+  if(podGenres.get().length) psum.push(slPlural(podGenres.get().length,['žanr','žanra','žanri','žanrov']));
+  podMore.summary(psum.join(', '));
+  podMore.collapse(true);
+  if(!psum.length) setTimeout(()=>podMore.nudge(), 480);
   $('pLookupTxt').textContent=podCover?'Podatki nastavljeni.':'Vpiši ime in pritisni Poišči.';
   renderPrev('pLookupPrev',podCover);
   $('podOverlay').classList.add('open');
   $('podOverlay').querySelector('.sheet').scrollTop=0;
-  setTimeout(()=>{ $('pTitle').focus({preventScroll:true}); $('podOverlay').querySelector('.sheet').scrollTop=0; },80);
+  setTimeout(()=>{ $('pTitle').focus({preventScroll:true}); $('podOverlay').querySelector('.sheet').scrollTop=0; podNotes.reflow(); },80);
 }
 function closePodSheet(){ $('podOverlay').classList.remove('open'); editingPodId=null; }
 $('podCancel').onclick=closePodSheet;
@@ -2690,14 +2792,20 @@ function openEpSheet(podId,epId){
     epQuotes.set([]); epNotes.set([]);
     epStatus.set('read'); epRating.set(0);
   }
-  const epMoreFilled = !!($('eNum').value || $('eMinutes').value || epQuotes.filled() || epNotes.filled());
-  if(epId && epMoreFilled) epMore.open(); else { epMore.collapse(); epMore.nudge(); }
+  const esum=[];
+  const enq=epQuotes.get().length, enn=epNotes.get().length;
+  if(enq) esum.push(enq+' '+slPlural(enq,['citat','citata','citati','citatov']));
+  if(enn) esum.push(enn+' '+slPlural(enn,['opomba','opombi','opombe','opomb']));
+  if($('eNum').value || $('eMinutes').value) esum.push('trajanje');
+  epMore.summary(esum.join(', '));
+  epMore.collapse(true);
+  if(!esum.length) setTimeout(()=>epMore.nudge(), 480);
   const par=pods.find(x=>x.id===podId);
   $('epFindRow').style.display = (par && par.itunesId) ? '' : 'none';
   $('epFindTxt').textContent='Poišči epizodo v katalogu.';
   $('epOverlay').classList.add('open');
   $('epOverlay').querySelector('.sheet').scrollTop=0;
-  setTimeout(()=>{ $('eTitle').focus({preventScroll:true}); $('epOverlay').querySelector('.sheet').scrollTop=0; },80);
+  setTimeout(()=>{ $('eTitle').focus({preventScroll:true}); $('epOverlay').querySelector('.sheet').scrollTop=0; epQuotes.reflow(); epNotes.reflow(); },80);
 }
 function closeEpSheet(){ $('epOverlay').classList.remove('open'); editingEpId=null; epParentId=null; }
 $('epCancel').onclick=closeEpSheet;
